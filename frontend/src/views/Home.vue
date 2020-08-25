@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <NavBar></NavBar>
+    <img alt="homme qui pêche" src="../assets/fishingbg.png" class="img-fluid">
     <HelloWorld msg="Bienvenue sur  Fish & Follow!"/>
   </div>
 </template>
@@ -20,5 +21,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+img {
+//   max-width:230px;
+//   max-height:250px;
+//   width: auto;
+//   height: auto;
+//   opacity: 80%;
+}
 
 </style>
