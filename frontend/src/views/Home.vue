@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <NavBar></NavBar>
-    <img alt="homme qui pêche" src="../assets/fishingbg.png" class="img-fluid">
+    <img alt="homme qui pêche" src="../assets/fishingbg2.png" class="img-fluid">
     <HelloWorld msg="Bienvenue sur  Fish & Follow!"/>
   </div>
 </template>

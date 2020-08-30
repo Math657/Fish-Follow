@@ -2,13 +2,12 @@
     <div class="header">
         <div class="content">
             <h2>Fish & Follow</h2>
+            <Menu></Menu>
+            
 
-            <div class="menu">
-                <btn v-bind:btnName="connect"></btn>
-                <btn btnName="btn 2"></btn>
-            </div>
+            <VerticalMenu></VerticalMenu>
 
-            <div :click="showMenu" class="iconMenu">
+            <div @click="showVerticalMenu()" class="iconMenu">
                 <div class="bar"></div>
                 <div class="bar"></div>
                 <div class="bar"></div>
@@ -18,21 +17,28 @@
 </template>
 
 <script>
-import Btn from './Btn.vue'
+import Menu from './Menu.vue'
+import VerticalMenu from './VerticalMenu.vue'
+
 export default {
     name: 'NavBar',
+    props: [],
     data() {
         return {
-            connect: "Se connecter"
+            connect: "Se connecter",
+            about: "A propos",
+            verticalMenu: false
         }
     },
     methods: {
-        showMenu() {
-            console.log("hello")
+        showVerticalMenu: function() {
+            // this.verticalMenu = true
+            console.log("menu!")
         }
     },
     components: {
-        Btn
+        Menu,
+        VerticalMenu
     }
     
 }
@@ -64,6 +70,11 @@ h2 {
 .iconMenu {
     display: none;
     color: white;
+    cursor: pointer;
+}
+
+.iconMenu:hover {
+    opacity: 80%;
 }
 
 .bar {
@@ -79,7 +90,7 @@ h2 {
         display: inline;
     }
     .menu {
-        display: hidden;
+        display: none;
     }
 }
 

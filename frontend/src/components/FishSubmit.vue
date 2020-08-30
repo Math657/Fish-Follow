@@ -17,6 +17,9 @@
             <label for="bait">Leurre utilisé</label>
             <input type="bait" id="bait" v-model="bait" required>
 
+            <label for="fishingSettup">Montage utilisé (optionnel)</label>
+            <input type="fishingSettup" id="fishingSettup" v-model="bait" required>
+
             <label for="img">Photo de la prise</label>
             <input type="file" id="img" accept="image/*">
             <input type="submit">

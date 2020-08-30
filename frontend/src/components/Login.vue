@@ -7,10 +7,10 @@
 
             <label for="password">Mot de passe</label>
             <input type="password" id="password" v-model="password" required>
+            <p>Mot de passe oublié ?</p>
+
+            <button v-on:click.prevent="login()" id="btn_submit">Connexion</button>
         </form>
-        <p>Mot de passe oublié ?</p>
-        <br>
-        <button v-on:click.prevent="login()" id="btn_submit">Connexion</button>
     </div>
 </template>
 

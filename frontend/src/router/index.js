@@ -17,6 +17,14 @@ Vue.use(VueRouter)
   {
       path: '/signup',
       name: 'Signup',
+  },
+  {
+      path: '/login',
+      name: 'Login'
+  },
+  {
+      path: '/post',
+      name: 'Post'
   }
 ]
 
