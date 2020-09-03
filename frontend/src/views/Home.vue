@@ -2,20 +2,21 @@
   <div class="home">
     <NavBar></NavBar>
     <img alt="homme qui pêche" src="../assets/fishingbg2.png" class="img-fluid">
-    <HelloWorld msg="Bienvenue sur  Fish & Follow!"/>
+    <!-- <HelloWorld msg="Bienvenue sur  Fish & Follow!"/> -->
+    <Login></Login>
   </div>
 </template>
 
 <script>
 
-import HelloWorld from '@/components/HelloWorld.vue'
 import NavBar from '@/components/NavBar.vue'
+import Login from '../components/Login.vue'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld,
-    NavBar
+    NavBar,
+    Login
   }
 }
 </script>

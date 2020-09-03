@@ -1,11 +1,17 @@
 <template>
-  <div class="menu">
-      <div class="items" v-for="item in links" v-bind:item="item" :key="item.name">
-            <ul>
-                <li><router-link :to="item.url">{{ item.name }}</router-link></li>
-            </ul>
-      </div>
-  </div>
+    <div> 
+        <div class="menu" v-if="$store.state.isLogged === false">
+            <div v-for="item in links" v-bind:item="item" :key="item.name">
+                <ul>
+                    <li><router-link :to="item.url">{{ item.name }}</router-link></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="menu" v-else>
+
+        </div>
+    </div>
 </template>
 
 <script>
@@ -57,7 +63,15 @@ li a:hover {
     text-decoration: none;
     color: white;
     opacity: 80%;
-    
+}
+
+@media only screen and (max-width: 900px) {
+    .iconMenu {
+        display: inline;
+    }
+    .menu {
+        display: none;
+    }
 }
 
 

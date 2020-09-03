@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import SignupPage from '../views/SignupPage.vue'
+import Logged from '../views/Logged.vue'
+import store from '../store'
 
 Vue.use(VueRouter)
 
@@ -17,14 +20,24 @@ Vue.use(VueRouter)
   {
       path: '/signup',
       name: 'Signup',
+      component: SignupPage
   },
   {
       path: '/login',
-      name: 'Login'
+      name: 'Login',
+      component: Home
   },
   {
       path: '/post',
       name: 'Post'
+  },
+  {
+      path: '/logged',
+      name: 'Logged',
+      components: Logged,
+      meta: {
+          requireAuth: true
+      }
   }
 ]
 
@@ -32,6 +45,20 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+    if (to.matched.some(record => record.meta.requireAuth)) {
+        if (store.state.isLogged) {
+            next()
+        }
+        else if (!store.state.isLogged) {
+            next('/')
+        }   
+    } 
+    else {
+        next()
+    }
 })
 
 export default router

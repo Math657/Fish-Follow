@@ -3,8 +3,6 @@
         <div class="content">
             <h2>Fish & Follow</h2>
             <Menu></Menu>
-            
-
             <VerticalMenu></VerticalMenu>
 
             <div @click="showVerticalMenu()" class="iconMenu">

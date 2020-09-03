@@ -15,8 +15,17 @@ export default new Vuex.Store({
       isLogged: false
   },
   mutations: {
+    LOGGED_IN(state) {
+        state.isLogged = true
+    },
+    LOGGED_OUT(state) {
+        state.isLogged = false
+    }
   },
   actions: {
+      LOGGED({ commit }) {
+          commit('LOGGED_IN')
+      }
   },
   modules: {
   }

@@ -4,11 +4,11 @@ import router from './router'
 import store from './store'
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
-// import Axios from 'axios'
+import Axios from 'axios'
 import moment from 'moment'
 
-// Axios.defaults.withCredentials = true
-// Vue.prototype.$http = Axios
+Axios.defaults.withCredentials = true
+Vue.prototype.$http = Axios
 
 Vue.prototype.moment = moment
 moment.locale('fr')
