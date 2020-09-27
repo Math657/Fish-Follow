@@ -7,7 +7,7 @@
 
             <label for="password">Mot de passe</label>
             <input type="password" id="password" v-model="password" required>
-            <p>Mot de passe oublié ?</p>
+            <p class="mdp_lost">Mot de passe oublié ?</p>
 
             <button class="btn-login" v-on:click.prevent="login()" id="btn_submit">Connexion</button>
         </form>
@@ -35,7 +35,6 @@ export default {
                     // this.$store.dispatch('checkIfLogged')
                     console.log(response)
                     this.$store.dispatch('LOGGED')
-                    this.router.push('/Logged')
                 })
                 .catch((error) => {
                     console.log(error)
@@ -84,6 +83,10 @@ p {
 
 .btn-login:hover {
     filter: brightness(0.8);
+}
+
+.mdp_lost {
+    font-size: 14px;
 }
 
 </style>

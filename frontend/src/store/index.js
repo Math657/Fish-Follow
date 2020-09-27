@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 // import Axios from 'axios'
-// import router from '../router'
+import router from '../router'
 import createPersistedState from "vuex-persistedstate"
 
 Vue.use(Vuex)
@@ -25,6 +25,11 @@ export default new Vuex.Store({
   actions: {
       LOGGED({ commit }) {
           commit('LOGGED_IN')
+          router.push('/Logged')
+      },
+      LOGGOUT({ commit }) {
+          commit('LOGGED_OUT')
+          router.push('/')
       }
   },
   modules: {

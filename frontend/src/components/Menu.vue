@@ -1,7 +1,7 @@
 <template>
     <div> 
         <div class="menu" v-if="$store.state.isLogged === false">
-            <div v-for="item in links" v-bind:item="item" :key="item.name">
+            <div v-for="item in linksOffline" v-bind:item="item" :key="item.name">
                 <ul>
                     <li><router-link :to="item.url">{{ item.name }}</router-link></li>
                 </ul>
@@ -9,8 +9,12 @@
         </div>
         
         <div class="menu" v-else>
-
-        </div>
+           <div v-for="item in linksOnline" v-bind:item="item" :key="item.name">
+                <ul>
+                    <li><router-link :to="item.url">{{ item.name }}</router-link></li>
+                </ul>
+            </div>
+        </div>    
     </div>
 </template>
 
@@ -24,12 +28,19 @@ export default {
             connect: "Se connecter",
             about: "A propos",
 
-            links: [
+            linksOffline: [
                 {name: 'Se connecter', url: '/login'},
                 {name: 'Créer mon compte', url: '/signup'},
-                // {name: 'Se déconnecter', url: '/'}
+            ],
+
+            linksOnline: [
+                {name: 'Mon profil', url: '/myprofil'},
+                {name: 'Se déconnecter', url: '/'}
             ]
         }
+    },
+    loggout() {
+        this.$store.dispatch('LOGGOUT')
     },
     components: {
 

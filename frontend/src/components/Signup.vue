@@ -1,7 +1,7 @@
 <template>
   <div>
       <h2 class="title">Créer un compte</h2>
-        <form>
+        <form enctype="multipart/form-data" method="post">
             <label for="email">Adresse e-mail</label>
             <input type="email" id="email" v-model="email" required>
 
@@ -9,7 +9,7 @@
             <input type="password" id="password" v-model="password" required>
 
             <label for="nom">Nom</label>
-            <input type="text" id="name" v-model="name" required>
+            <input type="text" id="lastname" v-model="lastname" required>
 
             <label for="firstname">Prénom</label>
             <input type="text" id="firstname" v-model="firstname" required>
@@ -17,10 +17,11 @@
             <label for="birthday">Date de naissance</label>
             <input type="date" id="birthday" v-model="birthday" required>
             
-            <form>
-                <label for="profilPic">Choisir une photo de profil</label>
-                <input class="file" type="file" id="profilPic" name="profilPic" accept="image/*" required>
-            </form>
+    
+            <label for="profilPic">Photo de profil</label>
+            <input type="file" id="file" name="file" accept="image/*" @change="onFileAdded" required>
+            <img :src="previewImage" class="img-preview" />
+            
 
             <button @click.prevent="checkForm(); signup()" id="btn_submit">S'inscrire</button>
       </form>
@@ -28,6 +29,8 @@
 </template>
 
 <script>
+import FormData from 'form-data'
+
 export default {
     name: 'Signup',
     data() {
@@ -38,49 +41,62 @@ export default {
             firstname: null,
             password: null,
             birthday: null,
-            profilPic: null
+            previewImage: null
         }
     },
     methods: {
         checkForm: function (e) {
         
-        if (!this.reg.test(this.email)) {
-            console.log('Entrez un email valide!')
-            return false
-        }
-        if (!this.lastname) {
-            console.log('Nom requis!')
-            return false
-        }
-        if (!this.firstname) {
-            console.log('Prénom requis!')
-            return false
-        }
-        if (!this.password) {
-            console.log('Mot de passe requis!')
-            return false
-        }
-        if (this.email && this.lastname && this.firstname && this.password && this.birthday) {
-            return true
-        }
-        e.preventDefault()   
+            if (!this.reg.test(this.email)) {
+                console.log('Entrez un email valide!')
+                return false
+            }
+            if (!this.lastname) {
+                console.log('Nom requis!')
+                return false
+            }
+            if (!this.firstname) {
+                console.log('Prénom requis!')
+                return false
+            }
+            if (!this.password) {
+                console.log('Mot de passe requis!')
+                return false
+            }
+            if (this.email && this.lastname && this.firstname && this.password && this.birthday) {
+                return true
+            }
+            e.preventDefault()   
+        },
+        onFileAdded(e) {
+            const image = e.target.files[0]
+            const reader = new FileReader()
+            reader.readAsDataURL(image)
+            reader.onload = e =>{
+                this.previewImage = e.target.result
+            }
         },
         signup() {  
             if (this.checkForm()) {
-            this.$http.post('http://localhost:3000/api/auth/signup', {
-                email: this.email,
-                name: this.name,
-                lastname: this.lastname,
-                firstname: this.firstname,
-                password: this.password,
-                birthday: this.birthday,
-                profilPic: this.profilPic
+                let data = new FormData()
+
+                data.append('email', this.email)
+                data.append('password', this.password)
+                data.append('lastname', this.lastname)
+                data.append('firstname', this.firstname)
+                data.append('birthday', this.birthday)
+                data.append('image', document.getElementById('file').files[0])
+               
+            this.$http.post('http://localhost:3000/api/auth/signup', data, 
+            {
+                headers: {
+                    'Content-Type': `multipart/form-data; boundary=${data._boundary}`
+                }
             })
-            .then((response) => {
+            .then((res) => {
                 // localStorage.setItem('userID', JSON.stringify(response.data.userId))
-                console.log(response)
+                console.log(res)
                 this.$store.dispatch('LOGGED')
-                this.router.push('/Logged')
             })
             .catch((error) => {
                 console.log(error)
@@ -119,14 +135,24 @@ p {
     color: white;
     border-radius: 4px;
     padding: 7px 10px 7px 10px;
+    margin-bottom: 1em;
+    margin-top: 1em;
 }
 
-#btn_submit {
+/* #btn_submit {
     filter: brightness(0.8);
-}
+} */
 
 .file {
     margin-bottom: 1em;
+}
+
+.img-preview {
+    width: 150px;
+    background-color: white;
+    /* border: 1px solid #DDD; */
+    padding: 5px;
+    margin: 1em;
 }
 
 </style>

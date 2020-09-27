@@ -23,9 +23,7 @@ export default {
     props: [],
     data() {
         return {
-            connect: "Se connecter",
-            about: "A propos",
-            verticalMenu: false
+            
         }
     },
     methods: {
