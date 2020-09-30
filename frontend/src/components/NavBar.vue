@@ -1,7 +1,7 @@
 <template>
     <div class="header">
         <div class="content">
-            <h2>Fish & Follow</h2>
+            <router-link to="/home" class="main-title"><h2>Fish & Follow</h2></router-link>
             <Menu></Menu>
             <VerticalMenu></VerticalMenu>
 
@@ -51,10 +51,11 @@ export default {
     // display: flex;
 }
 
-h2 {
+h2, .main-title {
     color: white;
     text-align: center;
     margin-right: auto;
+    text-decoration:none;
 }
 
 .content {

@@ -23,11 +23,11 @@ export default new Vuex.Store({
     }
   },
   actions: {
-      LOGGED({ commit }) {
+      Logged({ commit }) {
           commit('LOGGED_IN')
-          router.push('/Logged')
+          router.push('/post')
       },
-      LOGGOUT({ commit }) {
+      LogOut({ commit }) {
           commit('LOGGED_OUT')
           router.push('/')
       }

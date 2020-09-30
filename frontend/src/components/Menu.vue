@@ -14,6 +14,7 @@
                     <li><router-link :to="item.url">{{ item.name }}</router-link></li>
                 </ul>
             </div>
+            <button class="btn-danger" id="btn-loggout" @click.prevent="logOut()">Se déconnecter</button>
         </div>    
     </div>
 </template>
@@ -30,17 +31,22 @@ export default {
 
             linksOffline: [
                 {name: 'Se connecter', url: '/login'},
-                {name: 'Créer mon compte', url: '/signup'},
+                {name: 'Créer mon compte', url: '/signup'}
             ],
 
             linksOnline: [
                 {name: 'Mon profil', url: '/myprofil'},
-                {name: 'Se déconnecter', url: '/'}
+                {name: 'Publier une prise', url: '/post'},
+                // {name: 'Se déconnecter', url: '/'}
             ]
         }
     },
-    loggout() {
-        this.$store.dispatch('LOGGOUT')
+    methods: {
+        logOut(){
+            localStorage.clear()
+            sessionStorage.clear()
+            this.$store.dispatch('LogOut')
+        }
     },
     components: {
 
@@ -84,6 +90,5 @@ li a:hover {
         display: none;
     }
 }
-
 
 </style>

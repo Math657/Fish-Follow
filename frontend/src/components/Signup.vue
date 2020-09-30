@@ -1,21 +1,21 @@
 <template>
   <div>
       <h2 class="title">Créer un compte</h2>
-        <form enctype="multipart/form-data" method="post">
+        <form enctype="multipart/form-data" method="post" autocomplete="on">
             <label for="email">Adresse e-mail</label>
-            <input type="email" id="email" v-model="email" required>
+            <input type="email" id="email" class="form-control" v-model="email" required>
 
             <label for="password">Mot de passe</label>
-            <input type="password" id="password" v-model="password" required>
+            <input type="password" id="password" class="form-control" v-model="password" required>
 
             <label for="nom">Nom</label>
-            <input type="text" id="lastname" v-model="lastname" required>
+            <input type="text" id="lastname" class="form-control" v-model="lastname" required>
 
             <label for="firstname">Prénom</label>
-            <input type="text" id="firstname" v-model="firstname" required>
+            <input type="text" id="firstname" class="form-control" v-model="firstname" required>
 
             <label for="birthday">Date de naissance</label>
-            <input type="date" id="birthday" v-model="birthday" required>
+            <input type="date" id="birthday" class="form-control" v-model="birthday" required>
             
     
             <label for="profilPic">Photo de profil</label>
@@ -94,9 +94,9 @@ export default {
                 }
             })
             .then((res) => {
-                // localStorage.setItem('userID', JSON.stringify(response.data.userId))
+                localStorage.setItem('userID', JSON.stringify(res.data.userId))
                 console.log(res)
-                this.$store.dispatch('LOGGED')
+                this.$store.dispatch('Logged')
             })
             .catch((error) => {
                 console.log(error)
@@ -134,7 +134,7 @@ p {
     background-color: #144c6d;
     color: white;
     border-radius: 4px;
-    padding: 7px 10px 7px 10px;
+    padding: 7px 20px 7px 20px;
     margin-bottom: 1em;
     margin-top: 1em;
 }

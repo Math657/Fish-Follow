@@ -1,12 +1,12 @@
 <template>
     <div>
         <h2>Connectez-vous</h2>
-        <form>
+        <form autocomplete="on">
             <label for="email">Adresse e-mail</label>
-            <input type="email" id="email" v-model="email" required>
+            <input type="email" id="email" class="form-control" v-model="email" required>
 
             <label for="password">Mot de passe</label>
-            <input type="password" id="password" v-model="password" required>
+            <input type="password" id="password" class="form-control" v-model="password" required>
             <p class="mdp_lost">Mot de passe oublié ?</p>
 
             <button class="btn-login" v-on:click.prevent="login()" id="btn_submit">Connexion</button>
@@ -31,10 +31,10 @@ export default {
                     password: this.password
                     })
                 .then((response) => {
-                    // localStorage.setItem('userID', JSON.stringify(response.data.userId))
+                    localStorage.setItem('userID', JSON.stringify(response.data.userId))
                     // this.$store.dispatch('checkIfLogged')
                     console.log(response)
-                    this.$store.dispatch('LOGGED')
+                    this.$store.dispatch('Logged')
                 })
                 .catch((error) => {
                     console.log(error)
@@ -78,7 +78,6 @@ p {
     background-color: #144c6d;
     color: white;
     border-radius: 4px;
-    padding: 7px 10px 7px 10px;
 }
 
 .btn-login:hover {

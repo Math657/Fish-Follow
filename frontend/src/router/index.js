@@ -2,14 +2,15 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import SignupPage from '../views/SignupPage.vue'
-import Logged from '../views/Logged.vue'
+import PostFish from '../views/PostFish.vue'
+import MyProfil from '../views/MyProfil.vue'
 import store from '../store'
 
 Vue.use(VueRouter)
 
   const routes = [
   {
-    path: '/',
+    path: '/home',
     name: 'Home',
     component: Home
   },
@@ -29,12 +30,16 @@ Vue.use(VueRouter)
   },
   {
       path: '/post',
-      name: 'Post'
+      name: 'PostFish',
+      component: PostFish,
+      meta: {
+          requireAuth: true
+      }
   },
   {
-      path: '/logged',
-      name: 'Logged',
-      components: Logged,
+      path: '/myprofil',
+      name: 'MyProfil',
+      component: MyProfil,
       meta: {
           requireAuth: true
       }
