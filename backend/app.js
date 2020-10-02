@@ -3,6 +3,7 @@ const bodyParser = require ('body-parser')
 const mongoose = require('mongoose')
 const userRoutes = require('./routes/user')
 const fishRoutes = require('./routes/fish')
+const cookieParser = require('cookie-parser')
 require('dotenv').config()
 
 const app = express()
@@ -32,6 +33,8 @@ app.use((req, res, next) => {
     next()
 })
     
+app.use(cookieParser())
+
 app.use(bodyParser.json())
 
 app.use('/images', express.static(path.join(__dirname, 'images')))

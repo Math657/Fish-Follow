@@ -63,3 +63,9 @@ exports.login = (req, res, next) => {
     })
     .catch(error => res.status(500).json({error}))
 }
+
+exports.getOneUser = (req, res) => {
+    User.findById(JSON.parse(req.params.id))
+    .then(user => res.status(201).json({user}))
+    .catch(error => res.status(502).json({error}))
+}

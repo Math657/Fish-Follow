@@ -29,7 +29,7 @@ export default new Vuex.Store({
       },
       LogOut({ commit }) {
           commit('LOGGED_OUT')
-          router.push('/')
+          router.push('/login')
       }
   },
   modules: {

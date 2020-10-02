@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2>Connectez-vous</h2>
-        <form autocomplete="on">
+        <form method="post" autocomplete="on">
             <label for="email">Adresse e-mail</label>
             <input type="email" id="email" class="form-control" v-model="email" required>
 
@@ -32,8 +32,6 @@ export default {
                     })
                 .then((response) => {
                     localStorage.setItem('userID', JSON.stringify(response.data.userId))
-                    // this.$store.dispatch('checkIfLogged')
-                    console.log(response)
                     this.$store.dispatch('Logged')
                 })
                 .catch((error) => {

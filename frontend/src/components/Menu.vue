@@ -35,7 +35,7 @@ export default {
             ],
 
             linksOnline: [
-                {name: 'Mon profil', url: '/myprofil'},
+                {name: 'Mon profil', url: `/myprofil/${JSON.parse(localStorage.getItem('userID'))}`},
                 {name: 'Publier une prise', url: '/post'},
                 // {name: 'Se déconnecter', url: '/'}
             ]
@@ -82,7 +82,7 @@ li a:hover {
     opacity: 80%;
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 759px) {
     .iconMenu {
         display: inline;
     }

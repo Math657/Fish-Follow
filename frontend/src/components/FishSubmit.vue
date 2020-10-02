@@ -8,11 +8,22 @@
             <label for="fishSize">Taille approximative du poisson (en cm)</label>
             <input type="fishSize" id="fishSize" class="form-control mb-2 mr-sm-2" placeholder="Ex: 30" v-model="fishSize" required>
 
-            <label for="location">Lieu (fleuve, rivière, ville, etc)</label>
-            <input type="location" id="location" class="form-control mb-2 mr-sm-2" placeholder="Ex: La Seine, Rouen" v-model="location" required>
+            <label for="location">Court d'eau</label>
+            <select type="water" id="water" class="form-control mb-2 mr-sm-2" palceholder="Veuillez sélectionner un court d'eau" v-model="water" required>
+                <option value ="" selected="selected">Sélectionner une option</option>
+                <option>Rivière</option>
+                <option>Fleuve</option>
+                <option>Étang</option>
+                <option>Lac</option>
+                <option>Mer</option>
+                <option>Autre</option>
+            </select>
+
+            <label for="location">Lieu</label>
+            <input type="location" id="location" class="form-control mb-2 mr-sm-2" placeholder="Ex: Nom de ville" v-model="location" required>
 
             <label for="bait">Leurre/appât/bout de ligne utilisé (optionnel)</label>
-            <input type="bait" id="bait" class="form-control mb-2 mr-sm-2" placeholder="Ex: leurre souple" v-model="bait">
+            <input type="bait" id="bait" class="form-control mb-2 mr-sm-2" placeholder="Ex: Leurre souple" v-model="bait">
 
             <label for="fishingSettup">Montage utilisé (optionnel)</label>
             <input type="fishingSettup" id="fishingSettup" class="form-control mb-2 mr-sm-2" placeholder="Ex: Dropshot" v-model="fishingSettup">
@@ -45,6 +56,7 @@ export default {
         return {
             fishName: "",
             fishSize: "",
+            water: "",
             location: "",
             bait: "",
             fishingSettup: "",
@@ -96,6 +108,7 @@ export default {
                 data.append('fishName', this.fishName)
                 data.append('fishSize', this.fishSize),
                 data.append('bait', this.bait),
+                data.append('water', this.water),
                 data.append('location', this.location),
                 data.append('date', this.date),
                 data.append('fishingSettup', this.fishingSettup),
@@ -130,8 +143,13 @@ export default {
     margin-top: 1em;
 }
 
-input {
+input, select {
     max-width: 20em;
+}
+
+.img-preview {
+    background-color: #FAFAFA;
+    /* height: 5em; */
 }
 
 .btn-login {

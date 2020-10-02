@@ -23,12 +23,13 @@ export default {
     props: [],
     data() {
         return {
-            
+            sidebar: false
         }
     },
     methods: {
         showVerticalMenu: function() {
             // this.verticalMenu = true
+            this.sidebar = !this.sidebar
             console.log("menu!")
         }
     },
@@ -82,7 +83,7 @@ h2, .main-title {
     background-color: white;
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 759px) {
     .iconMenu {
         display: inline;
     }

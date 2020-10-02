@@ -37,7 +37,7 @@ Vue.use(VueRouter)
       }
   },
   {
-      path: '/myprofil',
+      path: '/myprofil/:id',
       name: 'MyProfil',
       component: MyProfil,
       meta: {
