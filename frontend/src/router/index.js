@@ -12,6 +12,14 @@ Vue.use(VueRouter)
   {
     path: '/home',
     name: 'Home',
+    component: Home,
+    meta: {
+        // requireAuth: true
+    }
+  },
+  {
+    path: '/',
+    name: 'Home',
     component: Home
   },
   {

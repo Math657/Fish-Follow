@@ -3,6 +3,7 @@ const router = express.Router()
 
 const auth = require('../middlewares/auth')
 const multer = require('../middlewares/multer-config')
+// const uppercase = require('../middlewares/uppercase')
 
 const fishCtrl = require('../controllers/fish')
 

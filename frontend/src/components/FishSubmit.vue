@@ -1,9 +1,12 @@
 <template>
   <div v-if="!published" class="fishSubmit">
-      <h2 class="title">Publiez votre prise!</h2>
+      <h2 class="title">Publiez votre prise !</h2>
         <form class="">
-            <label for="fishName">Nom du poisson</label>
-            <input type="fishName" id="fishName" class="form-control mb-2 mr-sm-2" placeholder="Ex: Perche" v-model="fishName" required>
+            <label for="postTitle">Titre de la publication (optionnel)</label>
+            <input type="postTitle" id="postTitle" class="form-control mb-2 mr-sm-2" placeholder="Ex: Session de ce matin" v-model="postTitle">
+
+            <label for="fishName">Espèce du poisson</label>
+            <input type="fishName" id="fishName" class="form-control mb-2 mr-sm-2" placeholder="Ex: Perche, Sandre, non connu" v-model="fishName" required>
 
             <label for="fishSize">Taille approximative du poisson (en cm)</label>
             <input type="fishSize" id="fishSize" class="form-control mb-2 mr-sm-2" placeholder="Ex: 30" v-model="fishSize" required>
@@ -54,6 +57,7 @@ export default {
     name: 'FishSubmit',
     data() {
         return {
+            postTitle: "",
             fishName: "",
             fishSize: "",
             water: "",
@@ -105,6 +109,7 @@ export default {
                 let self = this
                 let data = new FormData
 
+                data.append('postTitle', this.postTitle)
                 data.append('fishName', this.fishName)
                 data.append('fishSize', this.fishSize),
                 data.append('bait', this.bait),

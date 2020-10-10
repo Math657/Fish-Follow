@@ -1,7 +1,8 @@
 <template>
   <div class="home">
         <NavBar></NavBar>
-        <img alt="homme qui pêche" src="../assets/fishingbg2.png" class="img-fluid">
+        <!-- <Top></Top> -->
+        <img alt="homme qui pêche" src="../assets/fishingbg2.png" class="img-fluid img-banner">
         <!-- <HelloWorld msg="Bienvenue sur  Fish & Follow!"/> -->
         <div v-if="$store.state.isLogged === false">
             <Login></Login>
@@ -18,13 +19,15 @@
 import NavBar from '@/components/NavBar.vue'
 import Login from '../components/Login.vue'
 import Feed from '../components/Feed.vue'
+// import Top from '../components/Top.vue'
 
 export default {
   name: 'Home',
   components: {
     NavBar,
     Login,
-    Feed
+    Feed,
+    // Top
   }
 }
 </script>
@@ -32,11 +35,19 @@ export default {
 <style lang="scss" scoped>
 
 img {
+    
 //   max-width:230px;
 //   max-height:250px;
 //   width: auto;
 //   height: auto;
 //   opacity: 80%;
+
+}
+
+@media only screen and (max-width: 759px) {
+    img {
+        display: none;
+    }
 }
 
 </style>

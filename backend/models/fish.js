@@ -2,9 +2,10 @@ const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 
 const fishSchema = mongoose.Schema({
-    userId: {type: String, required: true},
+    userId: {type: String},
     userLastname: {type: String, required: true},
     userFirstname: {type: String, required: true},
+    postTitle: {type: String},
     fishName: {type: String, required: true},
     fishSize: {type: Number, required: true},
     date: {type: Date, required: true},
