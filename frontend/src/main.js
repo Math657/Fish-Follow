@@ -11,6 +11,12 @@ import { faWater } from '@fortawesome/free-solid-svg-icons'
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
 import { faArrowsAltH } from '@fortawesome/free-solid-svg-icons'
 import { faFish} from '@fortawesome/free-solid-svg-icons'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faCog } from '@fortawesome/free-solid-svg-icons'
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import {faUser } from '@fortawesome/free-solid-svg-icons'
+import {faHome } from '@fortawesome/free-solid-svg-icons'
+import {faCameraRetro } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 
@@ -18,6 +24,12 @@ library.add(faWater)
 library.add(faMapMarkerAlt)
 library.add(faArrowsAltH)
 library.add(faFish)
+library.add(faTimes)
+library.add(faCog)
+library.add(faSignOutAlt)
+library.add(faUser)
+library.add(faHome)
+library.add(faCameraRetro)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

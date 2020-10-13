@@ -2,18 +2,23 @@
   <div class="container feed mt-4">
         <h2 v-if="allFishes.length > 0"></h2>
         <h2 v-else>Aucune prise récente</h2>
-        <button class="mb-4" id="btn-submit" @click="$router.push('/post')">Publier une prise</button>
+        <button class="mb-4 btn-main" id="btn-submit" @click="$router.push('/post')">Publier une prise</button>
 
         <ul class="feed-list">
-           <li class="fish_list" :key="i" v-for="(fishes, i) in allFishes">
+           <li class="fullPost" :key="i" v-for="(fishes, i) in allFishes">
+               <div class="fish_list">
                <!-- <router-link :to="`/home/${fishes.title}`"> -->
-               <!-- <hr class="line">  -->
                     <div class="pic-preview text-dark px-3 pt-2"> 
-                          
-                            
-                            <img :src="fishes.fishPic" alt="photo de la prise" class="fishPic mb-3">
-                            <p class="infos_fish">Pêché le {{moment(fishes.date).format("Do MMMM YYYY")}} par {{ fishes.userFirstname }} {{ fishes.userLastname }}</p>
+                        <h4>{{ fishes.postTitle }}</h4>
+                        <img :src="fishes.fishPic" alt="photo de la prise" class="fishPic mb-3">
+                        <p class="infos_fish">Pêché le {{moment(fishes.date).format("Do MMMM YYYY")}}</p>
+
+                        <div id="user-post">
+                             <!-- <img :src="fishes.profilPic" alt="Photo de profil" class="img-circle profil-pic"> -->
+                             <p class="infos_fish">{{ fishes.userFirstname }} {{ fishes.userLastname }}</p>
+                        </div>
                     </div>
+
                     <div class="infos_settup">
                         <ul class="details-list">
                             <li><font-awesome-icon icon="fish" class="logos" data-toggle="tooltip" title="Espèce"/> {{ fishes.fishName }}</li>
@@ -23,12 +28,15 @@
                             <li><img alt="logo d'un leurre" src="../assets/bait-logo.png" class="logos bait-logo" data-toggle="tooltip" title="Leurre/appât utilisé"> {{ fishes.bait }}</li>
                         </ul>             
                     </div>
-               <!-- </router-link> -->
-                    <!-- <button>Commenter</button> -->
+                </div>
+
+                <div id="bottom-post">
+                    <div class="btn-main" id="btn-comment">Commenter</div>
+                    <p id="post-date">{{ moment(fishes.createdAt).subtract(10, 'days').calendar() }}</p>
+                </div>
+               <!-- </router-link> -->       
            </li>
-        </ul>
-       
-      
+        </ul>   
   </div>
 </template>
 
@@ -66,28 +74,30 @@ export default {
     vertical-align: center; */
 }
 
-.fish_list {
+.fullPost {
     list-style-type: none;
     background-color: #FFFFFF;
     border: 1px solid rgb(219, 219, 219);
     border-radius: 15px;
     box-shadow: 3px 3px 3px #c2c0c0;
     margin-bottom: 2em;
-    /* margin-right: 0; */
-    /* text-align: left; */
+}
+
+.fish_list {
     display: flex;
     flex-direction: row;
-    /* max-width: 50em; */
+    text-align: left;
 }
 
 .pic-preview {
-    margin: 1em 0 1em 1em;
+    margin: 1em 0 0 1em;
 }
 
 .infos_fish {
     /* text-align: right; */
     margin-right: 0.5em;
     color: #0A3046;
+    max-width: 20em;
 }
 
 .infos_settup {
@@ -102,7 +112,7 @@ export default {
 
 .fishPic {
     width:100%;
-    max-width:15em;
+    max-width:20em;
     max-height: 15em;
     /* border: 1px solid #0A3046; */
     box-shadow: 3px 3px 3px #c2c0c0;
@@ -128,6 +138,48 @@ export default {
 .bait-logo {
     /* max-width: 1.5em; */
     filter: invert(16%) sepia(10%) saturate(5324%) hue-rotate(166deg) brightness(86%) contrast(95%);
+}
+
+#user-post {
+    display: flex;
+}
+
+.btn-main {
+    background-color:#0A3046;
+    color:#FFFFFF;
+    border-radius: 5px;
+    border: none;
+    padding: 0.5em 1em 0.5em 1em;
+}
+
+.btn-main:hover {
+    opacity: 90%;
+}
+
+#bottom-post {
+    display: flex;
+}
+
+#post-date {
+    margin: 1em;
+    padding: 0;
+    color:#0A3046;
+    font-size: 12px;
+}
+
+#btn-comment {
+    /* margin-right: 500px; */
+    width: 8em;
+    margin: 0 auto 1em 2em;
+    padding: 3px 8px 3px 8px;
+}
+
+#btn-comment:hover {
+    cursor: pointer;
+}
+
+#btn-submit {
+    padding: 0.5em 1em 0.5em 1em;
 }
 
 </style>

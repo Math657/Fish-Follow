@@ -9,6 +9,7 @@
         </div>
         
         <div class="menu" v-else>
+            <router-link :to="`/myprofil/${userID}`"><font-awesome-icon icon="user" class="icons"></font-awesome-icon></router-link>
            <div v-for="item in linksOnline" v-bind:item="item" :key="item.name">
                 <ul>
                     <li><router-link :to="item.url">{{ item.name }}</router-link></li>
@@ -26,6 +27,7 @@ export default {
     props: [],
     data() {
         return {
+            userID: JSON.parse(localStorage.getItem('userID')),
             connect: "Se connecter",
             about: "A propos",
 
@@ -35,7 +37,7 @@ export default {
             ],
 
             linksOnline: [
-                {name: 'Mon profil', url: `/myprofil/${JSON.parse(localStorage.getItem('userID'))}`},
+                // {name: 'Mon profil', url: `/myprofil/${JSON.parse(localStorage.getItem('userID'))}`},
                 {name: 'Publier une prise', url: '/post'},
                 // {name: 'Se déconnecter', url: '/'}
             ]
@@ -80,6 +82,12 @@ li a:hover {
     text-decoration: none;
     color: white;
     opacity: 80%;
+}
+
+.icons {
+    color: #ffffff;
+    margin: 0 15px 0 0;
+    font-size: 26px;
 }
 
 @media only screen and (max-width: 759px) {

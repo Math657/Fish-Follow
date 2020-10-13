@@ -3,20 +3,14 @@
         <div class="content">
             <router-link to="/home" class="main-title"><h2>Fish & Follow</h2></router-link>
             <Menu></Menu>
-            <VerticalMenu></VerticalMenu>
-
-            <div @click="showVerticalMenu()" class="iconMenu">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-            </div>
+            <Sidebar></Sidebar>
         </div>
     </div>
 </template>
 
 <script>
 import Menu from './Menu.vue'
-import VerticalMenu from './VerticalMenu.vue'
+import Sidebar from './Sidebar.vue'
 
 export default {
     name: 'NavBar',
@@ -28,14 +22,13 @@ export default {
     },
     methods: {
         showVerticalMenu: function() {
-            // this.verticalMenu = true
             this.sidebar = !this.sidebar
             console.log("menu!")
         }
     },
     components: {
         Menu,
-        VerticalMenu
+        Sidebar
     }
     
 }
@@ -84,9 +77,9 @@ h2, .main-title {
 }
 
 @media only screen and (max-width: 759px) {
-    .iconMenu {
-        display: inline;
-    }
+    // .iconMenu {
+    //     display: inline;
+    // }
     .menu {
         display: none;
     }

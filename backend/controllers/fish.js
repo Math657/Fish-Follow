@@ -88,7 +88,7 @@ exports.createFish = (req, res, next) => {
 // }
 
 exports.getAllFishes = (req, res) => {
-    Fish.find().sort([['date', -1]])
+    Fish.find().sort([['createdAt', -1]])
     .then((fishes) => {res.status(200).json(fishes)})
     .catch((error) => res.status(503).json({error}))
 }

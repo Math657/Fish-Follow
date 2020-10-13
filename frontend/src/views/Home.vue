@@ -2,7 +2,7 @@
   <div class="home">
         <NavBar></NavBar>
         <!-- <Top></Top> -->
-        <img alt="homme qui pêche" src="../assets/fishingbg2.png" class="img-fluid img-banner">
+        <!-- <img alt="homme qui pêche" src="../assets/fishingbg2.png" class="img-fluid img-banner"> -->
         <!-- <HelloWorld msg="Bienvenue sur  Fish & Follow!"/> -->
         <div v-if="$store.state.isLogged === false">
             <Login></Login>

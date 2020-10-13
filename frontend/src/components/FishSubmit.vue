@@ -3,16 +3,16 @@
       <h2 class="title">Publiez votre prise !</h2>
         <form class="">
             <label for="postTitle">Titre de la publication (optionnel)</label>
-            <input type="postTitle" id="postTitle" class="form-control mb-2 mr-sm-2" placeholder="Ex: Session de ce matin" v-model="postTitle">
+            <input type="text" id="postTitle" class="form-control mb-2 mr-sm-2" placeholder="Ex: Session de ce matin" maxlength="50" v-model="postTitle">
 
             <label for="fishName">Espèce du poisson</label>
-            <input type="fishName" id="fishName" class="form-control mb-2 mr-sm-2" placeholder="Ex: Perche, Sandre, non connu" v-model="fishName" required>
+            <input type="text" id="fishName" class="form-control mb-2 mr-sm-2" placeholder="Ex: Perche, Sandre, non connu" maxlength="30" v-model="fishName" required>
 
             <label for="fishSize">Taille approximative du poisson (en cm)</label>
-            <input type="fishSize" id="fishSize" class="form-control mb-2 mr-sm-2" placeholder="Ex: 30" v-model="fishSize" required>
+            <input type="number" id="fishSize" class="form-control mb-2 mr-sm-2" placeholder="Ex: 30" min="1" max="400" v-model="fishSize" required>
 
             <label for="location">Court d'eau</label>
-            <select type="water" id="water" class="form-control mb-2 mr-sm-2" palceholder="Veuillez sélectionner un court d'eau" v-model="water" required>
+            <select id="water" class="form-control mb-2 mr-sm-2" placeholder="Veuillez sélectionner un court d'eau" v-model="water" required>
                 <option value ="" selected="selected">Sélectionner une option</option>
                 <option>Rivière</option>
                 <option>Fleuve</option>
@@ -23,13 +23,13 @@
             </select>
 
             <label for="location">Lieu</label>
-            <input type="location" id="location" class="form-control mb-2 mr-sm-2" placeholder="Ex: Nom de ville" v-model="location" required>
+            <input type="text" id="location" class="form-control mb-2 mr-sm-2" placeholder="Ex: Nom de ville" maxlength="30" v-model="location" required>
 
             <label for="bait">Leurre/appât/bout de ligne utilisé (optionnel)</label>
-            <input type="bait" id="bait" class="form-control mb-2 mr-sm-2" placeholder="Ex: Leurre souple" v-model="bait">
+            <input type="text" id="bait" class="form-control mb-2 mr-sm-2" placeholder="Ex: Leurre souple" maxlength="30" v-model="bait">
 
             <label for="fishingSettup">Montage utilisé (optionnel)</label>
-            <input type="fishingSettup" id="fishingSettup" class="form-control mb-2 mr-sm-2" placeholder="Ex: Dropshot" v-model="fishingSettup">
+            <input type="text" id="fishingSettup" class="form-control mb-2 mr-sm-2" placeholder="Ex: Dropshot" maxlength="30" v-model="fishingSettup">
 
             <label for="date">Date</label>
             <input type="date" id="date" class="form-control mb-2 mr-sm-2" v-model="date" required>
@@ -39,14 +39,14 @@
             <img :src="previewImage" class="img-preview" />
 
             <label for="description">Description (optionnel)</label>
-            <input type="description" id="description" class="form-control mb-2 mr-sm-2" v-model="description">
+            <textarea rows="3" type="text" id="description" class="form-control mb-2 mr-sm-2" maxlength="150" v-model="description"></textarea>
             
-            <button @click.prevent="checkForm(); submit()" class="btn-login" id="btn_submit">Soumettre</button>
+            <button @click.prevent="checkForm(); submit()" class="btn-main btn-publish">Publier</button>
         </form>
   </div>
   <div v-else class="container">
         <h2 class="my-4">Post publié !</h2>
-        <router-link class="home" to="/home"><button class="">Retourner à l'accueil</button></router-link>
+        <router-link class="home" to="/home"><button class="btn-main">Retourner à l'accueil</button></router-link>
     </div>
 </template>
 
@@ -157,16 +157,12 @@ input, select {
     /* height: 5em; */
 }
 
-.btn-login {
-    background-color: #144c6d;
-    color: white;
-    border-radius: 4px;
-    padding: 7px 10px 7px 10px;
+.btn-publish {
     margin: 1em;
 }
 
-.btn-login:hover {
-    filter: brightness(0.8);
+#description {
+   max-width: 20em;
 }
 
 </style>
