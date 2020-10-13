@@ -28,8 +28,8 @@ export default {
     data() {
         return {
             userID: JSON.parse(localStorage.getItem('userID')),
-            connect: "Se connecter",
-            about: "A propos",
+            connect: 'Se connecter',
+            about: 'A propos',
 
             linksOffline: [
                 {name: 'Se connecter', url: '/login'},

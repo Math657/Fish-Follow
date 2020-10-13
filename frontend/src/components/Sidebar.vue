@@ -19,7 +19,7 @@
 
 <script>
 export default {
-    name: "Sidebar",
+    name: 'Sidebar',
     data() {
         return {
             userID: JSON.parse(localStorage.getItem('userID')),

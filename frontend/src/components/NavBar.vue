@@ -23,7 +23,7 @@ export default {
     methods: {
         showVerticalMenu: function() {
             this.sidebar = !this.sidebar
-            console.log("menu!")
+            console.log('menu!')
         }
     },
     components: {

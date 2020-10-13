@@ -32,7 +32,7 @@
 
                 <div id="bottom-post">
                     <div class="btn-main" id="btn-comment">Commenter</div>
-                    <p id="post-date">{{ moment(fishes.createdAt).subtract(10, 'days').calendar() }}</p>
+                    <p id="post-date">Publié le {{ moment(fishes.createdAt).subtract(10, 'days').calendar() }}</p>
                 </div>
                <!-- </router-link> -->       
            </li>

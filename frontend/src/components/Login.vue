@@ -19,13 +19,13 @@ export default {
     name: 'Login',
     data() {
         return {
-            email: "",
-            password: ""
+            email: '',
+            password: ''
         }
     },
     methods: {
         login() {
-            if (this.email != "" && this.password != "") {
+            if (this.email != '' && this.password != '') {
                 this.$http.post('http://localhost:3000/api/auth/login', {
                     email: this.email,
                     password: this.password
