@@ -1,13 +1,14 @@
 <template>
     <div>
         <h2>Connectez-vous</h2>
+        <router-link to="/signup">Pas encore de compte ? Créez-en un, c'est gratuit!</router-link>
         <form method="post" autocomplete="on">
             <label for="email">Adresse e-mail</label>
             <input type="email" id="email" class="form-control" v-model="email" required>
 
             <label for="password">Mot de passe</label>
             <input type="password" id="password" class="form-control" v-model="password" required>
-            <p class="mdp_lost">Mot de passe oublié ?</p>
+            <router-link to="" class="mdp_lost">Mot de passe oublié ?</router-link>
 
             <button class="btn-login" v-on:click.prevent="login()" id="btn_submit">Connexion</button>
         </form>

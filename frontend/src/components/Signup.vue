@@ -1,6 +1,7 @@
 <template>
   <div>
       <h2 class="title">Créer un compte</h2>
+      <router-link to="/login">ou connectez-vous</router-link>
         <form enctype="multipart/form-data" method="post" autocomplete="on">
             <label for="email">Adresse e-mail</label>
             <input type="email" id="email" class="form-control" v-model="email" required>

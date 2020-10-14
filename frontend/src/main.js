@@ -17,6 +17,7 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { faHome } from '@fortawesome/free-solid-svg-icons'
 import { faCameraRetro } from '@fortawesome/free-solid-svg-icons'
+import { faComment } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 
@@ -30,6 +31,7 @@ library.add(faSignOutAlt)
 library.add(faUser)
 library.add(faHome)
 library.add(faCameraRetro)
+library.add(faComment)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

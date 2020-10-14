@@ -31,8 +31,9 @@
                 </div>
 
                 <div id="bottom-post">
-                    <div class="btn-main" id="btn-comment">Commenter</div>
-                    <p id="post-date">Publié le {{ moment(fishes.createdAt).subtract(10, 'days').calendar() }}</p>
+                    <div class="btn-main" id="btn-comment" @click="submitCommennt()"><font-awesome-icon icon="comment" class="comment-icon"/>Commenter</div>
+                    <div class="likes"><img src="../assets/fish-like.png" alt="Icône poisson" class="fish-like" @click="sendLike(fishes._id)" data-toggle="tooltip" title="Fishez cette prise!" />{{ fishes.likes }}</div>
+                    <p id="post-date">{{ moment(fishes.createdAt).subtract('days').calendar() }}</p>
                 </div>
                <!-- </router-link> -->       
            </li>
@@ -47,8 +48,27 @@ export default {
     name: 'Feed',
     data() {
         return {
-            allFishes: []
+            allFishes: [],
+            userID: JSON.parse(localStorage.getItem('userID'))
         }
+    },
+    methods: {
+        submitComment() {
+            // this.$http.post(``)
+        },
+        sendLike(id) {
+            this.$http.post(`http://localhost:3000/api/auth/like/${id}`, {
+                like: 1,
+                userID: this.userID
+            })
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+        }
+
     },
     mounted() {
         this.$http.get('http://localhost:3000/api/auth/home')
@@ -158,6 +178,22 @@ export default {
 
 #bottom-post {
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.fish-like {
+    width: 25px;
+    filter: invert(14%) sepia(69%) saturate(652%) hue-rotate(160deg) brightness(95%) contrast(97%);
+    -webkit-transform:rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+
+.fish-like:hover {
+    cursor: pointer;
 }
 
 #post-date {
@@ -170,12 +206,16 @@ export default {
 #btn-comment {
     /* margin-right: 500px; */
     width: 8em;
-    margin: 0 auto 1em 2em;
+    margin: 0 -9em 1em 2em;
     padding: 3px 8px 3px 8px;
 }
 
 #btn-comment:hover {
     cursor: pointer;
+}
+
+.comment-icon {
+    margin-right: 5px;
 }
 
 #btn-submit {

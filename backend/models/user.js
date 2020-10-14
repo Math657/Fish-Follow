@@ -15,6 +15,7 @@ const userSchema = mongoose.Schema({
     followers: {type: Number, required: true},
     following: {type: Number, required: true},
     posts: {type: Array, required: true},
+    fishLike: {type: Number, required: true},
     createdAt: {type: Date, required: true}
 })
 

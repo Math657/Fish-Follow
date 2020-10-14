@@ -1,9 +1,9 @@
 <template>
     <nav class="sidebar">
         <div @click="show = !show" class="iconMenu">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
         </div>
         <transition-group name="fade" tag="ul">
             <li key="close" v-show="show" @click="show = !show"><font-awesome-icon icon="times" id="cross" /></li>

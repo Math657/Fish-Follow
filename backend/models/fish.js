@@ -16,7 +16,8 @@ const fishSchema = mongoose.Schema({
     fishingSettup: {type: String},
     description: {type: String},
     comments: {type: Array},
-    likes: {type: Number, required: true},
+    likes: {type: Number},
+    usersLiked: {type: Number},
     createdAt: {type: Date, required: true}
 })
 

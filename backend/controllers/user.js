@@ -20,6 +20,7 @@ exports.signup = (req, res, next) => {
             followers: 0,
             following: 0,
             posts: [],
+            fishLike: 0,
             createdAt: Date.now()
         })
         user.save()
