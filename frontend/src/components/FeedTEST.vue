@@ -13,7 +13,14 @@
                 </div>
                     
                 <div class="content-post">
-                    <h4 class="post-title">{{ fishes.postTitle }}</h4>
+                    
+                    <div class="fish-infos">
+                        <h4 class="post-title">{{ fishes.postTitle }}</h4>
+                        <p class="fish-details"><font-awesome-icon icon="fish" class="logos" data-toggle="tooltip" title="Espèce"/> {{ fishes.fishName }}</p>
+                        <p class="fish-details"><font-awesome-icon icon="arrows-alt-h" class="logos" data-toggle="tooltip" title="Taille"/> {{ fishes.fishSize }} cm</p>
+                        <div @click="seeMore()" class="fish-details btn-seemore">Voir plus</div>
+                    </div>
+
                     <div v-if="fishes.fishPic != undefined" class="post-image">
                         <img :src="fishes.fishPic" alt="photo de la prise" class="fish-pic mb-2">
                     </div>
@@ -21,16 +28,19 @@
                         <img src="../assets/fish-bg.png" alt="dessin d'un poisson" class="fish-pic mb-2">
                     </div>
                     <h6>Pêché le {{moment(fishes.date).format("Do MMMM YYYY")}}</h6>
-
-                    <div class="fish-infos">
-                        <p><font-awesome-icon icon="fish" class="logos" data-toggle="tooltip" title="Espèce"/> {{ fishes.fishName }}</p>
-                        <p><font-awesome-icon icon="arrows-alt-h" class="logos" data-toggle="tooltip" title="Taille"/> {{ fishes.fishSize }} cm</p>
-                    </div>
+                    
                 </div>
 
                 <div class="bottom-post">
                     <div class="btn-main" id="btn-like"><img src="../assets/fish-like.png" alt="Icône poisson" class="fish-like-icon" @click="sendLike(fishes._id)" data-toggle="tooltip" title="Fishez cette prise!" />J'aime</div>
-                    <div class="btn-main" id="btn-comment" @click="submitCommennt()"><font-awesome-icon icon="comment" class="comment-icon"/>Commenter</div>
+                    <div class="btn-main" id="btn-comment" @click="comment()"><font-awesome-icon icon="comment" class="comment-icon"/>Commenter</div>
+                    <div v-if="fishes.comments.length > 0">
+                        <!-- calculer et afficher le nombre de commentaire -->
+                        {{ fishes.comments.length + 1 }} commentaire(s)
+                    </div>
+                    <div v-else>
+                        Aucun commentaire
+                    </div>
                 </div>
             </li>
         </ul>
@@ -43,11 +53,15 @@ export default {
     data() {
         return {
             allFishes: [],
+            seeMore: false,
             userID: JSON.parse(localStorage.getItem('userID'))
         }
     },
     methods: {
-        submitComment() {
+        // seeMore() {
+            
+        // },
+        comment() {
             // this.$http.post(``)
         },
         sendLike(id) {
@@ -160,8 +174,14 @@ export default {
     justify-content: space-around;
 }
 
-.fish-infos p {
+.fish-details {
     color: #0A3046;
+    margin: 10px 0 10px 10px;
+}
+
+.btn-seemore:hover {
+    cursor: pointer;
+    opacity: 80%;
 }
 
 .bottom-post {
@@ -195,6 +215,7 @@ export default {
     width: 8em;
     padding: 3px 8px 3px 8px;
     font-size: 14px;
+    margin-right: auto;
 }
 
 .comment-icon {
