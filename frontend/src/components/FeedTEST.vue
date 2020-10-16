@@ -14,8 +14,18 @@
                     
                 <div class="content-post">
                     <h4 class="post-title">{{ fishes.postTitle }}</h4>
-                    <img :src="fishes.fishPic" alt="photo de la prise" class="fish-pic mb-2">
+                    <div v-if="fishes.fishPic != undefined" class="post-image">
+                        <img :src="fishes.fishPic" alt="photo de la prise" class="fish-pic mb-2">
+                    </div>
+                    <div v-else>
+                        <img src="../assets/fish-bg.png" alt="dessin d'un poisson" class="fish-pic mb-2">
+                    </div>
                     <h6>Pêché le {{moment(fishes.date).format("Do MMMM YYYY")}}</h6>
+
+                    <div class="fish-infos">
+                        <p><font-awesome-icon icon="fish" class="logos" data-toggle="tooltip" title="Espèce"/> {{ fishes.fishName }}</p>
+                        <p><font-awesome-icon icon="arrows-alt-h" class="logos" data-toggle="tooltip" title="Taille"/> {{ fishes.fishSize }} cm</p>
+                    </div>
                 </div>
 
                 <div class="bottom-post">
@@ -143,6 +153,15 @@ export default {
     /* border: 1px solid #0A3046; */
     // box-shadow: 3px 3px 3px #c2c0c0;
     // border-radius: 1px;
+}
+
+.fish-infos {
+    display: flex;
+    justify-content: space-around;
+}
+
+.fish-infos p {
+    color: #0A3046;
 }
 
 .bottom-post {
