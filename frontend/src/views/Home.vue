@@ -9,7 +9,8 @@
         </div>
             
         <div v-else>
-            <Feed></Feed>
+            <!-- <Feed></Feed> -->
+            <FeedTEST></FeedTEST>
         </div>
     </div>
 </template>
@@ -18,7 +19,8 @@
 
 import NavBar from '@/components/NavBar.vue'
 import Login from '../components/Login.vue'
-import Feed from '../components/Feed.vue'
+// import Feed from '../components/Feed.vue'
+import FeedTEST from '../components/FeedTEST.vue'
 // import Top from '../components/Top.vue'
 
 export default {
@@ -26,7 +28,8 @@ export default {
   components: {
     NavBar,
     Login,
-    Feed,
+    // Feed,
+    FeedTEST
     // Top
   }
 }

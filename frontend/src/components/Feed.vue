@@ -31,8 +31,8 @@
                 </div>
 
                 <div id="bottom-post">
-                    <div class="btn-main" id="btn-comment" @click="submitCommennt()"><font-awesome-icon icon="comment" class="comment-icon"/>Commenter</div>
                     <div class="likes"><img src="../assets/fish-like.png" alt="Icône poisson" class="fish-like" @click="sendLike(fishes._id)" data-toggle="tooltip" title="Fishez cette prise!" />{{ fishes.likes }}</div>
+                    <div class="btn-main" id="btn-comment" @click="submitCommennt()"><font-awesome-icon icon="comment" class="comment-icon"/>Commenter</div>
                     <p id="post-date">{{ moment(fishes.createdAt).subtract('days').calendar() }}</p>
                 </div>
                <!-- </router-link> -->       
@@ -180,6 +180,7 @@ export default {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    border-top: 1px solid #555;
 }
 
 .fish-like {
@@ -208,6 +209,7 @@ export default {
     width: 8em;
     margin: 0 -9em 1em 2em;
     padding: 3px 8px 3px 8px;
+    font-size: 14px;
 }
 
 #btn-comment:hover {
