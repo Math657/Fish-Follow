@@ -37,7 +37,8 @@ export default new Vuex.Store({
       },
       NavOpen({ commit }) {
           commit('toggleNav')
-      }
+      },
+      
   },
   modules: {
   }

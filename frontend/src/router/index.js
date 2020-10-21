@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import SignupPage from '../views/SignupPage.vue'
-import PostFish from '../views/PostFish.vue'
+import PostFish from '../views/PublishFish.vue'
 import MyProfil from '../views/MyProfil.vue'
 import store from '../store'
 

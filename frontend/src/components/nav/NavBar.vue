@@ -37,9 +37,7 @@ export default {
             this.$store.dispatch('NavOpen')
         },
         logOut(){
-            localStorage.clear()
-            sessionStorage.clear()
-            this.$store.dispatch('LogOut')
+            this.loggout()
         }
     },
     components: {

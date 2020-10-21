@@ -18,6 +18,8 @@ import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { faHome } from '@fortawesome/free-solid-svg-icons'
 import { faCameraRetro } from '@fortawesome/free-solid-svg-icons'
 import { faComment } from '@fortawesome/free-solid-svg-icons'
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
+import { faWrench } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 
@@ -32,6 +34,8 @@ library.add(faUser)
 library.add(faHome)
 library.add(faCameraRetro)
 library.add(faComment)
+library.add(faWrench)
+library.add(faInfoCircle)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
@@ -42,6 +46,17 @@ Vue.prototype.moment = moment
 moment.locale('fr')
 
 Vue.config.productionTip = false
+
+Vue.mixin({
+    methods: {
+      capitalizeFirstLetter: str => str.charAt(0).toUpperCase() + str.slice(1),
+      loggout() {
+        localStorage.clear()
+        sessionStorage.clear()
+        this.$store.dispatch('LogOut')
+      }
+    }
+})
 
 new Vue({
   router,

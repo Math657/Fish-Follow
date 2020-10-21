@@ -13,7 +13,7 @@ import NavBar from '../components/nav/NavBar.vue'
 import FishSubmit from '../components/FishSubmit.vue'
 
 export default {
-    name: 'PostFish',
+    name: 'PublishFish',
     components: {
         // Top,
         NavBar,

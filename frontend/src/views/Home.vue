@@ -10,7 +10,9 @@
             
         <div v-else>
             <!-- <Feed></Feed> -->
-            <FeedTEST></FeedTEST>
+            <!-- <FeedTEST></FeedTEST> -->
+            <DynamicFeed></DynamicFeed>
+
         </div>
     </div>
 </template>
@@ -20,7 +22,8 @@
 import NavBar from '@/components/nav/NavBar.vue'
 import Login from '../components/login/Login.vue'
 // import Feed from '../components/Feed.vue'
-import FeedTEST from '../components/feed/FeedTEST.vue'
+// import FeedTEST from '../components/feed/FeedTEST.vue'
+import DynamicFeed from '../components/feed/DynamicFeed.vue'
 // import Top from '../components/Top.vue'
 
 export default {
@@ -29,7 +32,8 @@ export default {
     NavBar,
     Login,
     // Feed,
-    FeedTEST
+    // FeedTEST,
+    DynamicFeed
     // Top
   }
 }

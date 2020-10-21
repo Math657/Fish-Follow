@@ -25,7 +25,15 @@ export default {
         .then(res => {
             this.userInfos.push(res.data.user)
         })
-        .catch(error => console.log(error))
+        .catch((err) => {
+            if (err.response.data.message === 'Token non valide') {
+                this.loggout()
+            }
+            else {
+                console.log(err)
+            }
+        })
+        
     }
 
 }

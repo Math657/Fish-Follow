@@ -17,7 +17,7 @@ const fishSchema = mongoose.Schema({
     description: {type: String},
     comments: {type: Array},
     likes: {type: Number},
-    usersLiked: {type: Number},
+    usersLiked: {type: Array},
     createdAt: {type: Date, required: true}
 })
 

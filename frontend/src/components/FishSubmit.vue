@@ -8,10 +8,10 @@
             <label for="fishName">Espèce du poisson</label>
             <input type="text" id="fishName" class="form-control mb-2 mr-sm-2" placeholder="Ex: Perche, Sandre, non connu" maxlength="30" v-model="fishName" required>
 
-            <label for="fishSize">Taille approximative du poisson (en cm)</label>
+            <label for="fishSize">Taille approximative (en cm)</label>
             <input type="number" id="fishSize" class="form-control mb-2 mr-sm-2" placeholder="Ex: 30" min="1" max="400" v-model="fishSize" required>
 
-            <label for="location">Court d'eau</label>
+            <label for="location">Zone d'eau</label>
             <select id="water" class="form-control mb-2 mr-sm-2" placeholder="Veuillez sélectionner un court d'eau" v-model="water" required>
                 <option value ="" selected="selected">Sélectionner une option</option>
                 <option>Rivière</option>
@@ -23,7 +23,10 @@
             </select>
 
             <label for="location">Lieu</label>
-            <input type="text" id="location" class="form-control mb-2 mr-sm-2" placeholder="Ex: Nom de ville" maxlength="30" v-model="location" required>
+            <input type="text" id="location" class="form-control mb-2 mr-sm-2" placeholder="Ex: Nom de ville, région" maxlength="30" v-model="location" required>
+            <!-- <div v-if="noLocation" class="test-err">
+                <p>Entrez un lieu!</p>
+            </div> -->
 
             <label for="bait">Leurre/appât/bout de ligne utilisé (optionnel)</label>
             <input type="text" id="bait" class="form-control mb-2 mr-sm-2" placeholder="Ex: Leurre souple" maxlength="30" v-model="bait">
@@ -52,6 +55,7 @@
 
 <script>
 import FormData from 'form-data'
+// import capitalizeFirstLetter from '../helpers.js'
 
 export default {
     name: 'FishSubmit',
@@ -68,7 +72,8 @@ export default {
             description: '',
             previewImage: null,
             published: false,
-            userID: localStorage.getItem('userID')
+            userID: localStorage.getItem('userID'),
+            // noLocation: false
         }
     },
     methods: {
@@ -86,10 +91,6 @@ export default {
                 console.log('Entrez un lieu!')
                 return false
             }
-            // if (!this.password) {
-            //     console.log('Mot de passe requis!')
-            //     return false
-            // }
             if (this.fishName && this.fishSize && this.location) {
                 return true
             }
@@ -109,34 +110,48 @@ export default {
                 let self = this
                 let data = new FormData
 
+                // Uppercase fields //
+                this.postTitle = this.capitalizeFirstLetter(this.postTitle)
+                this.fishName = this.capitalizeFirstLetter(this.fishName)
+                this.location = this.capitalizeFirstLetter(this.location)
+                this.bait = this.capitalizeFirstLetter(this.bait)
+                this.fishingSettup = this.capitalizeFirstLetter(this.fishingSettup)
+                this.description = this.capitalizeFirstLetter(this.description)
+
+                // Add fields to formdata //
                 data.append('postTitle', this.postTitle)
                 data.append('fishName', this.fishName)
-                data.append('fishSize', this.fishSize),
-                data.append('bait', this.bait),
-                data.append('water', this.water),
-                data.append('location', this.location),
-                data.append('date', this.date),
-                data.append('fishingSettup', this.fishingSettup),
-                data.append('description', this.description),
+                data.append('fishSize', this.fishSize)
+                data.append('bait', this.bait)
+                data.append('water', this.water)
+                data.append('location', this.location)
+                data.append('date', this.date)
+                data.append('fishingSettup', this.fishingSettup)
+                data.append('description', this.description)
                 data.append('userID', this.userID)
                 data.append('image', document.getElementById('file').files[0])
                 
             
 
-            this.$http.post('http://localhost:3000/api/auth/post', data, 
-            {
-                headers: {
-                    'Content-Type': `multipart/form-data; boundary=${data._boundary}`
-                }
-            })
-            .then((res) => {
-                console.log(res)
-                self.published = true
-            })
-            .catch((error) => {
-                console.log(error)
-            })}
-        }
+                this.$http.post('http://localhost:3000/api/auth/post', data, 
+                {
+                    headers: {
+                        'Content-Type': `multipart/form-data; boundary=${data._boundary}`
+                    }
+                })
+                .then((res) => {
+                    console.log(res)
+                    self.published = true
+                })
+                .catch((err) => {
+                    if (err.response.data.message === 'Token non valide') {
+                        this.loggout()
+                    }
+                    else {
+                        console.log(err)
+                    }
+                })}
+            }
     }
 
 }

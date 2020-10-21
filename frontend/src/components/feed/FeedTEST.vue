@@ -49,7 +49,7 @@
 
 <script>
 export default {
-     name: 'FeedTEST',
+    name: 'FeedTEST',
     data() {
         return {
             allFishes: [],
@@ -86,8 +86,13 @@ export default {
                     this.allFishes.push(fish)   
                 }
         })
-        .catch((error) => {
-            console.log(error)
+        .catch((err) => {
+            if (err.response.data.message === 'Token non valide') {
+                this.loggout()
+            }
+            else {
+                console.log(err)
+            }
         })
     }
 
@@ -164,7 +169,7 @@ export default {
 .fish-pic {
     max-width: 100%; 
     height: auto;
-    /* border: 1px solid #0A3046; */
+    border: 1px solid #e2e2e2;
     // box-shadow: 3px 3px 3px #c2c0c0;
     // border-radius: 1px;
 }
