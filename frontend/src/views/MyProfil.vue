@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import NavBar from '../components/NavBar'
-import Profil from '../components/Profil'
+import NavBar from '../components/nav/NavBar'
+import Profil from '../components/profil/Profil'
 export default {
     name: 'MyProfil',
     components: {

@@ -25,14 +25,14 @@
                         <img :src="fishes.fishPic" alt="photo de la prise" class="fish-pic mb-2">
                     </div>
                     <div v-else>
-                        <img src="../assets/fish-bg.png" alt="dessin d'un poisson" class="fish-pic mb-2">
+                        <img src="../../assets/fish-bg.png" alt="dessin d'un poisson" class="fish-pic mb-2">
                     </div>
                     <h6>Pêché le {{moment(fishes.date).format("Do MMMM YYYY")}}</h6>
                     
                 </div>
 
                 <div class="bottom-post">
-                    <div class="btn-main" id="btn-like"><img src="../assets/fish-like.png" alt="Icône poisson" class="fish-like-icon" @click="sendLike(fishes._id)" data-toggle="tooltip" title="Fishez cette prise!" />J'aime</div>
+                    <div class="btn-main" id="btn-like"><img src="../../assets/fish-like.png" alt="Icône poisson" class="fish-like-icon" @click="sendLike(fishes._id)" data-toggle="tooltip" title="Fishez cette prise!" />J'aime</div>
                     <div class="btn-main" id="btn-comment" @click="comment()"><font-awesome-icon icon="comment" class="comment-icon"/>Commenter</div>
                     <div v-if="fishes.comments.length > 0">
                         <!-- calculer et afficher le nombre de commentaire -->

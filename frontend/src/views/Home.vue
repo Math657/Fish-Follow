@@ -17,10 +17,10 @@
 
 <script>
 
-import NavBar from '@/components/NavBar.vue'
-import Login from '../components/Login.vue'
+import NavBar from '@/components/nav/NavBar.vue'
+import Login from '../components/login/Login.vue'
 // import Feed from '../components/Feed.vue'
-import FeedTEST from '../components/FeedTEST.vue'
+import FeedTEST from '../components/feed/FeedTEST.vue'
 // import Top from '../components/Top.vue'
 
 export default {

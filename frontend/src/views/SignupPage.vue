@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import NavBar from '../components/NavBar'
-import Signup from '../components/Signup.vue'
+import NavBar from '../components/nav/NavBar'
+import Signup from '../components/login/Signup.vue'
 
 export default {
     name: 'SignupPage',

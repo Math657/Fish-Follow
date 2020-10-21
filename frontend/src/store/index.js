@@ -12,7 +12,8 @@ export default new Vuex.Store({
     })],
 
   state: {
-      isLogged: false
+      isLogged: false,
+      isNavOpen: false
   },
   mutations: {
     LOGGED_IN(state) {
@@ -20,6 +21,9 @@ export default new Vuex.Store({
     },
     LOGGED_OUT(state) {
         state.isLogged = false
+    },
+    toggleNav(state) {
+        state.isNavOpen = !state.isNavOpen
     }
   },
   actions: {
@@ -30,6 +34,9 @@ export default new Vuex.Store({
       LogOut({ commit }) {
           commit('LOGGED_OUT')
           router.push('/login')
+      },
+      NavOpen({ commit }) {
+          commit('toggleNav')
       }
   },
   modules: {
