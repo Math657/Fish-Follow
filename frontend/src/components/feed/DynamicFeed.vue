@@ -22,7 +22,8 @@
                 v-bind:description="fishes.description"
                 v-bind:usersLiked="fishes.usersLiked"
                 v-bind:likes="fishes.likes"
-                v-bind:comments="fishes.comments">
+                v-bind:postID="fishes._id"
+                v-bind:userId="fishes.userId">
                 </Post>
             </li>
         </ul>
@@ -37,25 +38,18 @@ export default {
     data() {
         return {
             allFishes: [],
-            seeMore: false,
-            userID: JSON.parse(localStorage.getItem('userID'))
+            seeMore: false
         }
     },
     mounted() {
         this.$http.get('http://localhost:3000/api/auth/home')
         .then((res) => {
-            console.log(res)
             for (let fish of res.data) {          
                     this.allFishes.push(fish)   
                 }
         })
         .catch((err) => {
-            if (err.response.data.message === 'Token non valide') {
-                this.loggout()
-            }
-            else {
-                console.log(err)
-            }
+            this.checkIfTokenIsValid(err)
         })
     },
     components: {
@@ -94,7 +88,7 @@ export default {
     border-radius: 15px;
     box-shadow: 3px 3px 3px #c2c0c0;
     margin: 0 auto 2em auto;
-    max-width: 50em;
+    max-width: 40em;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

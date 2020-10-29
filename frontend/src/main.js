@@ -6,6 +6,7 @@ import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Axios from 'axios'
 import moment from 'moment'
+import TextareaAutosize from 'vue-textarea-autosize'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faWater } from '@fortawesome/free-solid-svg-icons'
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
@@ -45,6 +46,8 @@ Vue.prototype.$http = Axios
 Vue.prototype.moment = moment
 moment.locale('fr')
 
+Vue.use(TextareaAutosize)
+
 Vue.config.productionTip = false
 
 Vue.mixin({
@@ -54,6 +57,20 @@ Vue.mixin({
         localStorage.clear()
         sessionStorage.clear()
         this.$store.dispatch('LogOut')
+      },
+      checkIfTokenIsValid(err) {
+        if (err.response) {
+            if (err.response.data.message === 'Token non valide') {
+                this.loggout()
+            }
+            else {
+                console.log(err)
+            }
+        }
+        else {
+            console.log(err)
+        }
+            
       }
     }
 })

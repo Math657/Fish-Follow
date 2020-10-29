@@ -144,12 +144,7 @@ export default {
                     self.published = true
                 })
                 .catch((err) => {
-                    if (err.response.data.message === 'Token non valide') {
-                        this.loggout()
-                    }
-                    else {
-                        console.log(err)
-                    }
+                    this.checkIfTokenIsValid(err)
                 })}
             }
     }

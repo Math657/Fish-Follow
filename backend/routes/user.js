@@ -8,7 +8,7 @@ const userCtrl = require('../controllers/user')
 
 router.post('/signup', multer, userCtrl.signup)
 router.post('/login', userCtrl.login)
-router.get('/myprofil/:id', auth, userCtrl.getOneUser)
+router.get('/myprofile/:id', auth, userCtrl.getOneUser)
 
 
 module.exports = router

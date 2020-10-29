@@ -64,6 +64,10 @@ export default {
                 console.log('Mot de passe requis!')
                 return false
             }
+            if (this.password.length < 7) {
+                console.log('Votre mot de passe doit contenir au moins 8 caractères!')
+                return false            
+            }
             if (this.email && this.lastname && this.firstname && this.password && this.birthday) {
                 return true
             }

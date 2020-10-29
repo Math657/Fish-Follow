@@ -7,7 +7,7 @@ const multer = require('../middlewares/multer-config')
 
 const fishCtrl = require('../controllers/fish')
 
-router.post('/post', multer, fishCtrl.createFish)
+router.post('/post', auth, multer, fishCtrl.createFish)
 router.post('/like/:id', auth, fishCtrl.likeFish)
 router.get('/home', auth, fishCtrl.getAllFishes)
 

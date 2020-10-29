@@ -9,8 +9,8 @@
                     <li @click="closeSidebarPanel" class="brand"><router-link to="/home">Fish & Follow</router-link></li>
                     <!-- <li @click="closeSidebarPanel"><router-link to="/home"><font-awesome-icon icon="home" class="icon-menu" />Accueil</router-link></li> -->
                     <li @click="closeSidebarPanel"><router-link to="/post"><font-awesome-icon icon="camera-retro" class="icon-menu" />Publier</router-link></li>
-                    <li @click="closeSidebarPanel"><router-link :to="`/myprofil/${userID}`"><font-awesome-icon icon="user" class="icon-menu" />Mon profil</router-link></li>
-                    <li @click="closeSidebarPanel"><router-link to="/myprofil"><font-awesome-icon icon="cog" class="icon-menu" />Paramètres</router-link></li>
+                    <li @click="closeSidebarPanel"><router-link :to="`/myprofile/${userID}`"><font-awesome-icon icon="user" class="icon-menu" />Mon profil</router-link></li>
+                    <li @click="closeSidebarPanel"><router-link to="/myprofile"><font-awesome-icon icon="cog" class="icon-menu" />Paramètres</router-link></li>
                     <li @click="closeSidebarPanel"><button class="btn" id="btn-logout"  @click.prevent="logOut()"><font-awesome-icon icon="sign-out-alt" class="icon-menu" />Se déconnecter</button></li>
                 </ul>
             </Sidebar2>
@@ -29,7 +29,8 @@ export default {
     props: [],
     data() {
         return {
-            sidebar: false
+            sidebar: false,
+            userID: JSON.parse(localStorage.getItem('userID')) 
         }
     },
     methods: {

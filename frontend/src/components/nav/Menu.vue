@@ -14,7 +14,7 @@
                     <li><router-link :to="item.url">{{ item.name }}</router-link></li>
                 </ul>
             </div>
-            <router-link :to="`/myprofil/${userID}`"><font-awesome-icon icon="user" class="icons"></font-awesome-icon></router-link>
+            <router-link :to="`/myprofile/${userID}`"><font-awesome-icon icon="user" class="icons"></font-awesome-icon></router-link>
             <button class="btn-danger" id="btn-loggout" @click.prevent="logOut()">Se déconnecter</button>
         </div>    
     </div>

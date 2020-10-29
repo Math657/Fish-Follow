@@ -66,7 +66,7 @@ exports.login = (req, res, next) => {
 }
 
 exports.getOneUser = (req, res) => {
-    User.findById(JSON.parse(req.params.id))
+    User.findById(req.params.id)
     .then(user => res.status(201).json({user}))
     .catch(error => res.status(502).json({error}))
 }
