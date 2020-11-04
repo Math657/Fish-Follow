@@ -3,8 +3,8 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import SignupPage from '../views/SignupPage.vue'
 import PostFish from '../views/PublishFish.vue'
-import MyProfile from '../views/MyProfile.vue'
-import UserProfile from '../views/UserProfile.vue'
+import MyProfilePage from '../views/MyProfilePage.vue'
+import UserProfilePage from '../views/UserProfilePage.vue'
 import store from '../store'
 
 Vue.use(VueRouter)
@@ -47,16 +47,16 @@ Vue.use(VueRouter)
   },
   {
       path: '/myprofile/:id',
-      name: 'MyProfile',
-      component: MyProfile,
+      name: 'MyProfilePage',
+      component: MyProfilePage,
       meta: {
           requireAuth: true
       }
   },
   {
       path: '/user/:id',
-      name: 'user',
-      component: UserProfile,
+      name: 'UserProfilePage',
+      component: UserProfilePage,
       meta: {
           requireAuth: true
       }

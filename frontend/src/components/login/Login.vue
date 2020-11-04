@@ -11,11 +11,13 @@
             <router-link to="" class="mdp_lost">Mot de passe oublié ?</router-link>
 
             <button class="btn-login" v-on:click.prevent="login()" id="btn_submit">Connexion</button>
-        </form>
+
+        </form>   
     </div>
 </template>
 
 <script>
+
 export default {
     name: 'Login',
     data() {
@@ -44,7 +46,6 @@ export default {
             }
         }
     }
-
 }
 </script>
 

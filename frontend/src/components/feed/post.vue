@@ -27,7 +27,7 @@
                 </div>
                 <div v-if="seeMoreDetails" class="more-fish-details">
                     <p class="fish-details"><font-awesome-icon icon="wrench" class="logos" data-toggle="tooltip" title="Montage utilisé"/> {{ fishingSettup }}</p>
-                    <p class="fish-details"><font-awesome-icon icon="info-circle" class="logos" data-toggle="tooltip" title="Description"/> {{ description }}</p>
+                    <p v-if="description" class="fish-details"><font-awesome-icon icon="info-circle" class="logos" data-toggle="tooltip" title="Description"/> {{ description }}</p>
                 </div>
             </div>
 
@@ -37,13 +37,17 @@
             <div v-else>
                 <img src="../../assets/fish-bg.png" alt="dessin d'un poisson" class="fish-pic mb-2">
             </div>
-            <h6>Pêché le {{moment(date).format("Do MMMM YYYY")}}</h6>
+            <div class="under-pic">
+                <h6 class="nb-like">{{ nbLikes }} <img src="../../assets/fish-icon2.png" alt="Icône d'un poisson" class="fish-like-icon"></h6>
+                <h6>Pêché le {{moment(date).format("Do MMMM YYYY")}}</h6>
+            </div>
+            
             
         </div>
 
         <div>
             <div class="bottom-post">
-                <div class="btn-main" id="btn-like"><img src="../../assets/fish-like.png" alt="Icône poisson" class="fish-like-icon" @click="sendLike(id)" data-toggle="tooltip" title="Fishez cette prise!" />J'aime</div>
+                <div id="btn-like" :class="{ liked: likePost, 'btn-main': !likePost }" @click="sendLike()" data-toggle="tooltip" title="Fishez, ou plutôt likez cette prise!" ><img src="../../assets/fish-icon2.png" alt="Icône d'un poisson" class="btn-fish-like-icon">{{ likeBtn }}</div>
                 <div class="btn-main" id="btn-comment" @click="showBoxToComment()"><font-awesome-icon icon="comment" class="comment-icon"/>Commenter</div>
                 
                 <div v-if="nbComments.length > 0" @click="showBoxToComment()" class="show-comments">
@@ -60,7 +64,8 @@
             <Comment :postID="this.postID"
                      :userLastname="this.userLastname"
                      :userFirstname="this.userFirstname" 
-                     :showBoxComments="this.showBoxComments" @toPost="handler"></Comment>
+                     :showBoxComments="this.showBoxComments" @toPost="handler">
+            </Comment>
 
         </div>
     </div>
@@ -77,7 +82,10 @@ export default {
             comment: '',
             nbComments: [],
             userInfos: [],
-            showBoxComments: false
+            showBoxComments: false,
+            likePost: null,
+            nbLikes: this.likes,
+            likeBtn: 'J\'aime'
         }
     },
     methods: {  
@@ -90,23 +98,39 @@ export default {
         showBoxToComment() {
             this.showBoxComments = true
         },
+        sendLike() {
+            this.$http.post(`http://localhost:3000/api/auth/like/${this.postID}`, {
+                userID: JSON.parse(localStorage.getItem('userID'))
+            })
+            .then((res) => {
+                console.log(res.data)
+                this.likePost = res.data.like
+                res.data.like ? this.nbLikes += 1 : this.nbLikes -=1
+            })
+            .catch((err) => {
+                this.checkIfTokenIsValid(err)
+            })
+        }
     },
-    // sendLike(id) {
-    //         this.$http.post(`http://localhost:3000/api/auth/like/${id}`, {
-    //             like: 1,
-    //             userID: this.userID
-    //         })
-    //         .then((res) => {
-    //             console.log(res)
-    //         })
-    //         .catch((err) => {
-    //             console.log(err)
-    //         })
-    //     },
+    // computed: {
+    //     nbLikes()  {
+    //         return this.likes
+    //     }
+    // },
     mounted() {
-        this.$http.get(`http://localhost:3000/api/auth/myprofile/${this.userId}`)
+        this.$http.get(`http://localhost:3000/api/auth/myprofile/${this.userId}`) // Get user data
         .then(res => {
             this.userInfos.push(res.data.user)
+        })
+        .catch((err) => {
+           this.checkIfTokenIsValid(err)
+        })
+
+
+        // Get user likeStatut
+        this.$http.get(`http://localhost:3000/api/auth/likeStatut/${this.postID}/${JSON.parse(localStorage.getItem('userID'))}`)
+        .then(res => {
+            this.likePost = res.data.like
         })
         .catch((err) => {
            this.checkIfTokenIsValid(err)
@@ -138,12 +162,13 @@ export default {
 </script>
 
 <style>
+/*///////////////  POST TOP  /////////////////////*/
 
 .top-post {
     width: 95%;
     height: 2.5em;
-    margin: 0 auto 0 auto;
-    padding: 10px;
+    margin: 0.5em auto 0.5em auto;
+    padding: 20px 10px 25px 10px;
     border-bottom: 1px solid rgb(189, 187, 187);
     display: flex;
     justify-content: flex-start;
@@ -165,19 +190,17 @@ export default {
     /* position:relative; */
     overflow:hidden;
     border-radius: 50%;
+    border: 1px solid #e2e2e2;
     height: 2em;
     width: 2em;
 }
 
 #profil-pic img {
     /* position: absolute; */
-    height: 2em;
+    height: 2.2em;
     width: 2em;
     /* max-width: 100%; */
 }
-
-
-
 
 .username {
     font-size: 14px;
@@ -198,6 +221,8 @@ export default {
     text-align: left;
     margin: 10px 0 10px 10px;
 }
+
+/*///////////////  POST BODY  /////////////////////*/
 
 .full-post {
     list-style-type: none;
@@ -249,6 +274,24 @@ export default {
     opacity: 80%;
 }
 
+.under-pic {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.nb-like {
+    color: #0A3046;
+    font-weight: bold;
+}
+
+.fish-like-icon {
+    filter: invert(16%) sepia(10%) saturate(5324%) hue-rotate(166deg) brightness(86%) contrast(95%);
+    height: 1.2em;
+}
+
+/*///////////////  POST BOTTOM  /////////////////////*/
+
 .bottom-post {
     width: 95%;
     height: 3em;
@@ -266,14 +309,36 @@ export default {
     margin-right: 2em;
 }
 
-.fish-like-icon {
-    width: 25px;
+.btn-fish-like-icon {
+    width: 20px;
     margin-right: 5px;
     filter: invert(92%) sepia(100%) saturate(30%) hue-rotate(201deg) brightness(109%) contrast(99%);
 }
 
 #btn-like:hover {
     cursor: pointer;
+}
+
+.btn-main {
+    background-color:#0A3046;
+    /* background-color:#0d7dbe; */
+    color:#FFFFFF;
+    border-radius: 5px;
+    border: none;
+    padding: 0.5em 1em 0.5em 1em;
+}
+
+.btn-main:hover, .liked:hover {
+    opacity: 90%;
+}
+
+.liked {
+    background-color:#02a0fc;
+    /* background-color:#0A3046; */
+    color:#FFFFFF;
+    border-radius: 5px;
+    border: none;
+    padding: 0.5em 1em 0.5em 1em;
 }
 
 #btn-comment {
@@ -298,18 +363,6 @@ export default {
 .nb-comments p {
     color: #2c3e50;
     margin-left: 4px;
-}
-
-.btn-main {
-    background-color:#0A3046;
-    color:#FFFFFF;
-    border-radius: 5px;
-    border: none;
-    padding: 0.5em 1em 0.5em 1em;
-}
-
-.btn-main:hover {
-    opacity: 90%;
 }
 
 /* .background-overlay {

@@ -21,7 +21,7 @@
 <script>
 import Menu from './Menu.vue'
 // import Sidebar from './Sidebar.vue'
-import Burger from './Burder.vue'
+import Burger from './Burger.vue'
 import Sidebar2 from './Sidebar2.vue'
 
 export default {

@@ -37,8 +37,7 @@ export default {
     name: 'DynamicFeed',
     data() {
         return {
-            allFishes: [],
-            seeMore: false
+            allFishes: []
         }
     },
     mounted() {

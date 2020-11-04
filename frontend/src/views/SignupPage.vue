@@ -1,7 +1,7 @@
 <template>
     <div>
         <NavBar></NavBar>
-        <img alt="homme qui pêche" src="../assets/fishingbg2.png" class="img-fluid">
+        <!-- <img alt="homme qui pêche" src="../assets/fishingbg2.png" class="img-fluid"> -->
         <Signup></Signup>
     </div>
 </template>

@@ -74,14 +74,44 @@ exports.getAllFishes = (req, res) => {
     .catch((error) => res.status(503).json({error}))
 }
 
-exports.likeFish = (req, res) => {
-    const likeStatus = req.body.like
-    const user = req.body.userID
-    Fish.findOne({_id: req.params.id  })
-    .then(fish => {
-
+exports.getLikeStatut = (req, res) => {
+    Fish.findById(req.params.postID)
+    .then((fish) => {
+        if (fish.usersLiked.includes(req.params.userID)) {
+            res.status(201).json({like: true})
+        }
+        else {
+            res.status(201).json({like: false})
+        }
     })
+    .catch((error) => res.status(503).json({error}))
 }
+
+exports.likeFish = (req, res) => {
+    const user = req.body.userID
+    let like = null
+    Fish.findById({ _id: req.params.id  })
+    .then(fish => {
+        if (fish.usersLiked.includes(user)) {
+            const i = fish.usersLiked.indexOf(user)
+            fish.usersLiked.splice(i, 1)
+            fish.likes -= 1
+            like = false
+        }
+        else {
+            fish.usersLiked.push(user)
+            fish.likes += 1
+            like = true
+        }
+        fish.save()
+        .then(() => res.status(201).json({like}))
+        .catch(error => res.status(502).json({error}))
+    })
+    .catch((error) => res.status(503).json({error}))
+}
+
+
+
 
 // exports.getAllFishes = (req, res) => {
 //     Fish.find()

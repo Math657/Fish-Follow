@@ -21,6 +21,15 @@
 //   padding: 0px !important;
 // }
 
+html {
+//   height: 100%;
+  background-color: #FAFAFA;
+}
+body {
+  min-height: 100%;
+  background-color: #FAFAFA;
+}
+
 #nav {
   padding: 30px;
 

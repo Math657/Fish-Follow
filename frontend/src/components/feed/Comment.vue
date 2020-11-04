@@ -15,15 +15,15 @@
                     <li :key="i" v-for="(com, i) in allComments" class="one-comment">
 
                         <div class="author-info">
-                            <router-link class="username-pic" :to="`/user/${allComments[i].authorID}`" data-toggle="tooltip" title="Voir le profil" >
-                                <!-- <div v-if="userInfos.length > 0" id="profil-pic">
-                                    <img :src="userInfos[0].profilPic" alt="Photo de profil">
-                                </div> -->
-                                <p class="comment-author">{{ allComments[i].author }}</p>
+                            <router-link class="username-pic" :to="`/user/${allComments[i].comment.authorID}`" data-toggle="tooltip" title="Voir le profil" >
+                                <div v-if="allComments.length > 0" id="comment-profil-pic">
+                                    <img :src="allComments[i].user.profilPic" alt="Photo de profil">
+                                </div>
+                                <p class="comment-author">{{ allComments[i].comment.author }}</p>
                             </router-link>
-                            <p class="comment-date">{{ moment(allComments[i].createdAt).fromNow() }}</p>
+                            <p class="comment-date">{{ moment(allComments[i].comment.createdAt).fromNow() }}</p>
                         </div>
-                        <h6>{{ allComments[i].comment }}</h6>
+                        <h6>{{ allComments[i].comment.comment }}</h6>
                     </li>
                 </ul>
             </div>
@@ -77,13 +77,10 @@ export default {
     mounted() {
         this.$http.get(`http://localhost:3000/api/auth/getcomments/${this.postID}`)
         .then((res) => {
-            console.log(res)
             for (let com of res.data) {
                 this.allComments.push(com)  
                 this.$emit('toPost', this.allComments)  
             }
-            // console.log(this.allComments)
-            // console.log(this.postID)
         })
         .catch((err) => {
             this.checkIfTokenIsValid(err)
@@ -154,7 +151,7 @@ export default {
 
 .comments-list p {
     text-align: left;
-    margin-left: 1.5em;
+    margin-left: 0.7em;
     margin-bottom: 0.5em;
     color: #02080a;
     font-size: 14px;
@@ -167,6 +164,33 @@ export default {
 
 .author-info p {
     font-size: 12px;
+    margin-top: 2px;
+}
+
+#comment-profil-pic {
+    /* position:relative; */
+    overflow:hidden;
+    border-radius: 50%;
+    border: 1px solid #bebdbd;
+    height: 1.6em;
+    width: 1.6em;
+}
+
+#comment-profil-pic img {
+    /* position: absolute; */
+    height: 1.7em;
+    width: 1.6em;
+    /* max-width: 100%; */
+}
+
+.username-pic {
+    display: flex;
+    flex-direction: row;
+    margin-right: auto;
+}
+
+.username-pic:hover {
+    opacity: 80%;
 }
 
 .one-comment {

@@ -1,19 +1,19 @@
 <template>
   <div>
       <NavBar></NavBar>
-      <UserProfileComp></UserProfileComp>
+      <UserProfile></UserProfile>
   </div>
 </template>
 
 <script>
 import NavBar from '../components/nav/NavBar.vue'
-import UserProfileComp from '../components/profile/UserProfileComp.vue'
+import UserProfile from '../components/profile/UserProfile.vue'
 
 export default {
-    name: 'UserProfile',
+    name: 'UserProfilePage',
     components: {
         NavBar,
-        UserProfileComp
+        UserProfile
     }
 
 }

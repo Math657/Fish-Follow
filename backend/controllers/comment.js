@@ -16,8 +16,7 @@ exports.createComment = (req, res) => {
         .then(() => res.status(200).json({ message: 'Commentaire publié !'}))
         .catch(error => res.status(501).json({error}))
     })
-    .catch(error => res.status(501).json({error}))
-    
+    .catch(error => res.status(501).json({error}))  
 }
 
 exports.getLastComments = (req, res) => {
@@ -25,17 +24,21 @@ exports.getLastComments = (req, res) => {
     Comment.find({ postID: req.params.id }).sort([['createdAt', -1]])
     .then((comments) => {
         if (comments.length > 0) {
-            console.log('////////////////////////////////////////////////////////')
             for (i=0; i < comments.length; i++) {
                 arrAuthorID.push(comments[i].authorID)
+                // check si l'auteur ID est déjà présent avant de push
             }
             User.find({ _id: { $in: arrAuthorID } })
-            .then((users) => {
-    
-                myData = [comments.push(users)]
-                console.log(myData)
+            .then((users) => {         
+                const myData = comments.map((comment) => {
+                    return {
+                        comment, 
+                        user: users.find((user) => String(user._id) === comment.authorID)
+                    }
+                })
                 res.status(200).json(myData)
             })
+            .catch((error) => res.status(502).json({error}))
         }      
     })
     .catch((error) => res.status(503).json({error}))
