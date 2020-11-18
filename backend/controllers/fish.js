@@ -74,6 +74,20 @@ exports.getAllFishes = (req, res) => {
     .catch((error) => res.status(503).json({error}))
 }
 
+exports.getAllFishesOfUser = (req, res) => {
+    Fish.find({userId: req.params.id})
+    .then(fishes => {
+        if (fishes.length < 1) {
+            res.status(201).json({posts: false})
+        }
+        else {
+            res.status(200).json({fishes})
+        }    
+    })
+    .catch((error) => res.status(503).json({error}))
+    
+}
+
 exports.getLikeStatut = (req, res) => {
     Fish.findById(req.params.postID)
     .then((fish) => {

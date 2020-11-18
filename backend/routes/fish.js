@@ -9,6 +9,7 @@ const fishCtrl = require('../controllers/fish')
 router.post('/post', auth, multer, fishCtrl.createFish)
 router.post('/like/:id', auth, fishCtrl.likeFish)
 router.get('/home', auth, fishCtrl.getAllFishes)
+router.get('/profile/posts/:id', auth, fishCtrl.getAllFishesOfUser)
 router.get('/likeStatut/:postID/:userID', auth, fishCtrl.getLikeStatut)
 
 module.exports = router

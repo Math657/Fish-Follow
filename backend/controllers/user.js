@@ -17,8 +17,8 @@ exports.signup = (req, res, next) => {
             // startedFishingDate: req.body.startedFishingDate,
             // fishingHabits: req.body.fishingHabits,
             profilPic: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-            followers: 0,
-            following: 0,
+            followers: [],
+            following: [],
             posts: [],
             fishLike: 0,
             createdAt: Date.now()
@@ -68,5 +68,11 @@ exports.login = (req, res, next) => {
 exports.getOneUser = (req, res) => {
     User.findById(req.params.id)
     .then(user => res.status(201).json({user}))
+    .catch(error => res.status(502).json({error}))
+}
+
+exports.deleteUser = (req, res) => {
+    User.findByIdAndDelete(req.params.id)
+    .then(() => res.status(201).json({message: 'Votre compte a bien été supprimé!'}))
     .catch(error => res.status(502).json({error}))
 }

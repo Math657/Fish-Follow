@@ -10,7 +10,7 @@
             <input type="password" id="password" class="form-control" v-model="password" required>
             <router-link to="" class="mdp_lost">Mot de passe oublié ?</router-link>
 
-            <button class="btn-login" v-on:click.prevent="login()" id="btn_submit">Connexion</button>
+            <button v-on:click.prevent="login()" id="btn_submit" class="btn-main">Connexion</button>
 
         </form>   
     </div>

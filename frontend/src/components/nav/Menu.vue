@@ -14,6 +14,7 @@
                     <li><router-link :to="item.url">{{ item.name }}</router-link></li>
                 </ul>
             </div>
+            <router-link :to="'/post/'"><font-awesome-icon icon="camera-retro" class="icons"></font-awesome-icon></router-link>
             <router-link :to="`/myprofile/${userID}`"><font-awesome-icon icon="user" class="icons"></font-awesome-icon></router-link>
             <button class="btn-danger" id="btn-loggout" @click.prevent="logOut()">Se déconnecter</button>
         </div>    
@@ -38,7 +39,7 @@ export default {
 
             linksOnline: [
                 // {name: 'Mon profil', url: `/myprofil/${JSON.parse(localStorage.getItem('userID'))}`},
-                {name: 'Publier une prise', url: '/post'},
+                // {name: 'Publier une prise', url: '/post'},
                 // {name: 'Se déconnecter', url: '/'}
             ]
         }
