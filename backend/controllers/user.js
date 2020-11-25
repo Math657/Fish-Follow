@@ -76,3 +76,52 @@ exports.deleteUser = (req, res) => {
     .then(() => res.status(201).json({message: 'Votre compte a bien été supprimé!'}))
     .catch(error => res.status(502).json({error}))
 }
+
+
+exports.followOneUser = (req, res) => {
+   User.findById(req.body.authorID)
+   .then(author => {
+       if (author.following.includes(req.body.targetUser)) {
+        const i = author.following.indexOf(req.body.targetUser)
+        author.following.splice(i, 1)
+       }
+       else {
+           author.following.push(req.body.targetUser)
+       }
+       author.save()
+       .then(
+           User.findById(req.body.targetUser)
+           .then(user => {
+               if (user.followers.includes(req.body.authorID)) {
+                   const i = user.followers.indexOf(req.body.authorID)
+                   user.followers.splice(i, 1)
+               }
+               else {
+                   user.followers.push(req.body.authorID)
+               }
+               user.save()
+               .then(() => res.status(201).json({message: "Ok!"}))
+               .catch(error => res.status(502).json({error}))
+           })
+           .catch(error => res.status(502).json({error}))
+       )
+       .catch(error => res.status(502).json({error}))
+    })
+    .catch(error => res.status(502).json({error}))
+}
+
+
+
+// exports.followOneUser = (req, res) => {
+//     User.findOneAndUpdate({ _id: req.body.authorID }, { following: req.body.targetUser }, {
+//         new: true
+//     })
+//     .then(
+//         User.findByIdAndUpdate({ _id: req.body.targetUser }, { followers: req.body.authorID }, {
+//             new: true
+//         })
+//         .then(() => res.status(201).json({message: 'Votre compte a bien été supprimé!'}))
+//         .catch(error => res.status(502).json({error}))
+//     )
+//     .catch(error => res.status(502).json({error}))
+// }

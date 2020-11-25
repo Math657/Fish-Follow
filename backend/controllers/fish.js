@@ -37,10 +37,10 @@ const { find, schema } = require('../models/fish')
 // }) 
 // }
 exports.createFish = (req, res, next) => {
-    User.findById(JSON.parse(req.body.userID))
+    User.findById(req.body.userID)
     .then((user) => {
         const fish = new Fish({
-            userId: JSON.parse(req.body.userID),
+            userId: req.body.userID,
             userLastname: user.lastname,
             userFirstname: user.firstname,
             postTitle: req.body.postTitle,
@@ -101,6 +101,29 @@ exports.getLikeStatut = (req, res) => {
     .catch((error) => res.status(503).json({error}))
 }
 
+// exports.likeFish = (req, res) => {
+//     const user = req.body.userID
+//     let like = null
+//     Fish.findById({ _id: req.params.id  })
+//     .then(fish => {
+//         if (fish.usersLiked.includes(user)) {
+//             const i = fish.usersLiked.indexOf(user)
+//             fish.usersLiked.splice(i, 1)
+//             fish.likes -= 1
+//             like = false
+//         }
+//         else {
+//             fish.usersLiked.push(user)
+//             fish.likes += 1
+//             like = true
+//         }
+//         fish.save()
+//         .then(() => res.status(201).json({like}))
+//         .catch(error => res.status(502).json({error}))
+//     })
+//     .catch((error) => res.status(503).json({error}))
+// }
+
 exports.likeFish = (req, res) => {
     const user = req.body.userID
     let like = null
@@ -111,30 +134,34 @@ exports.likeFish = (req, res) => {
             fish.usersLiked.splice(i, 1)
             fish.likes -= 1
             like = false
+            fish.save()
+            .then(
+                User.findById(fish.userId)
+                .then(userFound => {
+                    userFound.fishLike -= 1
+                    userFound.save()
+                    .then(() => res.status(201).json({like}))
+                    .catch(error => res.status(501).json({error}))
+                })
+            ) 
+            .catch(error => res.status(502).json({error}))     
         }
         else {
             fish.usersLiked.push(user)
             fish.likes += 1
             like = true
+            fish.save()
+            .then(
+                User.findById(fish.userId)
+                .then(userFound => {
+                    userFound.fishLike += 1
+                    userFound.save()
+                    .then(() => res.status(201).json({like}))
+                    .catch(error => res.status(501).json({error}))
+                })
+            ) 
+            .catch(error => res.status(502).json({error})) 
         }
-        fish.save()
-        .then(() => res.status(201).json({like}))
-        .catch(error => res.status(502).json({error}))
     })
     .catch((error) => res.status(503).json({error}))
 }
-
-
-
-
-// exports.getAllFishes = (req, res) => {
-//     Fish.find()
-//     .then((fishes) => {
-//         for (let i=0; i < fishes.length; i++) {
-//             console.log(fishes[i].userId)
-//             User.findById(fishes[i].userId)
-//             .then(() => res.status(201).)
-//         }
-//     })
-//     .catch((error) => res.status(503).json({error}))
-// }

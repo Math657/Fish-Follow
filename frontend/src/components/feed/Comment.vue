@@ -57,7 +57,7 @@ export default {
                 this.$http.post('http://localhost:3000/api/auth/comment', {
                     postID: this.postID,
                     comment: this.comment,
-                    authorID: JSON.parse(localStorage.getItem('userID'))
+                    authorID: this.$store.state.userId
                 })
                 .then(() => {
                     this.showInputComment = false
@@ -206,5 +206,6 @@ export default {
 li h6 {
     margin-top: 8px;
 }
+
 
 </style>

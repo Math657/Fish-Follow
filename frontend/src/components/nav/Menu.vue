@@ -14,8 +14,9 @@
                     <li><router-link :to="item.url">{{ item.name }}</router-link></li>
                 </ul>
             </div>
+            <router-link :to="'/'"><font-awesome-icon icon="home" class="icons"></font-awesome-icon></router-link>
             <router-link :to="'/post/'"><font-awesome-icon icon="camera-retro" class="icons"></font-awesome-icon></router-link>
-            <router-link :to="`/myprofile/${userID}`"><font-awesome-icon icon="user" class="icons"></font-awesome-icon></router-link>
+            <router-link :to="`/myprofile/${this.$store.state.userId}`"><font-awesome-icon icon="user" class="icons"></font-awesome-icon></router-link>
             <button class="btn-danger" id="btn-loggout" @click.prevent="logOut()">Se déconnecter</button>
         </div>    
     </div>
@@ -28,7 +29,6 @@ export default {
     props: [],
     data() {
         return {
-            userID: JSON.parse(localStorage.getItem('userID')),
             connect: 'Se connecter',
             about: 'A propos',
 
@@ -87,8 +87,13 @@ li a:hover {
 
 .icons {
     color: #ffffff;
-    margin: 0 15px 0 0;
+    margin: 0 25px 0 0;
     font-size: 26px;
+}
+
+.icons:hover {
+    cursor: pointer;
+    opacity: 90%;
 }
 
 @media only screen and (max-width: 759px) {

@@ -59,6 +59,12 @@ Vue.use(VueRouter)
       component: UserProfilePage,
       meta: {
           requireAuth: true
+      },
+      beforeEnter: (to, from, next) => {
+          if (store.state.userId === to.params.id) {
+              next(`/myprofile/${store.state.userId}`)
+          }
+          else next()
       }
   }
 ]
@@ -69,6 +75,7 @@ const router = new VueRouter({
   routes
 })
 
+// Check if user is logged
 router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.requireAuth)) {
         if (store.state.isLogged) {

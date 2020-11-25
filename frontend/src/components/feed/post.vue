@@ -26,7 +26,7 @@
                     <p class="fish-details"><font-awesome-icon icon="map-marker-alt" class="logos" data-toggle="tooltip" title="Lieu"/> {{ location }}</p>
                 </div>
                 <div v-if="seeMoreDetails" class="more-fish-details">
-                    <p class="fish-details"><font-awesome-icon icon="wrench" class="logos" data-toggle="tooltip" title="Montage utilisé"/> {{ fishingSettup }}</p>
+                    <p v-if="fishingSettup" class="fish-details"><font-awesome-icon icon="wrench" class="logos" data-toggle="tooltip" title="Montage utilisé"/> {{ fishingSettup }}</p>
                     <p v-if="description" class="fish-details"><font-awesome-icon icon="info-circle" class="logos" data-toggle="tooltip" title="Description"/> {{ description }}</p>
                 </div>
             </div>
@@ -47,8 +47,8 @@
 
         <div>
             <div class="bottom-post">
-                <div id="btn-like" :class="{ liked: likePost, 'btn-main': !likePost }" @click="sendLike()" data-toggle="tooltip" title="Fishez, ou plutôt likez cette prise!" ><img src="../../assets/fish-icon2.png" alt="Icône d'un poisson" class="btn-fish-like-icon">{{ likeBtn }}</div>
-                <div class="btn-main" id="btn-comment" @click="showBoxToComment()"><font-awesome-icon icon="comment" class="comment-icon"/>Commenter</div>
+                <div id="btn-like" :class="{ liked: likePost, 'btn-main': !likePost }" @click="sendLike()" data-toggle="tooltip" title="Fishez, ou plutôt likez cette prise!" ><img src="../../assets/fish-icon2.png" alt="Icône d'un poisson" class="btn-fish-like-icon"><spans class="btn-label">{{ likeBtn }}</spans></div>
+                <div class="btn-main" id="btn-comment" @click="showBoxToComment()"><font-awesome-icon icon="comment" class="comment-icon"/><spans class="btn-label">Commenter</spans></div>
                 
                 <div v-if="nbComments.length > 0" @click="showBoxToComment()" class="show-comments">
                     <div class="nb-comments">{{ nbComments.length }} 
@@ -56,7 +56,7 @@
                         <p v-else> commentaire</p>
                     </div>
                 </div>
-                <div v-else>
+                <div v-else class="nb-comments">
                     Aucun commentaire
                 </div>
             </div>
@@ -100,10 +100,9 @@ export default {
         },
         sendLike() {
             this.$http.post(`http://localhost:3000/api/auth/like/${this.postID}`, {
-                userID: JSON.parse(localStorage.getItem('userID'))
+                userID: this.$store.state.userId
             })
             .then((res) => {
-                console.log(res.data)
                 this.likePost = res.data.like
                 res.data.like ? this.nbLikes += 1 : this.nbLikes -=1
             })
@@ -112,13 +111,9 @@ export default {
             })
         }
     },
-    // computed: {
-    //     nbLikes()  {
-    //         return this.likes
-    //     }
-    // },
     mounted() {
-        this.$http.get(`http://localhost:3000/api/auth/myprofile/${this.userId}`) // Get user data
+        // Get user data
+        this.$http.get(`http://localhost:3000/api/auth/myprofile/${this.userId}`)
         .then(res => {
             this.userInfos.push(res.data.user)
         })
@@ -128,7 +123,7 @@ export default {
 
 
         // Get user likeStatut
-        this.$http.get(`http://localhost:3000/api/auth/likeStatut/${this.postID}/${JSON.parse(localStorage.getItem('userID'))}`)
+        this.$http.get(`http://localhost:3000/api/auth/likeStatut/${this.postID}/${this.$store.state.userId}`)
         .then(res => {
             this.likePost = res.data.like
         })
@@ -162,6 +157,7 @@ export default {
 </script>
 
 <style>
+
 /*///////////////  POST TOP  /////////////////////*/
 
 .top-post {
@@ -193,12 +189,14 @@ export default {
     border: 1px solid #e2e2e2;
     height: 2em;
     width: 2em;
+    /* object-fit: cover; */
 }
 
 #profil-pic img {
     /* position: absolute; */
-    height: 2.2em;
+    height: 2em;
     width: 2em;
+    object-fit: cover;
     /* max-width: 100%; */
 }
 
@@ -374,5 +372,32 @@ export default {
     left: 0;
     cursor: pointer;
 } */
+
+@media only screen and (max-width: 459px) { 
+    #btn-comment, #btn-like, .nb-comments {
+        font-size: 12px;
+        /* width: auto; */
+    }
+    
+    /* .btn-label {
+        display: none;
+    } */
+
+    .btn-fish-like-icon {
+        width: 15px;
+    }
+    
+}
+
+@media only screen and (max-width: 389px) {
+    #btn-comment, #btn-like {
+        font-size: 12px;
+        width: 5em;
+    }
+
+    .btn-label {
+        display: none;
+    }
+}
 
 </style>

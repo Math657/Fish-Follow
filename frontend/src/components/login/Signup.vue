@@ -101,7 +101,7 @@ export default {
             })
             .then((res) => {
                 localStorage.setItem('userID', JSON.stringify(res.data.userId))
-                console.log(res)
+                this.$store.dispatch('StoreId')
                 this.$store.dispatch('Logged')
             })
             .catch((error) => {

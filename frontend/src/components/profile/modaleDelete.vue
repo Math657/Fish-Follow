@@ -22,13 +22,13 @@ export default {
     props: ['revele', 'toggleModale'],
     data(){
         return {
-            userID: JSON.parse(localStorage.getItem('userID'))
+        
         }
     },
     methods: {
         deleteProfil(){
             console.log(this.userID)
-            this.$http.delete(`http://localhost:3000/api/auth/myprofile/${this.userID}`)
+            this.$http.delete(`http://localhost:3000/api/auth/myprofile/${this.$store.state.userId}`)
             .then(() => {
                 localStorage.clear()
                 sessionStorage.clear()

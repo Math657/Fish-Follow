@@ -13,7 +13,8 @@ export default new Vuex.Store({
 
   state: {
       isLogged: false,
-      isNavOpen: false
+      isNavOpen: false,
+      userId: ''
   },
   mutations: {
     LOGGED_IN(state) {
@@ -22,8 +23,11 @@ export default new Vuex.Store({
     LOGGED_OUT(state) {
         state.isLogged = false
     },
-    toggleNav(state) {
+    TOGGLE_NAV(state) {
         state.isNavOpen = !state.isNavOpen
+    },
+    STORING_ID(state) {
+        state.userId = JSON.parse(localStorage.getItem('userID'))
     }
   },
   actions: {
@@ -36,8 +40,11 @@ export default new Vuex.Store({
           router.push('/login')
       },
       NavOpen({ commit }) {
-          commit('toggleNav')
+          commit('TOGGLE_NAV')
       },
+      StoreId({ commit }) {
+          commit('STORING_ID')
+      }
       
   },
   modules: {

@@ -55,7 +55,6 @@
 
 <script>
 import FormData from 'form-data'
-// import capitalizeFirstLetter from '../helpers.js'
 
 export default {
     name: 'FishSubmit',
@@ -71,9 +70,7 @@ export default {
             date: '',
             description: '',
             previewImage: null,
-            published: false,
-            userID: localStorage.getItem('userID'),
-            // noLocation: false
+            published: false
         }
     },
     methods: {
@@ -128,7 +125,7 @@ export default {
                 data.append('date', this.date)
                 data.append('fishingSettup', this.fishingSettup)
                 data.append('description', this.description)
-                data.append('userID', this.userID)
+                data.append('userID', this.$store.state.userId)
                 data.append('image', document.getElementById('file').files[0])
                 
             
@@ -164,6 +161,9 @@ input, select {
 
 .img-preview {
     background-color: #FAFAFA;
+    width: 130px;
+    height: 173px;
+    object-fit: cover;
     /* height: 5em; */
 }
 

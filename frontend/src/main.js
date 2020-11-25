@@ -22,6 +22,8 @@ import { faComment } from '@fortawesome/free-solid-svg-icons'
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import { faWrench } from '@fortawesome/free-solid-svg-icons'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faCheck} from '@fortawesome/free-solid-svg-icons'
+import { faExclamationCircle} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 
@@ -38,6 +40,8 @@ library.add(faCameraRetro)
 library.add(faComment)
 library.add(faWrench)
 library.add(faPlus)
+library.add(faCheck)
+library.add(faExclamationCircle)
 library.add(faInfoCircle)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)

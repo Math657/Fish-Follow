@@ -35,6 +35,7 @@ export default {
                     })
                 .then((response) => {
                     localStorage.setItem('userID', JSON.stringify(response.data.userId))
+                    this.$store.dispatch('StoreId')
                     this.$store.dispatch('Logged')
                 })
                 .catch((error) => {
