@@ -11,6 +11,7 @@ import UserProfile from '../components/profile/UserProfile.vue'
 
 export default {
     name: 'UserProfilePage',
+    title: 'Profil utilisateur',
     components: {
         NavBar,
         UserProfile

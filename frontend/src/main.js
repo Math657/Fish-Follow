@@ -25,6 +25,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faCheck} from '@fortawesome/free-solid-svg-icons'
 import { faExclamationCircle} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import titleMixin from './mixins/titleMixin'
 
 
 library.add(faWater)
@@ -80,6 +81,8 @@ Vue.mixin({
       }
     }
 })
+
+Vue.mixin(titleMixin)
 
 new Vue({
   router,

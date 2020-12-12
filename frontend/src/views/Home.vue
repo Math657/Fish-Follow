@@ -28,6 +28,7 @@ import DynamicFeed from '../components/feed/DynamicFeed.vue'
 
 export default {
   name: 'Home',
+  title: 'Fish & Follow',
   components: {
     NavBar,
     Login,

@@ -8,8 +8,8 @@
                 <h6 id="user-fishLike">{{ userInfos[0].fishLike }} Fish Like <font-awesome-icon icon="exclamation-circle" class="icons" data-toggle="tooltip" title="Les Fish Like sont le nombre total de J'aime sur vos prises que vous avez reçu" /></h6>
 
                 <div class="followers">
-                    <h4 v-on:click="toggleModaleFollowers" id="followers">{{ userInfos[0].followers.length }} followers</h4>
-                    <h4 v-on:click="toggleModaleFollowings" id="following">{{ userInfos[0].following.length }} following</h4>
+                    <h4 v-on:click="toggleModaleFollowers()" id="followers">{{ userInfos[0].followers.length }} followers</h4>
+                    <h4 v-on:click="toggleModaleFollowings()" id="following">{{ userInfos[0].following.length }} following</h4>
                 </div>
 
                 <p v-on:click="toggleModale" class="delete-profile mt-3">Supprimer mon compte</p>
@@ -41,9 +41,9 @@
 </template>
 
 <script>
-import modaleDelete from './modaleDelete.vue'
-import modaleFollowers from './modaleFollowers'
-import modaleFollowings from './modaleFollowings'
+import ModaleDelete from './ModaleDelete'
+import ModaleFollowers from './ModaleFollowers'
+import ModaleFollowings from './ModaleFollowings'
 
 export default {
     name: 'MyProfile',
@@ -65,7 +65,16 @@ export default {
         },
         toggleModaleFollowings() {
             this.reveleFollowings = !this.reveleFollowings
-        }
+        },
+        // getFollowers() {
+        //     this.$http.get(`http://localhost:3000/api/auth/myprofile/followers/${this.$store.state.userId}`)
+        //     .then(res => {
+        //         console.log(res)
+        //     })
+        //     .catch(err => {
+        //         this.checkIfTokenIsValid(err)
+        //     })
+        // }
     },
     mounted(){
         this.$http.get(`http://localhost:3000/api/auth/myprofile/${this.$store.state.userId}`) //get User Infos
@@ -91,9 +100,9 @@ export default {
         
     },
     components: {
-        modaleDelete,
-        modaleFollowers,
-        modaleFollowings
+        ModaleDelete,
+        ModaleFollowers,
+        ModaleFollowings
     }
 
 }
@@ -164,10 +173,6 @@ export default {
 .user-posts-list {
     list-style: none;
     padding: 0;
-}
-
-.user-posts-list li {
-    
 }
 
 

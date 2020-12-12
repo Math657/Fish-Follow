@@ -11,6 +11,7 @@ import MyProfile from '../components/profile/MyProfile.vue'
 
 export default {
     name: 'MyProfilePage',
+    title: 'Mon profil',
     components: {
         NavBar,
         MyProfile

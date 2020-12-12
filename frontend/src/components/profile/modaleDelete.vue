@@ -18,7 +18,7 @@
 <script>
 
 export default {
-    name:'modaleDelete',
+    name:'ModaleDelete',
     props: ['revele', 'toggleModale'],
     data(){
         return {

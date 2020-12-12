@@ -14,6 +14,7 @@ import FishSubmit from '../components/FishSubmit.vue'
 
 export default {
     name: 'PublishFish',
+    title: 'Publier',
     components: {
         // Top,
         NavBar,

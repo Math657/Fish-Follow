@@ -198,10 +198,6 @@ export default {
     padding: 0;
 }
 
-.user-posts-list li {
-    
-}
-
 
 @media only screen and (max-width: 759px) {
 

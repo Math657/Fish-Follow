@@ -12,6 +12,7 @@ import Signup from '../components/login/Signup.vue'
 
 export default {
     name: 'SignupPage',
+    title: 'Se créer un compte',
     components: {
         NavBar,
         Signup
