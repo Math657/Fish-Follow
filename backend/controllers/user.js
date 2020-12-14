@@ -120,6 +120,16 @@ exports.getAllFollowers = (req, res) => {
     .catch(error => res.status(502).json({error}))
 }
 
+exports.getAllFollowings = (req, res) => {
+    User.findById(req.params.id)
+    .then(user => {
+        User.find({ _id: { $in: user.following } })
+        .then((allFollowings) => res.status(200).json({allFollowings}))
+        .catch(error => res.status(501).json({error}))
+    })
+    .catch(error => res.status(502).json({error}))
+}
+
 
 
 // exports.followOneUser = (req, res) => {

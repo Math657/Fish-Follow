@@ -1,7 +1,7 @@
 <template>
     <div class="bloc-modale" v-if="reveleFollowers">
 
-        <div v-on:click="toggleModaleFollowers; getFollowers();" class="overlay"></div>
+        <div v-on:click="toggleModaleFollowers" class="overlay"></div>
 
             <div class="modale card">
                 <div class="top-modale">
@@ -9,39 +9,44 @@
                     <button v-on:click="toggleModaleFollowers"><font-awesome-icon icon="times" class="logos" /></button>
                 </div>
 
-                <div class="content-modale">
+                <div v-if="allFollowers.length > 0" class="content-modale">
                     <ul class="followers-list">
                         <li :key="i" v-for="(followers, i) in allFollowers">
-                             <router-link class="username-pic" :to="`/user/${allFollowers[i]._id}`" data-toggle="tooltip" title="Voir le profil" >
+                            <router-link class="username-pic" :to="`/user/${allFollowers[i]._id}`" data-toggle="tooltip" title="Voir le profil" >
                                 <div v-if="allFollowers.length > 0" id="comment-profil-pic">
                                     <img :src="allFollowers[i].profilPic" alt="Photo de profil">
                                 </div>
                                 <p class="follower-name">{{ allFollowers[i].firstname }} {{ allFollowers[i].lastname }}</p>
                             </router-link>
 
-                            <!-- créer component follow -->
-
-                            <div v-if="!isFollow" v-on:click="follow(allFollowers[i]._id)" class="btn-main btn-follow"><font-awesome-icon icon="plus" class="icons-plus"/>Suivre</div>
-                            <div v-if="isFollow" v-on:click="follow()" class="btn-main btn-following"><font-awesome-icon icon="check" class="icons-plus"/>Suivis</div>
+                            <Follow :targetUserId="allFollowers[i]._id"
+                                    :userFollowers="userFollowers"
+                                    :userFollowings="userFollowings">
+                            </Follow>
                         </li>
                     </ul>     
+                </div>
+                <div v-else>
+                    <p class="follower-name mt-4">Aucun follower</p>
                 </div>
             </div>
     </div>
 </template>
 
 <script>
+import Follow from './Follow'
+
 export default {
     name: 'ModaleFollowers',
-    props: ['reveleFollowers', 'toggleModaleFollowers'],
+    props: ['reveleFollowers', 'toggleModaleFollowers', 'id', 'userFollowers', 'userFollowings'],
     data() {
         return  {
             allFollowers: [],
-            isFollow: false
+            doFollow: false
         }
     },
     mounted() {
-         this.$http.get(`http://localhost:3000/api/auth/myprofile/followers/${this.$store.state.userId}`)
+        this.$http.get(`http://localhost:3000/api/auth/profile/followers/${this.id}`)
         .then(res => {
             for (let followers of res.data.allFollowers) {
                 this.allFollowers.push(followers)
@@ -51,22 +56,9 @@ export default {
              this.checkIfTokenIsValid(err)
         })
     },
-    methods: {
-        // follow(userId) {
-        //     this.$http.post('http://localhost:3000/api/auth/follow', {
-        //         targetUser:userId,
-        //         authorID: this.$store.state.userId
-        //     })
-        //     .then(res => {
-        //         console.log(res)
-        //         this.isFollow = !this.isFollow
-        //     })
-        //     .catch(err => {
-        //         console.log(err)
-        //     })
-        // }
-    }
-
+    components: {
+        Follow
+    } 
 }
 </script>
 
@@ -99,7 +91,7 @@ export default {
     color: #0A3046;
     padding: 10px;
     position: fixed;
-    bottom: 60%;
+    top: 20%;
     width: 25em;
 }
 
@@ -133,16 +125,19 @@ export default {
     justify-content: space-evenly;
 }
 
-
 .follower-name {
     color: #0A3046;
     margin-left: 1em;
 }
 
+ul:last-child {
+    margin-bottom: 0;
+}
+
 @media only screen and (max-width: 559px) { 
     .modale {
         position: fixed;
-        bottom: 60%;
+        top: 20%;
         width: 70vw;
     }
 }

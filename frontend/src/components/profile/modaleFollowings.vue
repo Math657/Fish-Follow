@@ -4,25 +4,64 @@
         <div v-on:click="toggleModaleFollowings" class="overlay"></div>
 
             <div class="modale card">
-                
+                <div class="top-modale">
+                    <h5>Followings</h5>
+                    <button v-on:click="toggleModaleFollowings"><font-awesome-icon icon="times" class="logos" /></button>
+                </div>
+
+                <div v-if="allFollowings.length > 0" class="content-modale">
+                    <ul class="followings-list">
+                        <li :key="i" v-for="(followings, i) in allFollowings">
+                            <router-link class="username-pic" :to="`/user/${allFollowings[i]._id}`" data-toggle="tooltip" title="Voir le profil" >
+                                <div v-if="allFollowings.length > 0" id="comment-profil-pic">
+                                    <img :src="allFollowings[i].profilPic" alt="Photo de profil">
+                                </div>
+                                <p class="following-name">{{ allFollowings[i].firstname }} {{ allFollowings[i].lastname }}</p>
+                            </router-link>
+
+                            <Follow :targetUserId="allFollowings[i]._id"
+                                    :userFollowers="userFollowers"
+                                    :userFollowings="userFollowings">
+                            </Follow>
+                        </li>
+                    </ul>
+                </div>
+                <div v-else>
+                    <p class="following-name">Aucun following</p>
+                </div>
             </div>
     </div>
 </template>
 
 <script>
+import Follow from './Follow'
+
 export default {
     name: 'ModaleFollowings',
-    props: ['reveleFollowings', 'toggleModaleFollowings'],
-    date() {
+    props: ['reveleFollowings', 'toggleModaleFollowings', 'id', 'userFollowers', 'userFollowings'],
+    data() {
         return  {
-
+            allFollowings: []
         }
+    },
+    mounted() {
+        this.$http.get(`http://localhost:3000/api/auth/profile/followings/${this.id}`)
+        .then(res => {
+            for (let followings of res.data.allFollowings) {
+                this.allFollowings.push(followings)
+            }
+        })
+        .catch(err => {
+            this.checkIfTokenIsValid(err)
+        })
+    },
+    components: {
+        Follow
     }
-
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 
 .bloc-modale {
     position: fixed;
@@ -48,24 +87,58 @@ export default {
 
 .modale {
     background: #f1f1f1;
-    color: #333;
-    padding: 50px;
+    color: #0A3046;
+    padding: 10px;
     position: fixed;
-    bottom: 40%;
+    top: 20%;
+    width: 25em;
 }
 
-.btn {
-    width: 6em;
-}
-
-.both-btn {
+.top-modale {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    border-bottom: 1px solid rgb(189, 187, 187);  
+}
+
+.top-modale h5 {
+    margin-right: auto;
+}
+
+.top-modale button {
+    border: none;
+    font-size: 24px;
+    background: #f1f1f1;
+    color: #0A3046;
+}
+
+.followings-list {
+    list-style: none;
+    margin: 1em;
+    padding-left: 0;
+}
+
+.followings-list li {
+    display: flex;
+    align-items: baseline;
     justify-content: space-evenly;
 }
 
-.btn-main:hover {
-    cursor: pointer;
+.following-name {
+    color: #0A3046;
+    margin-left: 1em;
+}
+
+ul:last-child {
+    margin-bottom: 0;
+}
+
+@media only screen and (max-width: 559px) { 
+    .modale {
+        position: fixed;
+        top: 20%;
+        width: 70vw;
+    }
 }
 
 </style>

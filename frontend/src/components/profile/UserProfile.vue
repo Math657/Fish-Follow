@@ -6,20 +6,32 @@
                 <div class="username-follow">
                     <h4 id="username">{{ userInfos[0].firstname }} {{ userInfos[0].lastname }}</h4>
                     <h6 id="user-fishLike">{{ userInfos[0].fishLike }} Fish Like <font-awesome-icon icon="exclamation-circle" class="icons" data-toggle="tooltip" title="Les Fish Like sont le nombre total de J'aime sur vos prises que vous avez reçu" /></h6>
-                <div v-if="!isFollow" v-on:click="follow()" class="btn-main btn-follow btn-center"><font-awesome-icon icon="plus" class="icons-plus"/>Suivre</div>
-                <div v-if="isFollow" v-on:click="follow()" class="btn-main btn-following btn-center"><font-awesome-icon icon="check" class="icons-plus"/>Suivis</div>
+                <div v-if="!doFollow" v-on:click="follow()" class="btn-main btn-follow btn-center"><font-awesome-icon icon="plus" class="icons-plus"/>Suivre</div>
+                <div v-if="doFollow" v-on:click="follow()" class="btn-main btn-following btn-center"><font-awesome-icon icon="check" class="icons-plus"/>Suivis</div>
                 </div>
                 
 
                 <div class="followers">
-                    <h4 id="followers">{{ userInfos[0].followers.length }} followers</h4>
-                    <h4 id="following">{{ userInfos[0].following.length }} following</h4>
+                    <h4 v-on:click="toggleModaleFollowers()" id="followers">{{ userInfos[0].followers.length }} followers</h4>
+                    <h4 v-on:click="toggleModaleFollowings()" id="following">{{ userInfos[0].following.length }} following</h4>
                 </div>
 
                 <!-- v-if admin -->
                 <!-- <p v-on:click="toggleModale" class="delete-profile mt-3">Supprimer mon compte</p> -->
 
                 <!-- <modaleDelete :revele="revele" :toggleModale="toggleModale"></modaleDelete> -->
+
+                <modaleFollowers :reveleFollowers="reveleFollowers"
+                                 :toggleModaleFollowers="toggleModaleFollowers"
+                                 :id="this.$route.params.id"
+                                 :userFollowers="userInfos[0].followers"
+                                 :userFollowings="userInfos[0].following">
+                </modaleFollowers>
+
+                <modaleFollowings :reveleFollowings="reveleFollowings"
+                                  :toggleModaleFollowings="toggleModaleFollowings"
+                                  :id="this.$route.params.id">
+                </modaleFollowings>
    
             </div>
         </div>
@@ -41,6 +53,9 @@
 </template>
 
 <script>
+import ModaleFollowers from './ModaleFollowers'
+import ModaleFollowings from './ModaleFollowings'
+
 export default {
     name: 'UserProfile',
     data() {
@@ -48,7 +63,10 @@ export default {
             userId: this.$route.params.id,
             userInfos: [],
             userPosts: [],
-            isFollow: false
+            doFollow: false,
+            revele: false,
+            reveleFollowers: false,
+            reveleFollowings: false
         }
     },
     methods: {
@@ -57,22 +75,31 @@ export default {
                 targetUser: this.userId,
                 authorID: this.$store.state.userId
             })
-            .then(res => {
-                console.log(res)
-                this.isFollow = !this.isFollow
+            .then(() => {
+                this.doFollow ? this.userInfos[0].followers.length -= 1 : this.userInfos[0].followers.length += 1
+                this.doFollow = !this.doFollow
             })
             .catch(err => {
                 console.log(err)
             })
+        },
+        toggleModale: function() {
+            this.revele = !this.revele
+        },
+        toggleModaleFollowers() {
+            this.reveleFollowers = !this.reveleFollowers
+        },
+        toggleModaleFollowings() {
+            this.reveleFollowings = !this.reveleFollowings
         }
     },
     mounted(){
-        this.$http.get(`http://localhost:3000/api/auth/myprofile/${this.userId}`) //get User Infos
+        this.$http.get(`http://localhost:3000/api/auth/profile/${this.userId}`) //get User Infos
         .then(res => {
             this.userInfos.push(res.data.user)
-            console.log(this.userInfos[0].followers)
+            console.log(this.userInfos[0].followers.length)
             if (this.userInfos[0].followers.includes(this.$store.state.userId)) {
-                this.isFollow = !this.isFollow
+                this.doFollow = !this.doFollow
             }
         })
         .catch((err) => {
@@ -90,8 +117,11 @@ export default {
         })
         .catch((err) => {
            this.checkIfTokenIsValid(err)
-        })
-        
+        }) 
+    },
+    components: {
+        ModaleFollowers,
+        ModaleFollowings
     }
 
 }

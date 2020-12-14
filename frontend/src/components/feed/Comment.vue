@@ -2,7 +2,7 @@
     <div>
         <div v-if="showBoxComments" class="comment-box">
             <div v-if="showInputComment" class="sendbox-comment">
-                <textarea-autosize :min-height="20" :max-height="350" rows="1" type="text" autofocus class="input-comment" maxlength="200" placeholder="Votre commentaire..." v-model="comment"></textarea-autosize>
+                <textarea-autosize v-model="comment" :min-height="20" :max-height="350" rows="1" type="text" autofocus class="input-comment" maxlength="200" placeholder="Votre commentaire..."></textarea-autosize>
                 <button class="mb-1 btn-main" id="send-comment" @click="submitComment()">Publier</button>
             </div>
             <div v-if="commentPublished">

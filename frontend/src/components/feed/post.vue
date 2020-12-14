@@ -113,7 +113,7 @@ export default {
     },
     mounted() {
         // Get user data
-        this.$http.get(`http://localhost:3000/api/auth/myprofile/${this.userId}`)
+        this.$http.get(`http://localhost:3000/api/auth/profile/${this.userId}`)
         .then(res => {
             this.userInfos.push(res.data.user)
         })

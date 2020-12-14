@@ -1,0 +1,45 @@
+<template>
+    <div class="btn-follow-comp">
+        <div v-if="!doFollow" v-on:click="follow()" class="btn-main btn-follow"><font-awesome-icon icon="plus" class="icons-plus"/>Suivre</div>
+        <div v-if="doFollow" v-on:click="follow()" class="btn-main btn-following"><font-awesome-icon icon="check" class="icons-plus"/>Suivis</div>
+    </div>
+</template>
+
+<script>
+export default {
+    name: 'Follow',
+    props: {
+        targetUserId: String,
+        userFollowers: Array,
+        userFollowings: Array
+    },
+    data() {
+        return {
+            doFollow: false
+        }
+    },
+    mounted() {
+        if (this.userFollowings.includes(this.targetUserId)) {
+            this.doFollow = true
+        }
+    },
+    methods: {
+        follow() {
+            this.$http.post('http://localhost:3000/api/auth/follow', {
+                targetUser: this.targetUserId,
+                authorID: this.$store.state.userId
+            })
+            .then(() => {
+                this.doFollow = !this.doFollow
+            })
+            .catch((err) => {
+                this.checkIfTokenIsValid(err)
+            })
+        }
+    }
+}
+</script>
+
+<style>
+
+</style>

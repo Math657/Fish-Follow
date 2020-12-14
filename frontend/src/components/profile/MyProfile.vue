@@ -15,8 +15,18 @@
                 <p v-on:click="toggleModale" class="delete-profile mt-3">Supprimer mon compte</p>
 
                 <modaleDelete :revele="revele" :toggleModale="toggleModale"></modaleDelete>
-                <modaleFollowers :reveleFollowers="reveleFollowers" :toggleModaleFollowers="toggleModaleFollowers"></modaleFollowers>
-                <modaleFollowings :reveleFollowings="reveleFollowings" :toggleModaleFollowings="toggleModaleFollowings"></modaleFollowings>
+                
+                <modaleFollowers :reveleFollowers="reveleFollowers"
+                                 :toggleModaleFollowers="toggleModaleFollowers"
+                                 :id="this.$store.state.userId"
+                                 :userFollowers="userInfos[0].followers"
+                                 :userFollowings="userInfos[0].following">
+                </modaleFollowers>
+
+                <modaleFollowings :reveleFollowings="reveleFollowings"
+                                  :toggleModaleFollowings="toggleModaleFollowings"
+                                  :id="this.$store.state.userId">
+                </modaleFollowings>
                 
             </div>
     
@@ -77,7 +87,7 @@ export default {
         // }
     },
     mounted(){
-        this.$http.get(`http://localhost:3000/api/auth/myprofile/${this.$store.state.userId}`) //get User Infos
+        this.$http.get(`http://localhost:3000/api/auth/profile/${this.$store.state.userId}`) //get User Infos
         .then(res => {
             this.userInfos.push(res.data.user)
         })

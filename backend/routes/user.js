@@ -9,9 +9,10 @@ const userCtrl = require('../controllers/user')
 router.post('/signup', multer, userCtrl.signup)
 router.post('/login', userCtrl.login)
 router.post('/follow', auth, userCtrl.followOneUser)
-router.get('/myprofile/:id', auth, userCtrl.getOneUser)
-router.get('/myprofile/followers/:id', auth, userCtrl.getAllFollowers)
-router.delete('/myprofile/:id', auth, userCtrl.deleteUser)
+router.get('/profile/:id', auth, userCtrl.getOneUser)
+router.get('/profile/followers/:id', auth, userCtrl.getAllFollowers)
+router.get('/profile/followings/:id', auth, userCtrl.getAllFollowings)
+router.delete('/profile/:id', auth, userCtrl.deleteUser)
 
 
 module.exports = router
