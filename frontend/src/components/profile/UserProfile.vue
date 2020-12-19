@@ -30,7 +30,9 @@
 
                 <modaleFollowings :reveleFollowings="reveleFollowings"
                                   :toggleModaleFollowings="toggleModaleFollowings"
-                                  :id="this.$route.params.id">
+                                  :id="this.$route.params.id"
+                                  :userFollowers="userInfos[0].followers"
+                                  :userFollowings="userInfos[0].following">
                 </modaleFollowings>
    
             </div>

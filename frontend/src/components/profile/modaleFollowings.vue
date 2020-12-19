@@ -27,7 +27,7 @@
                     </ul>
                 </div>
                 <div v-else>
-                    <p class="following-name">Aucun following</p>
+                    <p class="following-name mt-4">Aucun following</p>
                 </div>
             </div>
     </div>
