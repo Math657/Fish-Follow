@@ -24,6 +24,7 @@ import { faWrench } from '@fortawesome/free-solid-svg-icons'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faCheck} from '@fortawesome/free-solid-svg-icons'
 import { faExclamationCircle} from '@fortawesome/free-solid-svg-icons'
+import { faSearch} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import titleMixin from './mixins/titleMixin'
 
@@ -44,6 +45,7 @@ library.add(faPlus)
 library.add(faCheck)
 library.add(faExclamationCircle)
 library.add(faInfoCircle)
+library.add(faSearch)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

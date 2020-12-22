@@ -12,6 +12,7 @@ router.post('/follow', auth, userCtrl.followOneUser)
 router.get('/profile/:id', auth, userCtrl.getOneUser)
 router.get('/profile/followers/:id', auth, userCtrl.getAllFollowers)
 router.get('/profile/followings/:id', auth, userCtrl.getAllFollowings)
+router.post('/search', auth, userCtrl.searchUsers)
 router.delete('/profile/:id', auth, userCtrl.deleteUser)
 
 

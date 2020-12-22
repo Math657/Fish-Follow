@@ -9,12 +9,14 @@
         </div>
         
         <div class="menu" v-else>
-           <div v-for="item in linksOnline" v-bind:item="item" :key="item.name">
+           <!-- <div v-for="item in linksOnline" v-bind:item="item" :key="item.name">
                 <ul>
                     <li><router-link :to="item.url">{{ item.name }}</router-link></li>
                 </ul>
-            </div>
-            <router-link :to="'/'"><font-awesome-icon icon="home" class="icons"></font-awesome-icon></router-link>
+            </div> -->
+            <!-- <router-link :to="'/'"><font-awesome-icon icon="home" class="icons"></font-awesome-icon></router-link> -->
+            <!-- <font-awesome-icon icon="search" class="icons"></font-awesome-icon> -->
+            <Search></Search>
             <router-link :to="'/post/'"><font-awesome-icon icon="camera-retro" class="icons"></font-awesome-icon></router-link>
             <router-link :to="`/myprofile/${this.$store.state.userId}`"><font-awesome-icon icon="user" class="icons"></font-awesome-icon></router-link>
             <button class="btn-danger" id="btn-loggout" @click.prevent="logOut()">Se déconnecter</button>
@@ -23,6 +25,7 @@
 </template>
 
 <script>
+import Search from './Search'
 
 export default {
     name: 'Menu',
@@ -52,7 +55,7 @@ export default {
         }
     },
     components: {
-
+        Search
     }
 }
 </script>

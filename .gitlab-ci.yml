@@ -1,0 +1,13 @@
+image: docker:git
+services:
+  - docker:dind
+
+stages:
+  - build
+  - release
+  - deploy
+
+build: 
+  stage: build
+  script:
+    
