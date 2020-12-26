@@ -131,9 +131,18 @@ exports.getAllFollowings = (req, res) => {
 }
 
 exports.searchUsers = (req, res) => {
+    // console.log(req.body)
+    // res.status(200).json({message: 'Ok'})
+    console.log('//////////////////////////////////////////////////////')
+    console.log('//////////////////////////////////////////////////////')
+    console.log('//////////////////////////////////////////////////////')
     console.log(req.body)
-    res.status(200).json({message: 'Ok'})
-    // User.find({ })
+    let regexpLowCase = new RegExp("^" + req.body.toString().toLowerCase())
+    let regexpUpperCase = new RegExp("^" + req.body.toString().toUpperCase())
+    User.find({ firstname: {$in: [regexpUpperCase, regexpLowCase]} })
+    .then((usersFound) => console.log(usersFound))
+    // res.status(200).json(usersFound))
+    .catch(error => res.status(502).json({error}))
 }
 
 
