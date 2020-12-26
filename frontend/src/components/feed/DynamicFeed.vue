@@ -41,7 +41,7 @@ export default {
         }
     },
     mounted() {
-        this.$http.get('http://localhost:3000/api/auth/home')
+        this.$http.get(`http://localhost:3000/api/auth/home/${this.$store.state.userId}`)
         .then((res) => {
             for (let fish of res.data) {          
                     this.allFishes.push(fish)   

@@ -47,8 +47,8 @@
 
         <div>
             <div class="bottom-post">
-                <div id="btn-like" :class="{ liked: likePost, 'btn-main': !likePost }" @click="sendLike()" data-toggle="tooltip" title="Fishez, ou plutôt likez cette prise!" ><img src="../../assets/fish-icon2.png" alt="Icône d'un poisson" class="btn-fish-like-icon"><spans class="btn-label">{{ likeBtn }}</spans></div>
-                <div class="btn-main" id="btn-comment" @click="showBoxToComment()"><font-awesome-icon icon="comment" class="comment-icon"/><spans class="btn-label">Commenter</spans></div>
+                <div id="btn-like" :class="{ liked: likePost, 'btn-main': !likePost }" @click="sendLike()" data-toggle="tooltip" title="Fishez, ou plutôt likez cette prise!" ><img src="../../assets/fish-icon2.png" alt="Icône d'un poisson" class="btn-fish-like-icon"><span class="btn-label">{{ likeBtn }}</span></div>
+                <div class="btn-main" id="btn-comment" @click="showBoxToComment()"><font-awesome-icon icon="comment" class="comment-icon"/><span class="btn-label">Commenter</span></div>
                 
                 <div v-if="nbComments.length > 0" @click="showBoxToComment()" class="show-comments">
                     <div class="nb-comments">{{ nbComments.length }} 

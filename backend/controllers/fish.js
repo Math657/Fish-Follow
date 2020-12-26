@@ -2,40 +2,6 @@ const Fish = require('../models/fish')
 const User = require('../models/user')
 const { find, schema } = require('../models/fish')
 
-// exports.createFish = (req, res, next) => {
-//     schema.pre("save", function(next) {
-//         this.name.charAt(0).toUpperCase() + this.name.slice(1).toLowerCase()
-//         next()
-    
-//     User.findById(JSON.parse(req.body.userID))
-//     .then((user) => {
-//         const fish = new Fish({
-//             userId: JSON.parse(req.body.userID),
-//             userLastname: user.lastname,
-//             userFirstname: user.firstname,
-//             fishName: req.body.fishName,
-//             fishSize: req.body.fishSize,
-//             bait: req.body.bait,
-//             water: req.body.water,
-//             location: req.body.location,
-//             date: req.body.date,
-//             fishingSettup: req.body.fishingSettup,
-//             description: req.body.description,
-//             fishPic: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-//             comments: [],
-//             likes: 0,
-//             createdAt: Date.now()
-//         })
-//         fish.save()
-//         .then(() => res.status(201).json({ message: 'Publication publiée !'}))
-//         .catch(error => res.status(501).json({error}))
-//     })
-//     .catch(error => {
-//         console.log(error)
-//         res.status(502).json({error})
-//     }) 
-// }) 
-// }
 exports.createFish = (req, res, next) => {
     User.findById(req.body.userID)
     .then((user) => {
@@ -69,10 +35,36 @@ exports.createFish = (req, res, next) => {
 }
 
 exports.getAllFishes = (req, res) => {
-    Fish.find().sort([['createdAt', -1]])
-    .then((fishes) => {res.status(200).json(fishes)})
-    .catch((error) => res.status(503).json({error}))
+    User.findById(req.params.id)
+    .then(user => {
+        if (user.following.length > 0) {
+            let allFishes = []
+            for (i = 0; i < user.following.length; i++) {
+                Fish.find({ userId: user.following[i] })
+                .then(fishesOfUser => {
+                    if (fishesOfUser.length > 0) {
+                        allFishes.push(fishesOfUser)
+                    }    
+                })
+                .catch((error) => res.status(502).json({error}))
+            }
+            console.log(allFishes)    
+        }
+        else {
+            Fish.find().sort([['createdAt', -1]])
+            .then((fishes) => {res.status(200).json(fishes)})
+            .catch((error) => res.status(503).json({error}))
+        }
+    })   
 }
+
+// Working : Get all posts
+
+// exports.getAllFishes = (req, res) => {
+//     Fish.find().sort([['createdAt', -1]])
+//     .then((fishes) => {res.status(200).json(fishes)})
+//     .catch((error) => res.status(503).json({error}))
+// }
 
 exports.getAllFishesOfUser = (req, res) => {
     Fish.find({userId: req.params.id})
