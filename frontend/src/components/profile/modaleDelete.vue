@@ -3,7 +3,7 @@
 
         <div v-on:click="toggleModale" class="overlay"></div>
 
-            <div class="modale card">
+            <div class="modale-delete card">
                 <h3 class="mb-2">Voulez-vous vraiment supprimer votre compte ?</h3>
                 <h5 class="mb-4">Cette action est irréversible</h5>
                     <div class="both-btn">
@@ -26,8 +26,7 @@ export default {
         }
     },
     methods: {
-        deleteProfil(){
-            console.log(this.userID)
+        deleteProfil() {
             this.$http.delete(`http://localhost:3000/api/auth/myprofile/${this.$store.state.userId}`)
             .then(() => {
                 localStorage.clear()
@@ -68,7 +67,7 @@ export default {
     right: 0;
 }
 
-.modale {
+.modale-delete {
     background: #f1f1f1;
     color: #333;
     padding: 50px;

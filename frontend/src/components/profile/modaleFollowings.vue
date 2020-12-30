@@ -3,7 +3,7 @@
 
         <div v-on:click="toggleModaleFollowings" class="overlay"></div>
 
-            <div class="modale card">
+            <div class="modale-followings card">
                 <div class="top-modale">
                     <h5>Followings</h5>
                     <button v-on:click="toggleModaleFollowings"><font-awesome-icon icon="times" class="logos" /></button>
@@ -85,7 +85,7 @@ export default {
     right: 0;
 }
 
-.modale {
+.modale-followings {
     background: #f1f1f1;
     color: #0A3046;
     padding: 10px;

@@ -6,23 +6,37 @@
 
             <label for="email">Adresse e-mail</label>
             <input type="email" id="email" class="form-control" v-model="email" required>
+            <p v-if="!emailIsCompleted" class="error">Veuillez saisir une adresse email valide</p>
+            <p v-if="emailAlreadyUsed" class="error">Cette adresse email est déjà utilisé</p>
+
 
             <label for="password">Mot de passe</label>
             <input type="password" id="password" class="form-control" v-model="password" required>
+            <p v-if="!pswIsCompleted" class="error">Veuillez saisir un mot de passe</p>
+            <p v-if="!pswIsLength" class="error">Votre mot de passe doit contenir au moins 8 caractères!</p>
 
+            <label for="password-confirm">Confirmer votre mot de passe</label>
+            <input type="password" id="password-confirm" class="form-control" v-model="passwordConfirm" required>
+            <p v-if="!pswIsConfirmed" class="error">Veuillez confirmer votre mot de passe</p>
+            <p v-if="!pswIsCorrect" class="error">Les mots de passe ne correspondent pas</p>
+            
             <label for="nom">Nom</label>
             <input type="text" id="lastname" class="form-control" v-model="lastname" required>
+            <p v-if="!lastnameIsCompleted" class="error">Veuillez saisir un nom</p>
 
             <label for="firstname">Prénom</label>
             <input type="text" id="firstname" class="form-control" v-model="firstname" required>
+            <p v-if="!firstnameIsCompleted" class="error">Veuillez saisir un prénom</p>
 
             <label for="birthday">Date de naissance</label>
             <input type="date" id="birthday" class="form-control" v-model="birthday" required>
+            <p v-if="!birthdayIsCompleted" class="error">Veuillez saisir une date de naissance</p>
             
     
-            <label for="profilPic">Photo de profil</label>
-            <input type="file" id="file" name="file" accept="image/*" @change="onFileAdded" required>
+            <label for="profilPic">Photo de profil*</label>
+            <input type="file" id="file" name="file" accept="image/*" @change="onFileAdded">
             <img :src="previewImage" class="img-preview" />
+            <!-- <p v-if="!previewImage" class="error">Veuillez choisir une photo de profil</p> -->
             
 
             <button @click.prevent="checkForm(); signup()" id="btn_submit" class="btn-main">S'inscrire</button>
@@ -42,34 +56,73 @@ export default {
             lastname: null,
             firstname: null,
             password: null,
+            passwordConfirm: null,
             birthday: null,
-            previewImage: null
+            previewImage: null,
+            emailIsCompleted: true,
+            lastnameIsCompleted: true,
+            firstnameIsCompleted: true,
+            pswIsCompleted: true,
+            pswIsConfirmed: true,
+            pswIsCorrect: true,
+            pswIsLength: true,
+            birthdayIsCompleted: true,
+            emailAlreadyUsed: false,
         }
     },
     methods: {
         checkForm: function (e) {
         
             if (!this.reg.test(this.email)) {
-                console.log('Entrez un email valide!')
+                this.emailIsCompleted = false
                 return false
             }
-            if (!this.lastname) {
-                console.log('Nom requis!')
-                return false
-            }
-            if (!this.firstname) {
-                console.log('Prénom requis!')
-                return false
-            }
-            if (!this.password) {
-                console.log('Mot de passe requis!')
+            if (!this.password & !this.passwordConfirm) {
+                this.emailIsCompleted = true
+                this.pswIsCompleted = false
+                this.pswIsConfirmed = false
                 return false
             }
             if (this.password.length < 7) {
-                console.log('Votre mot de passe doit contenir au moins 8 caractères!')
+                this.pswIsCompleted = true
+                this.emailIsCompleted = true
+                this.pswIsLength = false
                 return false            
             }
+            if (this.password !== this.passwordConfirm) {
+                this.pswIsLength = true
+                this.pswIsConfirmed = true
+                this.pswIsCorrect = false
+                return false
+            }
+            if (!this.lastname) {
+                this.pswIsCorrect = true
+                this.pswIsLength = true
+                this.pswIsCompleted = true
+                this.emailIsCompleted = true
+                this.lastnameIsCompleted = false
+                return false
+            }
+            if (!this.firstname) {
+                this.lastnameIsCompleted = true
+                this.pswIsLength = true
+                this.pswIsCompleted = true
+                this.emailIsCompleted = true
+                this.firstnameIsCompleted = false
+                return false
+            }
+            
+            if (!this.birthday) {
+                this.firstnameIsCompleted = true
+                this.lastnameIsCompleted = true
+                this.pswIsLength = true
+                this.pswIsCompleted = true
+                this.emailIsCompleted = true
+                this.birthdayIsCompleted = false
+                return false
+            }
             if (this.email && this.lastname && this.firstname && this.password && this.birthday) {
+                this.birthdayIsCompleted = true
                 return true
             }
             e.preventDefault()   
@@ -105,7 +158,11 @@ export default {
                 this.$store.dispatch('Logged')
             })
             .catch((error) => {
-                console.log(error)
+                if (error.response.status === 401) {
+                    this.emailAlreadyUsed = true
+                } else {
+                    console.log(error)
+                }
             })}
         }
     }
@@ -159,6 +216,11 @@ p {
     /* border: 1px solid #DDD; */
     padding: 5px;
     margin: 1em;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
 }
 
 </style>

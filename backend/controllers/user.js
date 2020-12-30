@@ -5,39 +5,83 @@ const fs = require('fs')
 const User = require('../models/user')
 
 exports.signup = (req, res, next) => {
-    bcrypt.hash(req.body.password, 10)
-    .then(hash => {
-        const user = new User({
-            email: req.body.email,
-            password: hash,
-            lastname: req.body.lastname,
-            firstname: req.body.firstname,
-            birthday: req.body.birthday,
-            // livingArea: req.body.livingArea,
-            // startedFishingDate: req.body.startedFishingDate,
-            // fishingHabits: req.body.fishingHabits,
-            profilPic: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-            followers: [],
-            following: [],
-            posts: [],
-            fishLike: 0,
-            createdAt: Date.now()
-        })
-        user.save()
-        .then(userCreated => {
-            let token = jwt.sign(
-                {userId: userCreated.id},
-                process.env.SECRET_KEY,
-                {expiresIn: '24h'})
+    User.findOne({ email: req.body.email})
+    .then(userExist => {
+        if (userExist === null) {
+            bcrypt.hash(req.body.password, 10)
+            .then(hash => {
+                const user = new User({
+                    email: req.body.email,
+                    password: hash,
+                    lastname: req.body.lastname,
+                    firstname: req.body.firstname,
+                    birthday: req.body.birthday,
+                    // livingArea: req.body.livingArea,
+                    // startedFishingDate: req.body.startedFishingDate,
+                    // fishingHabits: req.body.fishingHabits,
+                    profilPic: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+                    followers: [],
+                    following: [],
+                    posts: [],
+                    fishLike: 0,
+                    createdAt: Date.now()
+                })
+                user.save()
+                .then(userCreated => {
+                    let token = jwt.sign(
+                        {userId: userCreated.id},
+                        process.env.SECRET_KEY,
+                        {expiresIn: '24h'})
 
-                res.cookie('token', token, { expires: new Date(Date.now() + 240 * 3600000) })
-                res.status(200).json({userId: userCreated.id})
-        })
-        // .then(() => res.status(201).json({ message: 'Utilisateur créé!' }))
-        .catch(error => res.status(400).json({error}))
+                        res.cookie('token', token, { expires: new Date(Date.now() + 240 * 3600000) })
+                        res.status(200).json({userId: userCreated.id})
+                })
+                // .then(() => res.status(201).json({ message: 'Utilisateur créé!' }))
+                .catch(error => res.status(400).json({error}))
+            })
+            .catch(error => res.status(500).json({error}))
+        } else {
+            res.status(401).json({message: 'Email déjà utilisé!'})
+        }
     })
-    .catch(error => res.status(500).json({error}))
+    .catch(error => res.status(400).json({error}))
+    
 }
+
+// exports.signup = (req, res, next) => {
+//     bcrypt.hash(req.body.password, 10)
+//     .then(hash => {
+//         const user = new User({
+//             email: req.body.email,
+//             password: hash,
+//             lastname: req.body.lastname,
+//             firstname: req.body.firstname,
+//             birthday: req.body.birthday,
+//             // livingArea: req.body.livingArea,
+//             // startedFishingDate: req.body.startedFishingDate,
+//             // fishingHabits: req.body.fishingHabits,
+//             profilPic: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+//             followers: [],
+//             following: [],
+//             posts: [],
+//             fishLike: 0,
+//             createdAt: Date.now()
+//         })
+//         user.save()
+//         .then(userCreated => {
+//             let token = jwt.sign(
+//                 {userId: userCreated.id},
+//                 process.env.SECRET_KEY,
+//                 {expiresIn: '24h'})
+
+//                 res.cookie('token', token, { expires: new Date(Date.now() + 240 * 3600000) })
+//                 res.status(200).json({userId: userCreated.id})
+//         })
+//         // .then(() => res.status(201).json({ message: 'Utilisateur créé!' }))
+//         .catch(error => res.status(400).json({error}))
+//     })
+//     .catch(error => res.status(500).json({error}))
+// }
 
 exports.login = (req, res, next) => {
     User.findOne({ email: req.body.email })
@@ -73,7 +117,7 @@ exports.getOneUser = (req, res) => {
 
 exports.deleteUser = (req, res) => {
     User.findByIdAndDelete(req.params.id)
-    .then(() => res.status(201).json({message: 'Votre compte a bien été supprimé!'}))
+    .then(() => res.status(200).json({message: 'Votre compte a bien été supprimé!'}))
     .catch(error => res.status(502).json({error}))
 }
 
@@ -144,19 +188,3 @@ exports.searchUsers = (req, res) => {
     // res.status(200).json(usersFound))
     .catch(error => res.status(502).json({error}))
 }
-
-
-
-// exports.followOneUser = (req, res) => {
-//     User.findOneAndUpdate({ _id: req.body.authorID }, { following: req.body.targetUser }, {
-//         new: true
-//     })
-//     .then(
-//         User.findByIdAndUpdate({ _id: req.body.targetUser }, { followers: req.body.authorID }, {
-//             new: true
-//         })
-//         .then(() => res.status(201).json({message: 'Votre compte a bien été supprimé!'}))
-//         .catch(error => res.status(502).json({error}))
-//     )
-//     .catch(error => res.status(502).json({error}))
-// }
