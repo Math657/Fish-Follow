@@ -48,6 +48,7 @@ export default {
     mounted() {
         this.$http.get(`http://localhost:3000/api/auth/profile/followers/${this.id}`)
         .then(res => {
+            console.log(res.data.allFollowers)
             for (let followers of res.data.allFollowers) {
                 this.allFollowers.push(followers)
             }

@@ -24,7 +24,8 @@ exports.signup = (req, res, next) => {
                     following: [],
                     posts: [],
                     fishLike: 0,
-                    createdAt: Date.now()
+                    createdAt: Date.now(),
+                    status: 'user'
                 })
                 user.save()
                 .then(userCreated => {

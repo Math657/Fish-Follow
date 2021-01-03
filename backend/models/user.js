@@ -16,7 +16,8 @@ const userSchema = mongoose.Schema({
     following: {type: Array, required: true},
     posts: {type: Array, required: true},
     fishLike: {type: Number, required: true},
-    createdAt: {type: Date, required: true}
+    createdAt: {type: Date, required: true},
+    status: {type: String, required: true}
 })
 
 userSchema.plugin(uniqueValidator)
