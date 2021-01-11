@@ -1,0 +1,158 @@
+
+{
+  "header": {
+    "reportVersion": 1,
+    "event": "Allocation failed - JavaScript heap out of memory",
+    "trigger": "FatalError",
+    "filename": "report.20210108.135655.74620.0.001.json",
+    "dumpEventTime": "2021-01-08T13:56:55Z",
+    "dumpEventTimeStamp": "1610110615273",
+    "processId": 74620,
+    "cwd": "C:\\Projects\\FishFollow\\backend",
+    "commandLine": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "./server.js"
+    ],
+    "nodejsVersion": "v12.14.1",
+    "wordSize": 64,
+    "arch": "x64",
+    "platform": "win32",
+    "componentVersions": {
+      "node": "12.14.1",
+      "v8": "7.7.299.13-node.16",
+      "uv": "1.33.1",
+      "zlib": "1.2.11",
+      "brotli": "1.0.7",
+      "ares": "1.15.0",
+      "modules": "72",
+      "nghttp2": "1.40.0",
+      "napi": "5",
+      "llhttp": "2.0.1",
+      "http_parser": "2.8.0",
+      "openssl": "1.1.1d",
+      "cldr": "35.1",
+      "icu": "64.2",
+      "tz": "2019c",
+      "unicode": "12.1"
+    },
+    "release": {
+      "name": "node",
+      "lts": "Erbium",
+      "headersUrl": "https://nodejs.org/download/release/v12.14.1/node-v12.14.1-headers.tar.gz",
+      "sourceUrl": "https://nodejs.org/download/release/v12.14.1/node-v12.14.1.tar.gz",
+      "libUrl": "https://nodejs.org/download/release/v12.14.1/win-x64/node.lib"
+    },
+    "osName": "Windows_NT",
+    "osRelease": "10.0.18363",
+    "osVersion": "Windows 10 Home",
+    "osMachine": "x86_64",
+    "cpus": [
+      {
+        "model": "AMD Ryzen 5 2600 Six-Core Processor            ",
+        "speed": 3400,
+        "user": 1216937,
+        "nice": 0,
+        "sys": 976531,
+        "idle": 13498515,
+        "irq": 121375
+      },
+      {
+        "model": "AMD Ryzen 5 2600 Six-Core Processor            ",
+        "speed": 3400,
+        "user": 843765,
+        "nice": 0,
+        "sys": 263359,
+        "idle": 14584578,
+        "irq": 9015
+      },
+      {
+        "model": "AMD Ryzen 5 2600 Six-Core Processor            ",
+        "speed": 3400,
+        "user": 1545812,
+        "nice": 0,
+        "sys": 767531,
+        "idle": 13378343,
+        "irq": 11015
+      },
+      {
+        "model": "AMD Ryzen 5 2600 Six-Core Processor            ",
+        "speed": 3400,
+        "user": 1409734,
+        "nice": 0,
+        "sys": 170968,
+        "idle": 14110984,
+        "irq": 5437
+      },
+      {
+        "model": "AMD Ryzen 5 2600 Six-Core Processor            ",
+        "speed": 3400,
+        "user": 1715187,
+        "nice": 0,
+        "sys": 514921,
+        "idle": 13461578,
+        "irq": 8578
+      },
+      {
+        "model": "AMD Ryzen 5 2600 Six-Core Processor            ",
+        "speed": 3400,
+        "user": 451515,
+        "nice": 0,
+        "sys": 448171,
+        "idle": 14791984,
+        "irq": 4750
+      },
+      {
+        "model": "AMD Ryzen 5 2600 Six-Core Processor            ",
+        "speed": 3400,
+        "user": 1549562,
+        "nice": 0,
+        "sys": 509218,
+        "idle": 13632906,
+        "irq": 7921
+      },
+      {
+        "model": "AMD Ryzen 5 2600 Six-Core Processor            ",
+        "speed": 3400,
+        "user": 424781,
+        "nice": 0,
+        "sys": 292093,
+        "idle": 14974812,
+        "irq": 5281
+      },
+      {
+        "model": "AMD Ryzen 5 2600 Six-Core Processor            ",
+        "speed": 3400,
+        "user": 1552859,
+        "nice": 0,
+        "sys": 1117812,
+        "idle": 13021015,
+        "irq": 7234
+      },
+      {
+        "model": "AMD Ryzen 5 2600 Six-Core Processor            ",
+        "speed": 3400,
+        "user": 335640,
+        "nice": 0,
+        "sys": 259890,
+        "idle": 15096156,
+        "irq": 4046
+      },
+      {
+        "model": "AMD Ryzen 5 2600 Six-Core Processor            ",
+        "speed": 3400,
+        "user": 756359,
+        "nice": 0,
+        "sys": 498312,
+        "idle": 14437015,
+        "irq": 6750
+      },
+      {
+        "model": "AMD Ryzen 5 2600 Six-Core Processor            ",
+        "speed": 3400,
+        "user": 2432437,
+        "nice": 0,
+        "sys": 670125,
+        "idle": 12589125,
+        "irq": 3203
+      }
+    
