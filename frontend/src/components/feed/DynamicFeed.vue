@@ -52,7 +52,7 @@ export default {
     //     })
     // },
     mounted() {
-        getData = async () => {
+        const getData = async () => {
             try {
                 const res = await this.$http.get(`http://localhost:3000/api/auth/home/${this.$store.state.userId}`)
                 for (let fish of res.data) {          
@@ -63,11 +63,11 @@ export default {
                 this.checkIfTokenIsValid(err)
             }
         }
+        getData()
     },
     components: {
         Post
     }
-
 }
 </script>
 
@@ -75,7 +75,7 @@ export default {
 
 #btn-submit {
     padding: 0.5em 1em 0.5em 1em;
-}
+} 
 
 .btn-main {
     background-color:#0A3046;
