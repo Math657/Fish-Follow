@@ -5,7 +5,7 @@ const userRoutes = require('./routes/user')
 const fishRoutes = require('./routes/fish')
 const commentRoutes = require('./routes/comment')
 const cookieParser = require('cookie-parser')
-const cors = require('cors')
+// const cors = require('cors')
 require('dotenv').config()
 
 const app = express()
@@ -13,7 +13,7 @@ const app = express()
 const path = require('path')
 
 
-mongoose.connect("mongodb+srv://admin:D5iwksjO4L43BMVP@cluster0.zysof.mongodb.net/<dbname>?retryWrites=true&w=majority",
+mongoose.connect(process.env.DB_CONN,
 { useNewUrlParser: true,
 //   useFindAndModify: false,
   useUnifiedTopology: true,
