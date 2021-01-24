@@ -14,7 +14,7 @@ exports.createComment = (req, res) => {
         })
         comment.save()
         .then(() => res.status(200).json({ message: 'Commentaire publié !'}))
-        .catch(error => res.status(501).json({error}))
+        .catch(error => res.status(503).json({error}))
     })
     .catch(error => res.status(501).json({error}))  
 }
