@@ -33,7 +33,7 @@ export default {
         },
         getUsers() {
             this.reveleModale = true
-            this.$http.post('http://localhost:3000/api/auth/search', {
+            this.$http.post(`${this.$store.state.url}/api/auth/search`, {
                 searchInput: this.searchInput
             })
             .then((res) => {

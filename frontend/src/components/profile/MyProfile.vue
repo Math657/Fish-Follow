@@ -35,10 +35,11 @@
         </div>
 
         <div v-if="userPosts.length > 0" class="user-posts">
-            <h3 class="user-posts-title mb-5">Mes prises</h3>
+            <h3 class="user-posts-title mb-2">Mes prises</h3>
             <ul class="user-posts-list">
                 <li :key="i" v-for="(fishes, i) in userPosts">
                     <h5>{{ fishes.postTitle }}</h5>
+                    <img :src="fishes.fishPic" alt="photo de la prise" class="post-thumb">
                 </li>
             </ul>
         </div>
@@ -47,7 +48,7 @@
             <h3 class="user-posts-title">Aucune prise publiée</h3>
         </div>
             
-            <button class="mt-3 btn-main" id="btn-submit" @click="$router.push('/post')">Publier une prise</button>
+            <button class="my-3 btn-main" id="btn-submit" @click="$router.push('/post')">Publier une prise</button>
         
     </div>
 </template>
@@ -77,19 +78,10 @@ export default {
         },
         toggleModaleFollowings() {
             this.reveleFollowings = !this.reveleFollowings
-        },
-        // getFollowers() {
-        //     this.$http.get(`http://localhost:3000/api/auth/myprofile/followers/${this.$store.state.userId}`)
-        //     .then(res => {
-        //         console.log(res)
-        //     })
-        //     .catch(err => {
-        //         this.checkIfTokenIsValid(err)
-        //     })
-        // }
+        }
     },
     mounted(){
-        this.$http.get(`http://localhost:3000/api/auth/profile/${this.$store.state.userId}`) //get User Infos
+        this.$http.get(`${this.$store.state.url}/api/auth/profile/${this.$store.state.userId}`) //get User Infos
         .then(res => {
             this.userInfos.push(res.data.user)
         })
@@ -98,13 +90,14 @@ export default {
         })
 
         // Get User Posts
-        this.$http.get(`http://localhost:3000/api/auth/profile/posts/${this.$store.state.userId}`)
+        this.$http.get(`${this.$store.state.url}/api/auth/profile/posts/${this.$store.state.userId}`)
         .then(res => {
             if (res.data.fishes) {
                 for (let fish of res.data.fishes) {
                     this.userPosts.push(fish)
-                }    
+                }  
             }
+            console.log(this.userPosts)
         })
         .catch((err) => {
            this.checkIfTokenIsValid(err)
@@ -123,10 +116,6 @@ export default {
 <style>
 
 .my-profile-infos {
-    /* background-color: #FFFFFF; */
-    /* border: 1px solid rgb(219, 219, 219); */
-    /* border-radius: 15px; */
-    /* box-shadow: 3px 3px 3px #c2c0c0; */
     max-width: 40em;
     margin: 1em auto 1em auto; 
     padding-bottom: 1em;
@@ -136,13 +125,8 @@ export default {
 .profile-pic {
     display: block;
     width: 150px;
-    height: 200px;
+    height: 190px;
     object-fit: cover;
-    /* max-width:25em;
-    max-height:12em; */
-    /* width: auto;
-    height: auto; */
-    /* margin: 1em; */
     float: left;
 }
 
@@ -187,6 +171,16 @@ export default {
     padding: 0;
 }
 
+.user-posts-list li {
+    padding: 1em;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.post-thumb {
+    max-width: 180px;
+}
+
 
 @media only screen and (max-width: 759px) {
 
@@ -199,10 +193,6 @@ export default {
         width: 150px;
         height: 200px;
         object-fit: cover;
-        /* max-width:17em;
-        max-height:10em;
-        width: auto;
-        height: auto; */
         margin-left: 1em;
         margin-bottom: 1em;
         float: left;

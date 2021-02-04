@@ -45,7 +45,7 @@ export default {
         }
     },
     mounted() {
-        this.$http.get(`http://localhost:3000/api/auth/profile/followings/${this.id}`)
+        this.$http.get(`${this.$store.state.url}/api/auth/profile/followings/${this.id}`)
         .then(res => {
             for (let followings of res.data.allFollowings) {
                 this.allFollowings.push(followings)

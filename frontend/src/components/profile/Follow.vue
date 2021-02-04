@@ -25,7 +25,7 @@ export default {
     },
     methods: {
         follow() {
-            this.$http.post('http://localhost:3000/api/auth/follow', {
+            this.$http.post(`${this.$store.state.url}/api/auth/follow`, {
                 targetUser: this.targetUserId,
                 authorID: this.$store.state.userId
             })

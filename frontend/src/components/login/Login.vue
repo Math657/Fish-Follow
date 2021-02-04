@@ -35,7 +35,7 @@ export default {
     methods: {
         login() {
             if (this.email != '' && this.password != '') {
-                this.$http.post('http://localhost:3000/api/auth/login', {
+                this.$http.post(`${this.$store.state.url}/api/auth/login`, {
                     email: this.email,
                     password: this.password
                     })

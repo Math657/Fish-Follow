@@ -14,7 +14,8 @@ export default new Vuex.Store({
   state: {
       isLogged: false,
       isNavOpen: false,
-      userId: ''
+      userId: '',
+      url: process.env.VUE_APP_URL
   },
   mutations: {
     LOGGED_IN(state) {

@@ -146,7 +146,7 @@ export default {
                 data.append('birthday', this.birthday)
                 data.append('image', document.getElementById('file').files[0])
                
-            this.$http.post('http://localhost:3000/api/auth/signup', data, 
+            this.$http.post(`${this.$store.state.url}/api/auth/signup`, data, 
             {
                 headers: {
                     'Content-Type': `multipart/form-data; boundary=${data._boundary}`

@@ -47,7 +47,10 @@
 
         <div>
             <div class="bottom-post">
-                <div id="btn-like" :class="{ liked: likePost, 'btn-main': !likePost }" @click="sendLike()" data-toggle="tooltip" title="Fishez, ou plutôt likez cette prise!" ><img src="../../assets/fish-icon2.png" alt="Icône d'un poisson" class="btn-fish-like-icon"><span class="btn-label">{{ likeBtn }}</span></div>
+                <div id="btn-like" :class="{ liked: likePost, 'btn-main': !likePost }" 
+                                    @click="sendLike()" data-toggle="tooltip" title="Fishez, ou plutôt likez cette prise!" >
+                    <img src="../../assets/fish-icon2.png" alt="Icône d'un poisson" class="btn-fish-like-icon"><span class="btn-label">{{ likeBtn }}</span>
+                </div>
                 <div class="btn-main" id="btn-comment" @click="showBoxToComment()"><font-awesome-icon icon="comment" class="comment-icon"/><span class="btn-label">Commenter</span></div>
                 
                 <div v-if="nbComments.length > 0" @click="showBoxToComment()" class="show-comments">
@@ -99,7 +102,7 @@ export default {
             this.showBoxComments = true
         },
         sendLike() {
-            this.$http.post(`http://localhost:3000/api/auth/like/${this.postID}`, {
+            this.$http.post(`${this.$store.state.url}/api/auth/like/${this.postID}`, {
                 userID: this.$store.state.userId
             })
             .then((res) => {
@@ -113,7 +116,7 @@ export default {
     },
     mounted() {
         // Get user data
-        this.$http.get(`http://localhost:3000/api/auth/profile/${this.userId}`)
+        this.$http.get(`${this.$store.state.url}/api/auth/profile/${this.userId}`)
         .then(res => {
             this.userInfos.push(res.data.user)
         })
@@ -123,7 +126,7 @@ export default {
 
 
         // Get user likeStatut
-        this.$http.get(`http://localhost:3000/api/auth/likeStatut/${this.postID}/${this.$store.state.userId}`)
+        this.$http.get(`${this.$store.state.url}/api/auth/likeStatut/${this.postID}/${this.$store.state.userId}`)
         .then(res => {
             this.likePost = res.data.like
         })
@@ -304,7 +307,7 @@ export default {
     width: 7em;
     padding: 3px 8px 3px 8px;
     font-size: 14px;
-    margin-right: 2em;
+    margin-right: 1em;
 }
 
 .btn-fish-like-icon {
@@ -375,7 +378,7 @@ export default {
 
 @media only screen and (max-width: 459px) { 
     #btn-comment, #btn-like, .nb-comments {
-        font-size: 12px;
+        font-size: 14px;
         /* width: auto; */
     }
     

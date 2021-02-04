@@ -39,10 +39,11 @@
         </div>
 
         <div v-if="userPosts.length > 0" class="user-posts">
-            <h3 class="user-posts-title mb-5">Prises de {{ userInfos[0].firstname }} {{ userInfos[0].lastname }}</h3>
+            <h3 class="user-posts-title mb-2">Prises de {{ userInfos[0].firstname }} {{ userInfos[0].lastname }}</h3>
             <ul class="user-posts-list">
                 <li :key="i" v-for="(fishes, i) in userPosts">
                     <h5>{{ fishes.postTitle }}</h5>
+                    <img :src="fishes.fishPic" alt="photo de la prise" class="post-thumb">
                 </li>
             </ul>
         </div>
@@ -73,7 +74,7 @@ export default {
     },
     methods: {
         follow() {
-            this.$http.post('http://localhost:3000/api/auth/follow', {
+            this.$http.post(`${this.$store.state.url}/api/auth/follow`, {
                 targetUser: this.userId,
                 authorID: this.$store.state.userId
             })

@@ -5,6 +5,9 @@
                 <textarea-autosize v-model="comment" :min-height="20" :max-height="350" rows="1" type="text" autofocus class="input-comment" maxlength="200" placeholder="Votre commentaire..."></textarea-autosize>
                 <button class="mb-1 btn-main" id="send-comment" @click="submitComment()">Publier</button>
             </div>
+            <div v-if="emptyComment">
+                <p class="comment-empty">Votre commentaire ne doit pas être vide ou dépasser 500 charactères! !</p>
+            </div>
             <div v-if="commentPublished">
                 <p class="comment-published">Commentaire publié!</p>
             </div>
@@ -15,13 +18,24 @@
                     <li :key="i" v-for="(com, i) in allComments" class="one-comment">
 
                         <div class="author-info">
-                            <router-link class="username-pic" :to="`/user/${allComments[i].comment.authorID}`" data-toggle="tooltip" title="Voir le profil" >
+
+                            <router-link class="username-pic" :to="`/user/${allComments[i].comment.authorID}`" 
+                                         data-toggle="tooltip" title="Voir le profil" >
                                 <div v-if="allComments.length > 0" id="comment-profil-pic">
                                     <img :src="allComments[i].user.profilPic" alt="Photo de profil">
                                 </div>
                                 <p class="comment-author">{{ allComments[i].comment.author }}</p>
                             </router-link>
+
                             <p class="comment-date">{{ moment(allComments[i].comment.createdAt).fromNow() }}</p>
+
+                            <div @click="showModaleDot()" class="three-dot-comment">
+                                <div class="one-dot-comment"></div>
+                                <div class="one-dot-comment"></div>
+                                <div class="one-dot-comment"></div>
+                            </div>
+                            <!-- <ModaleDot :reveleModaleDot="reveleModaleDot"></ModaleDot> -->
+                            
                         </div>
                         <h6>{{ allComments[i].comment.comment }}</h6>
                     </li>
@@ -33,19 +47,22 @@
 </template>
 
 <script>
+// import ModaleDot from './ModaleDot'
 export default {
     name:'Comment',
     data() {
         return {
             showInputComment: true,
             commentPublished: false,
+            emptyComment: false,
+            reveleModaleDot: false,
             comment: '',
             allComments: []
         }
     },
     methods: {
         checkComment() {
-            if (this.comment != '') {
+            if (this.comment != '' && this.comment.length < 500) {
                 return true
             }
             else {
@@ -54,7 +71,7 @@ export default {
         },
         submitComment() {
             if (this.checkComment()) {
-                this.$http.post('http://localhost:3000/api/auth/comment', {
+                this.$http.post(`${this.$store.state.url}/api/auth/comment`, {
                     postID: this.postID,
                     comment: this.comment,
                     authorID: this.$store.state.userId
@@ -62,20 +79,24 @@ export default {
                 .then(() => {
                     this.showInputComment = false
                     this.commentPublished = true
-                    // this.allComments[0].push(this.comment) // fonctionne mal
+                    // this.allComments.push(this.comment) // fonctionne mal
                     this.comment = ''
+                    this.emptyComment = false
                 })
                 .catch((err) => {
                     this.checkIfTokenIsValid(err)
                 })
             }
             else {
-                console.log('Votre commentaire ne peut pas être vide!')
+                this.emptyComment = true
             }  
+        },
+        showModaleDot() {
+                this.reveleModaleDot = !this.reveleModaleDot
         }
     },
     mounted() {
-        this.$http.get(`http://localhost:3000/api/auth/getcomments/${this.postID}`)
+        this.$http.get(`${this.$store.state.url}/api/auth/getcomments/${this.postID}`)
         .then((res) => {
             for (let com of res.data) {
                 this.allComments.push(com)  
@@ -91,6 +112,9 @@ export default {
         showBoxComments: Boolean,
         userFirstname: String,
         userLastname: String,
+    },
+    components: {
+        // ModaleDot
     }
 }
 
@@ -144,6 +168,11 @@ export default {
     margin-top: 1em;
 }
 
+.comment-empty {
+    color: #0A3046;
+    font-size: 90%;
+}
+
 .comments-list {
     list-style: none;
     padding: 0;
@@ -160,6 +189,7 @@ export default {
 .author-info {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .author-info p {
@@ -191,6 +221,30 @@ export default {
 
 .username-pic:hover {
     opacity: 80%;
+}
+
+.one-dot-comment {
+    height: 3px;
+    width: 3px;
+    background-color: rgb(133, 131, 131);
+    border-radius: 50%;
+    margin-right: 3px;
+}
+
+.three-dot-comment {
+    display: flex;
+    flex-direction: row;
+    height: 5px;
+    align-items: center;
+    border-radius: 5px;
+    padding: 7px;
+    margin-left: 1em;
+    margin-bottom: 5px;
+}
+
+.three-dot-comment:hover {
+    cursor: pointer;
+    background-color: #cccbcb;
 }
 
 .one-comment {

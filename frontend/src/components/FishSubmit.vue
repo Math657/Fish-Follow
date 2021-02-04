@@ -130,7 +130,7 @@ export default {
                 
             
 
-                this.$http.post('http://localhost:3000/api/auth/post', data, 
+                this.$http.post(`${this.$store.state.url}/api/auth/post`, data, 
                 {
                     headers: {
                         'Content-Type': `multipart/form-data; boundary=${data._boundary}`

@@ -40,21 +40,10 @@ export default {
             allFishes: []
         }
     },
-    // mounted() {
-    //     this.$http.get(`http://localhost:3000/api/auth/home/${this.$store.state.userId}`)
-    //     .then((res) => {
-    //         for (let fish of res.data) {          
-    //                 this.allFishes.push(fish)   
-    //             }
-    //     })
-    //     .catch((err) => {
-    //         this.checkIfTokenIsValid(err)
-    //     })
-    // },
     mounted() {
         const getData = async () => {
             try {
-                const res = await this.$http.get(`http://localhost:3000/api/auth/home/${this.$store.state.userId}`)
+                const res = await this.$http.get(`${this.$store.state.url}/api/auth/home/${this.$store.state.userId}`)
                 for (let fish of res.data) {          
                     this.allFishes.push(fish)   
                 }
