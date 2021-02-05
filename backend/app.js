@@ -31,7 +31,7 @@ mongoose.connect(process.env.DB_CONN,
 // app.use(cors())
 
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080', 'http://frontend.mathieudessaint.com', 'https://frontend.mathieudessaint.com')
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080', 'http://fishnfollow.com', 'https://fishnfollow.com')
     res.setHeader('Access-Control-Allow-Credentials', true)
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization, Bearer')
     // res.setHeader('Access-Control-Allow-Headers', '*')
