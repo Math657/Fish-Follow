@@ -75,7 +75,7 @@ deploy:
 
       docker tag registry.gitlab.com/rexar/fish-follow/backend:latest registry.gitlab.com/rexar/fish-follow/backend:current
 
-      docker run -d -p 29170:8080 -l traefik.enable=true -l traefik.backend=frontendff -l traefik.frontend.rule=Host:fishnfollow.com -l traefik.docker.network=proxy -l traefik.port=8080 --network proxy --restart unless-stopped --name fishFollowFrontend registry.gitlab.com/rexar/fish-follow/frontend:latest
+      docker run -d -p 29170:80 -l traefik.enable=true -l traefik.backend=frontendff -l traefik.frontend.rule=Host:fishnfollow.com -l traefik.docker.network=proxy -l traefik.port=80 --network proxy --restart unless-stopped --name fishFollowFrontend registry.gitlab.com/rexar/fish-follow/frontend:latest
 
       docker run -d -p 29171:3000 -l traefik.enable=true -l traefik.backend=backendff -l traefik.frontend.rule=Host:back.fishnfollow.com -l traefik.docker.network=proxy -l traefik.port=3000 --network proxy --restart unless-stopped --name fishFollowBackend registry.gitlab.com/rexar/fish-follow/backend:latest
 
