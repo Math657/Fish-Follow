@@ -219,10 +219,6 @@ export default {
     margin-right: auto;
 }
 
-.username-pic:hover {
-    opacity: 80%;
-}
-
 .one-dot-comment {
     height: 3px;
     width: 3px;

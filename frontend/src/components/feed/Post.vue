@@ -272,7 +272,7 @@ export default {
 
 .btn-seemore:hover {
     cursor: pointer;
-    opacity: 80%;
+    color: rgb(84, 95, 109);
 }
 
 .under-pic {

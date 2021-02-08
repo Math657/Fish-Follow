@@ -71,7 +71,7 @@ export default {
 
 .icons:hover {
     cursor: pointer;
-    opacity: 90%;
+    color: #bebcbc;
 }
 
 input[type="text"]:focus {
