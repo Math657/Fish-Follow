@@ -5,13 +5,19 @@
             <Menu></Menu>
             <Burger></Burger>
             <Sidebar2>
-                <ul class="sidebar-panel-nav">
+                <ul v-if="this.$store.state.isLogged" class="sidebar-panel-nav">
                     <li @click="closeSidebarPanel" class="brand"><router-link to="/home">Fish & Follow</router-link></li>
                     <!-- <li @click="closeSidebarPanel"><router-link to="/home"><font-awesome-icon icon="home" class="icon-menu" />Accueil</router-link></li> -->
                     <li @click="closeSidebarPanel"><router-link to="/post"><font-awesome-icon icon="camera-retro" class="icon-menu" />Publier</router-link></li>
                     <li @click="closeSidebarPanel"><router-link :to="`/myprofile/${this.$store.state.userId}`"><font-awesome-icon icon="user" class="icon-menu" />Mon profil</router-link></li>
                     <li @click="closeSidebarPanel"><router-link to="/myprofile"><font-awesome-icon icon="cog" class="icon-menu" />Paramètres</router-link></li>
                     <li @click="closeSidebarPanel"><button class="btn" id="btn-logout"  @click.prevent="logOut()"><font-awesome-icon icon="sign-out-alt" class="icon-menu" />Se déconnecter</button></li>
+                </ul>
+
+                <ul v-else class="sidebar-panel-nav">
+                    <li @click="closeSidebarPanel" class="brand"><router-link to="/home">Fish & Follow</router-link></li>
+                    <li @click="closeSidebarPanel"><router-link to="/login">Se connecter</router-link></li>
+                    <li @click="closeSidebarPanel"><router-link to="/signup">Créer un compte</router-link></li>
                 </ul>
             </Sidebar2>
         </div>

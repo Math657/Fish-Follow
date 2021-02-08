@@ -329,8 +329,12 @@ export default {
     padding: 0.5em 1em 0.5em 1em;
 }
 
-.btn-main:hover, .liked:hover {
-    opacity: 90%;
+.btn-main:hover {
+    background-color: #163d57;
+}
+
+.liked:hover {
+    background-color: #04afff;
 }
 
 .liked {

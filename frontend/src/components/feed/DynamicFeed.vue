@@ -75,7 +75,7 @@ export default {
 }
 
 .btn-main:hover {
-    opacity: 90%;
+    background-color: #163d57;
 }
 
 .feed {

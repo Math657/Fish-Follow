@@ -91,16 +91,6 @@ p {
     color: blue;
 }
 
-.btn-login {
-    background-color: #144c6d;
-    color: white;
-    border-radius: 4px;
-}
-
-.btn-login:hover {
-    filter: brightness(0.8);
-}
-
 .mdp_lost {
     font-size: 14px;
 }

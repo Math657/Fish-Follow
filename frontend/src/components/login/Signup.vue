@@ -194,7 +194,7 @@ p {
 }
 
 #btn_submit {
-    background-color: #144c6d;
+    background-color: #0A3046;
     color: white;
     border-radius: 4px;
     padding: 7px 20px 7px 20px;
@@ -202,9 +202,9 @@ p {
     margin-top: 1em;
 }
 
-/* #btn_submit {
-    filter: brightness(0.8);
-} */
+#btn_submit:hover {
+    background-color: #163d57;
+}
 
 .file {
     margin-bottom: 1em;

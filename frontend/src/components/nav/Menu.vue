@@ -37,7 +37,7 @@ export default {
 
             linksOffline: [
                 {name: 'Se connecter', url: '/login'},
-                {name: 'Créer mon compte', url: '/signup'}
+                {name: 'Créer un compte', url: '/signup'}
             ],
 
             linksOnline: [
