@@ -24,7 +24,7 @@ build:
     - docker push $CONTAINER_TEST_IMAGE_FRONTEND
     - cd ..
     - cd ./backend
-    - docker build -t $CONTAINER_TEST_IMAGE_BACKEND .
+    - docker build --build-arg DB="$CI_DB" -t $CONTAINER_TEST_IMAGE_BACKEND .
     - docker push $CONTAINER_TEST_IMAGE_BACKEND
 
 release-image:
