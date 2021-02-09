@@ -12,6 +12,23 @@ const app = express()
 
 const path = require('path')
 
+// app.use((req, res, next) => {
+//     // res.setHeader('Access-Control-Allow-Origin', 'https://fishnfollow.com') // prod
+//     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080') // local
+//     res.setHeader('Access-Control-Allow-Credentials', true)
+//     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization, Bearer')
+//     // res.setHeader('Access-Control-Allow-Headers', '*')
+//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
+//     next()
+// })
+
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'https://fishnfollow.com')
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization, Bearer')
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
+    res.setHeader('Access-Control-Allow-Credentials', true)
+    next()
+})
 
 mongoose.connect(process.env.DB_CONN,
 { useNewUrlParser: true,
@@ -21,28 +38,9 @@ mongoose.connect(process.env.DB_CONN,
 .then(() => console.log('Connexion à MongoDB réussie !'))
 .catch(() => console.log('Connexion à MongoDB échouée !'))
 
+
 // app.use(cors())
-
-
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'https://fishnfollow.com/')
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization, Bearer')
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
-    res.setHeader('Access-Control-Allow-Credentials', true)
-    next()
-})
-
-
-// app.use((req, res, next) => {
-//     res.setHeader('Access-Control-Allow-Origin', 'https://fishnfollow.com') // prod
-//     // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080') // local
-//     res.setHeader('Access-Control-Allow-Credentials', true)
-//     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization, Bearer')
-//     // res.setHeader('Access-Control-Allow-Headers', '*')
-//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
-//     next()
-// })
-    
+ 
 app.use(cookieParser())
 
 app.use(bodyParser.json())
