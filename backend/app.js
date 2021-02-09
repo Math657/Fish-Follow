@@ -5,15 +5,15 @@ const userRoutes = require('./routes/user')
 const fishRoutes = require('./routes/fish')
 const commentRoutes = require('./routes/comment')
 const cookieParser = require('cookie-parser')
-const cors = require('cors')
+// const cors = require('cors')
 require('dotenv').config()
 
 const app = express()
 
 const path = require('path')
 
-app.use(cors())
-app.options('*', cors())
+// app.use(cors())
+// app.options('*', cors())
 
 // app.use((req, res, next) => {
 //     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080') // local
@@ -23,13 +23,13 @@ app.options('*', cors())
 //     next()
 // })
 
-// app.use((req, res, next) => {
-//     res.setHeader('Access-Control-Allow-Origin', 'https://fishnfollow.com')
-//     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization, Bearer')
-//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
-//     res.setHeader('Access-Control-Allow-Credentials', true)
-//     next()
-// })
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'https://fishnfollow.com')
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization, Bearer')
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
+    res.setHeader('Access-Control-Allow-Credentials', true)
+    next()
+})
 
 mongoose.connect(process.env.DB_CONN,
 { useNewUrlParser: true,
