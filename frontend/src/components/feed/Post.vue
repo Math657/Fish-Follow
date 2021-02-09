@@ -272,7 +272,7 @@ export default {
 
 .btn-seemore:hover {
     cursor: pointer;
-    color: rgb(84, 95, 109);
+    opacity: 0.8;
 }
 
 .under-pic {
@@ -330,11 +330,11 @@ export default {
 }
 
 .btn-main:hover {
-    background-color: #163d57;
+    opacity: 0.9;
 }
 
 .liked:hover {
-    background-color: #04afff;
+    opacity: 0.9;
 }
 
 .liked {

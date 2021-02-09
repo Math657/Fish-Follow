@@ -203,7 +203,7 @@ p {
 }
 
 #btn_submit:hover {
-    background-color: #163d57;
+    opacity: 0.8;
 }
 
 .file {

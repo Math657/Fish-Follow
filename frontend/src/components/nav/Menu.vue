@@ -85,7 +85,7 @@ li a:hover {
     // background-color: red;
     text-decoration: none;
     color: white;
-    color: #bebcbc;
+    opacity: 0.8;
 }
 
 .icons {
@@ -96,7 +96,7 @@ li a:hover {
 
 .icons:hover {
     cursor: pointer;
-    color: #bebcbc;
+    opacity: 0.9;
 }
 
 @media only screen and (max-width: 759px) {

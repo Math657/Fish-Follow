@@ -88,7 +88,7 @@ h2, .main-title {
 }
 
 .iconMenu:hover {
-    color: #bebcbc;
+    opacity: 0.8;
 }
 
 /* ///////////////////////////////////////// */
@@ -146,7 +146,7 @@ li:last-child {
 }
 
 #btn-logout:hover {
-    color: #bebcbc;
+    opacity: 0.8;
 }
 
 a {
@@ -156,7 +156,7 @@ a {
 li a:hover {
     text-decoration: none;
     color: white;
-    color: #bebcbc;
+    opacity: 0.8;
 }
   
 
