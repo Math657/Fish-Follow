@@ -19,12 +19,12 @@ before_script:
 build:
   stage: build
   script:
+    - echo "$CI_DB"
     - cd ./frontend
     - docker build -t $CONTAINER_TEST_IMAGE_FRONTEND .
     - docker push $CONTAINER_TEST_IMAGE_FRONTEND
     - cd ..
     - cd ./backend
-    - echo $CI_DB
     - docker build --build-arg DB=$CI_DB -t $CONTAINER_TEST_IMAGE_BACKEND .
     - docker push $CONTAINER_TEST_IMAGE_BACKEND
 
