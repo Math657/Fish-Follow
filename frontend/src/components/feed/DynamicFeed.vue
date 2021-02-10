@@ -2,7 +2,9 @@
     <div class="container mt-4">
         <h2 v-if="allFishes.length > 0"></h2>
         <h2 v-else>Aucune prise récente</h2>
-        <button class="mb-4 btn-main" id="btn-submit" @click="$router.push('/post')">Publier une prise</button>
+        <button class="mb-4 btn-main" id="btn-submit" @click="$router.push('/post')">
+            Publier une prise
+        </button>
 
         <ul class="feed">
             <li class="full-post" :key="i" v-for="(fishes, i) in allFishes">

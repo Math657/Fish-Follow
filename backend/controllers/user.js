@@ -38,14 +38,14 @@ exports.signup = (req, res, next) => {
                         res.status(200).json({userId: userCreated.id})
                 })
                 // .then(() => res.status(201).json({ message: 'Utilisateur créé!' }))
-                .catch(error => res.status(400).json({error}))
+                .catch(() => res.status(402).json({error: 'Can\'t save user'}))
             })
-            .catch(error => res.status(500).json({error}))
+            .catch(error => res.status(500).json({error: 'Can\'t hash password'}))
         } else {
             res.status(401).json({message: 'Email déjà utilisé!'})
         }
     })
-    .catch(error => res.status(400).json({error}))
+    .catch(error => res.status(403).json({error}))
     
 }
 
