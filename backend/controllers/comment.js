@@ -13,7 +13,7 @@ exports.createComment = (req, res) => {
             authorID: req.body.authorID
         })
         comment.save()
-        .then(() => res.status(200).json({ message: 'Commentaire publié !'}))
+        .then((com) => res.status(200).json(com))
         .catch(error => res.status(503).json({error}))
     })
     .catch(error => res.status(501).json({error}))  
@@ -44,8 +44,20 @@ exports.getLastComments = (req, res) => {
     .catch((error) => res.status(503).json({error}))
 }
 
-// exports.getLastComments = (req, res) => {
-//     Comment.find({ postID: req.params.id }).sort([['createdAt', -1]])
-//     .then((comments) => {res.status(200).json(comments)})
-//     .catch((error) => res.status(503).json({error}))
-// }
+exports.deleteComment = (req, res) => {
+    Comment.findByIdAndDelete(req.params.id)
+    .then(() => res.status(200).json({message: 'Commentaire supprimé'}))
+    .catch(error => res.status(502).json({error}))
+}
+
+exports.deleteCommentAdmin = (req, res) => {
+    User.findById(req.params.userId)
+    .then(user => {
+        if (user.status === 'admin') {
+            Comment.findByIdAndDelete(req.params.id)
+            .then(() => res.status(200).json({message: 'Commentaire supprimé'}))
+            .catch(error => res.status(502).json({error}))
+        }
+    })
+    .catch(error => res.status(503).json({error}))
+}

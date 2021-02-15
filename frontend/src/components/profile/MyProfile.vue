@@ -5,7 +5,7 @@
             <div class="user-infos">
                 <h4 id="username">{{ userInfos[0].firstname }} {{ userInfos[0].lastname }}</h4>
                 <h4 id="user-email">{{ userInfos[0].email }}</h4>
-                <h6 id="user-fishLike">{{ userInfos[0].fishLike }} Fish Like <font-awesome-icon icon="exclamation-circle" class="icons" data-toggle="tooltip" title="Les Fish Like sont le nombre total de J'aime sur vos prises que vous avez reçu" /></h6>
+                <h6 id="user-fishLike">{{ userInfos[0].fishLike }} Fish Like <font-awesome-icon icon="exclamation-circle" class="icons" data-toggle="tooltip" title="Les Fish Like représentent le nombre total de J'aime que vous avez reçu sur vos publications." /></h6>
 
                 <div class="followers">
                     <h4 v-on:click="toggleModaleFollowers()" id="followers">{{ userInfos[0].followers.length }} followers</h4>
@@ -14,21 +14,21 @@
 
                 <p v-on:click="toggleModale" class="delete-profile mt-3">Supprimer mon compte</p>
 
-                <modaleDelete :revele="revele" :toggleModale="toggleModale"></modaleDelete>
+                <ModaleDelete :revele="revele" :toggleModale="toggleModale"></ModaleDelete>
                 
-                <modaleFollowers :reveleFollowers="reveleFollowers"
+                <ModaleFollowers :reveleFollowers="reveleFollowers"
                                  :toggleModaleFollowers="toggleModaleFollowers"
                                  :id="this.$store.state.userId"
                                  :userFollowers="userInfos[0].followers"
                                  :userFollowings="userInfos[0].following">
-                </modaleFollowers>
+                </ModaleFollowers>
 
-                <modaleFollowings :reveleFollowings="reveleFollowings"
+                <ModaleFollowings :reveleFollowings="reveleFollowings"
                                   :toggleModaleFollowings="toggleModaleFollowings"
                                   :id="this.$store.state.userId"
                                   :userFollowers="userInfos[0].followers"
                                   :userFollowings="userInfos[0].following">
-                </modaleFollowings>
+                </ModaleFollowings>
                 
             </div>
     
@@ -97,7 +97,6 @@ export default {
                     this.userPosts.push(fish)
                 }  
             }
-            console.log(this.userPosts)
         })
         .catch((err) => {
            this.checkIfTokenIsValid(err)

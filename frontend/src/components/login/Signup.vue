@@ -154,7 +154,9 @@ export default {
             })
             .then((res) => {
                 localStorage.setItem('userID', JSON.stringify(res.data.userId))
+                localStorage.setItem('userProfilPic', JSON.stringify(res.data.userProfilPic))
                 this.$store.dispatch('StoreId')
+                this.$store.dispatch('StoreProfilPic')
                 this.$store.dispatch('Logged')
             })
             .catch((error) => {

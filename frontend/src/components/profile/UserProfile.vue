@@ -21,19 +21,19 @@
 
                 <!-- <modaleDelete :revele="revele" :toggleModale="toggleModale"></modaleDelete> -->
 
-                <modaleFollowers :reveleFollowers="reveleFollowers"
+                <ModaleFollowers :reveleFollowers="reveleFollowers"
                                  :toggleModaleFollowers="toggleModaleFollowers"
                                  :id="this.$route.params.id"
                                  :userFollowers="userInfos[0].followers"
                                  :userFollowings="userInfos[0].following">
-                </modaleFollowers>
+                </ModaleFollowers>
 
-                <modaleFollowings :reveleFollowings="reveleFollowings"
+                <ModaleFollowings :reveleFollowings="reveleFollowings"
                                   :toggleModaleFollowings="toggleModaleFollowings"
                                   :id="this.$route.params.id"
                                   :userFollowers="userInfos[0].followers"
                                   :userFollowings="userInfos[0].following">
-                </modaleFollowings>
+                </ModaleFollowings>
    
             </div>
         </div>
@@ -100,7 +100,6 @@ export default {
         this.$http.get(`http://localhost:3000/api/auth/profile/${this.userId}`) //get User Infos
         .then(res => {
             this.userInfos.push(res.data.user)
-            console.log(this.userInfos[0].followers.length)
             if (this.userInfos[0].followers.includes(this.$store.state.userId)) {
                 this.doFollow = !this.doFollow
             }

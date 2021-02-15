@@ -15,7 +15,9 @@ export default new Vuex.Store({
       isLogged: false,
       isNavOpen: false,
       userId: '',
-      url: process.env.VUE_APP_URL
+      userProfilPic: '',
+      url: process.env.VUE_APP_URL,
+      isAdmin: false
   },
   mutations: {
     LOGGED_IN(state) {
@@ -29,6 +31,15 @@ export default new Vuex.Store({
     },
     STORING_ID(state) {
         state.userId = JSON.parse(localStorage.getItem('userID'))
+    },
+    STORING_PROFIL_PIC(state) {
+        state.userProfilPic = JSON.parse(localStorage.getItem('userProfilPic'))
+    },
+    IS_ADMIN(state) {
+        state.isAdmin = true
+    },
+    IS_NOT_ADMIN(state) {
+        state.isAdmin = false
     }
   },
   actions: {
@@ -37,6 +48,7 @@ export default new Vuex.Store({
           router.push('/home')
       },
       LogOut({ commit }) {
+          commit('IS_NOT_ADMIN')
           commit('LOGGED_OUT')
           router.push('/login')
       },
@@ -45,8 +57,13 @@ export default new Vuex.Store({
       },
       StoreId({ commit }) {
           commit('STORING_ID')
+      },
+      StoreProfilPic({ commit }) {
+          commit('STORING_PROFIL_PIC')
+      },
+      IsAdmin({ commit }) {
+          commit('IS_ADMIN')
       }
-      
   },
   modules: {
   }

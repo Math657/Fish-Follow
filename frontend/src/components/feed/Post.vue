@@ -14,7 +14,7 @@
         <div class="content-post">     
             <div class="fish-infos">
                 <div class="base-details">
-                    <h4 class="post-title">{{ postTitle }}</h4>
+                    <h4 v-if="postTitle" class="post-title">{{ postTitle }}</h4>
                     <p class="fish-details"><font-awesome-icon icon="fish" class="logos" data-toggle="tooltip" title="Espèce"/> {{ fishName }}</p>
                     <p class="fish-details"><font-awesome-icon icon="arrows-alt-h" class="logos" data-toggle="tooltip" title="Taille"/> {{ fishSize }} cm</p>
                     <div @click="seeMore()" v-if="!seeMoreDetails" class="fish-details btn-seemore">Voir plus</div>
@@ -53,29 +53,27 @@
                 </div>
                 <div class="btn-main" id="btn-comment" @click="showBoxToComment()"><font-awesome-icon icon="comment" class="comment-icon"/><span class="btn-label">Commenter</span></div>
                 
-                <div v-if="nbComments.length > 0" @click="showBoxToComment()" class="show-comments">
-                    <div class="nb-comments">{{ nbComments.length }} 
-                        <p v-if="nbComments.length > 1"> commentaires</p>
+                <div v-if="nbComments > 0" @click="showBoxToComment()" class="show-comments">
+                    <div class="nb-comments">{{ nbComments }} 
+                        <p v-if="nbComments > 1"> commentaires</p>
                         <p v-else> commentaire</p>
                     </div>
                 </div>
-                <div v-else class="nb-comments">
-                    Aucun commentaire
-                </div>
             </div>
             
-            <Comment :postID="this.postID"
+            <AllComments :postID="this.postID"
                      :userLastname="this.userLastname"
                      :userFirstname="this.userFirstname" 
-                     :showBoxComments="this.showBoxComments" @toPost="handler">
-            </Comment>
+                     :showBoxComments="this.showBoxComments" 
+                     @toPost="handler">
+            </AllComments>
 
         </div>
     </div>
 </template>
 
 <script>
-import Comment from './Comment'
+import AllComments from './AllComments'
 
 export default {
     name: 'Post',
@@ -83,7 +81,7 @@ export default {
         return {
             seeMoreDetails: false,
             comment: '',
-            nbComments: [],
+            nbComments: 0,
             userInfos: [],
             showBoxComments: false,
             likePost: null,
@@ -93,7 +91,7 @@ export default {
     },
     methods: {  
         handler(value) {
-            this.nbComments.push(value)
+            this.nbComments = value
         } ,
         seeMore() {
             this.seeMoreDetails = true
@@ -154,7 +152,7 @@ export default {
         likes: Number
     },
     components: {
-        Comment
+        AllComments
     }
 }
 </script>
@@ -230,7 +228,6 @@ export default {
     background-color: #FFFFFF;
     border: 1px solid rgb(219, 219, 219);
     border-radius: 15px;
-    box-shadow: 3px 3px 3px #c2c0c0;
     margin: 0 auto 2em auto;
     max-width: 50em;
     display: flex;
@@ -396,7 +393,14 @@ export default {
     
 }
 
-@media only screen and (max-width: 389px) {
+@media only screen and (max-width: 409px) {
+    #btn-comment, #btn-like, .nb-comments {
+        font-size: 13px;
+    }
+}
+
+
+@media only screen and (max-width: 379px) {
     #btn-comment, #btn-like {
         font-size: 12px;
         width: 5em;

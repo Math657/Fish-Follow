@@ -6,10 +6,13 @@
                 <button class="mb-1 btn-main" id="send-comment" @click="submitComment()">Publier</button>
             </div>
             <div v-if="emptyComment">
-                <p class="comment-empty">Votre commentaire ne doit pas être vide ou dépasser 500 charactères! !</p>
+                <p class="comment-empty">Votre commentaire ne doit pas être vide ou dépasser 500 charactères!</p>
             </div>
             <div v-if="commentPublished">
                 <p class="comment-published">Commentaire publié!</p>
+            </div>
+            <div v-if="commentDeleted">
+                <p class="comment-published">Commentaire supprimé.</p>
             </div>
             
             <div class="all-comments">
@@ -17,47 +20,43 @@
                     <p v-if="allComments.length > 0" >Les plus récents</p>
                     <li :key="i" v-for="(com, i) in allComments" class="one-comment">
 
-                        <div class="author-info">
+                        <OneComment 
+                            :commentAuthor="allComments[i].comment.author"
+                            :commentAuthorID="allComments[i].comment.authorID"
+                            :commentContent="allComments[i].comment.comment"
+                            :commentCreatedAt="allComments[i].comment.createdAt"
+                            :commentUserProfilePic="allComments[i].user.profilPic"
+                            :commentID="allComments[i].comment._id"
+                            @delete-comment="deleteComment">   
+                        </OneComment>
 
-                            <router-link class="username-pic" :to="`/user/${allComments[i].comment.authorID}`" 
-                                         data-toggle="tooltip" title="Voir le profil" >
-                                <div v-if="allComments.length > 0" id="comment-profil-pic">
-                                    <img :src="allComments[i].user.profilPic" alt="Photo de profil">
-                                </div>
-                                <p class="comment-author">{{ allComments[i].comment.author }}</p>
-                            </router-link>
-
-                            <p class="comment-date">{{ moment(allComments[i].comment.createdAt).fromNow() }}</p>
-
-                            <div @click="showModaleDot()" class="three-dot-comment">
-                                <div class="one-dot-comment"></div>
-                                <div class="one-dot-comment"></div>
-                                <div class="one-dot-comment"></div>
-                            </div>
-                            <!-- <ModaleDot :reveleModaleDot="reveleModaleDot"></ModaleDot> -->
-                            
-                        </div>
-                        <h6>{{ allComments[i].comment.comment }}</h6>
                     </li>
                 </ul>
+                
             </div>
         </div>
-
     </div>
 </template>
 
 <script>
-// import ModaleDot from './ModaleDot'
+import OneComment from './OneComment.vue'
+
 export default {
-    name:'Comment',
+    name:'AllComments',
     data() {
         return {
             showInputComment: true,
             commentPublished: false,
+            commentDeleted: false,
             emptyComment: false,
-            reveleModaleDot: false,
             comment: '',
-            allComments: []
+            allComments: [],
+            dataComment: { // Structure d'un commentaire pour la réactivité
+                comment: null,
+                user: {
+                    profilPic: this.$store.state.userProfilPic
+                }
+            }
         }
     },
     methods: {
@@ -76,10 +75,12 @@ export default {
                     comment: this.comment,
                     authorID: this.$store.state.userId
                 })
-                .then(() => {
+                .then((res) => {
                     this.showInputComment = false
                     this.commentPublished = true
-                    // this.allComments.push(this.comment) // fonctionne mal
+                    this.commentDeleted = false   
+                    this.dataComment.comment = res.data
+                    this.allComments.unshift(this.dataComment)
                     this.comment = ''
                     this.emptyComment = false
                 })
@@ -91,8 +92,14 @@ export default {
                 this.emptyComment = true
             }  
         },
-        showModaleDot() {
-                this.reveleModaleDot = !this.reveleModaleDot
+        deleteComment(commentID) {
+            for (let i = 0; i < this.allComments.length; i++) {
+                if (this.allComments[i].comment._id === commentID) {
+                    this.allComments.splice(i, 1)
+                } 
+            }  
+            this.commentPublished = false
+            this.commentDeleted = true
         }
     },
     mounted() {
@@ -100,7 +107,7 @@ export default {
         .then((res) => {
             for (let com of res.data) {
                 this.allComments.push(com)  
-                this.$emit('toPost', this.allComments)  
+                this.$emit('toPost', this.allComments.length)  
             }
         })
         .catch((err) => {
@@ -111,10 +118,10 @@ export default {
         postID: String,
         showBoxComments: Boolean,
         userFirstname: String,
-        userLastname: String,
+        userLastname: String
     },
     components: {
-        // ModaleDot
+        OneComment
     }
 }
 
@@ -185,77 +192,5 @@ export default {
     color: #02080a;
     font-size: 14px;
 }
-
-.author-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.author-info p {
-    font-size: 12px;
-    margin-top: 2px;
-}
-
-#comment-profil-pic {
-    /* position:relative; */
-    overflow:hidden;
-    border-radius: 50%;
-    border: 1px solid #bebdbd;
-    height: 1.6em;
-    width: 1.6em;
-}
-
-#comment-profil-pic img {
-    /* position: absolute; */
-    height: 1.7em;
-    width: 1.6em;
-    /* max-width: 100%; */
-}
-
-.username-pic {
-    display: flex;
-    flex-direction: row;
-    margin-right: auto;
-}
-
-.one-dot-comment {
-    height: 3px;
-    width: 3px;
-    background-color: rgb(133, 131, 131);
-    border-radius: 50%;
-    margin-right: 3px;
-}
-
-.three-dot-comment {
-    display: flex;
-    flex-direction: row;
-    height: 5px;
-    align-items: center;
-    border-radius: 5px;
-    padding: 7px;
-    margin-left: 1em;
-    margin-bottom: 5px;
-}
-
-.three-dot-comment:hover {
-    cursor: pointer;
-    background-color: #cccbcb;
-}
-
-.one-comment {
-    margin: 0.5px 1em 1em 1em;
-    padding: 0.5em 1em 1em 1em;
-    border: 1px solid rgb(219, 219, 219);
-    border-radius: 10px;
-    background-color: #f1f1f1;
-    color: rgb(46, 45, 45);
-    text-align: left;
-}
-
-li h6 {
-    margin-top: 8px;
-}
-
 
 </style>

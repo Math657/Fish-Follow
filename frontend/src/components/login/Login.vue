@@ -39,17 +39,21 @@ export default {
                     email: this.email,
                     password: this.password
                     })
-                .then((response) => {
-                    localStorage.setItem('userID', JSON.stringify(response.data.userId))
+                .then((res) => {
+                    localStorage.setItem('userID', JSON.stringify(res.data.userId))
+                    localStorage.setItem('userProfilPic', JSON.stringify(res.data.userProfilPic))
                     this.$store.dispatch('StoreId')
+                    this.$store.dispatch('StoreProfilPic')
                     this.$store.dispatch('Logged')
+                    if (res.data.userStatus === 'admin') {
+                        this.$store.dispatch('IsAdmin')
+                    }
                 })
                 .catch((error) => {
-                    if (error.response.status === 401) {
+                    if (error.response && error.response.status === 401) {
                         this.incorrect = true
                         this.emailIsCompleted = true
                         this.pswIsCompleted = true
-                        
                     }
                     else {
                         console.log(error)

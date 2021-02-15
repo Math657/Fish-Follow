@@ -16,9 +16,6 @@ exports.signup = (req, res, next) => {
                     lastname: req.body.lastname,
                     firstname: req.body.firstname,
                     birthday: req.body.birthday,
-                    // livingArea: req.body.livingArea,
-                    // startedFishingDate: req.body.startedFishingDate,
-                    // fishingHabits: req.body.fishingHabits,
                     profilPic: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
                     followers: [],
                     following: [],
@@ -34,8 +31,14 @@ exports.signup = (req, res, next) => {
                         process.env.SECRET_KEY,
                         {expiresIn: '24h'})
 
+                        const userData = {
+                            userId: user.id,
+                            userProfilPic: user.profilPic,
+                            userStatus: user.status
+                        }
+
                         res.cookie('token', token, { expires: new Date(Date.now() + 240 * 3600000) })
-                        res.status(200).json({userId: userCreated.id})
+                        res.status(200).json(userData)        
                 })
                 // .then(() => res.status(201).json({ message: 'Utilisateur créé!' }))
                 .catch(() => res.status(402).json({error: 'Can\'t save user'}))
@@ -48,41 +51,6 @@ exports.signup = (req, res, next) => {
     .catch(error => res.status(403).json({error}))
     
 }
-
-// exports.signup = (req, res, next) => {
-//     bcrypt.hash(req.body.password, 10)
-//     .then(hash => {
-//         const user = new User({
-//             email: req.body.email,
-//             password: hash,
-//             lastname: req.body.lastname,
-//             firstname: req.body.firstname,
-//             birthday: req.body.birthday,
-//             // livingArea: req.body.livingArea,
-//             // startedFishingDate: req.body.startedFishingDate,
-//             // fishingHabits: req.body.fishingHabits,
-//             profilPic: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-//             followers: [],
-//             following: [],
-//             posts: [],
-//             fishLike: 0,
-//             createdAt: Date.now()
-//         })
-//         user.save()
-//         .then(userCreated => {
-//             let token = jwt.sign(
-//                 {userId: userCreated.id},
-//                 process.env.SECRET_KEY,
-//                 {expiresIn: '24h'})
-
-//                 res.cookie('token', token, { expires: new Date(Date.now() + 240 * 3600000) })
-//                 res.status(200).json({userId: userCreated.id})
-//         })
-//         // .then(() => res.status(201).json({ message: 'Utilisateur créé!' }))
-//         .catch(error => res.status(400).json({error}))
-//     })
-//     .catch(error => res.status(500).json({error}))
-// }
 
 exports.login = (req, res, next) => {
     User.findOne({ email: req.body.email })
@@ -100,9 +68,15 @@ exports.login = (req, res, next) => {
                     {userId: user.id},
                     process.env.SECRET_KEY,
                     {expiresIn: '24h'})
+
+                    const userData = {
+                        userId: user.id,
+                        userProfilPic: user.profilPic,
+                        userStatus: user.status
+                    }
                     
-                    res.cookie('token', token, { expires: new Date(Date.now() + 240 * 3600000) })
-                    res.status(200).json({userId: user.id})
+                    res.cookie('token', token, { expires: new Date(Date.now() + 240 * 3600000) }) 
+                    res.status(200).json(userData)
                 }
         })
         .catch(error => res.status(502).json({error}))

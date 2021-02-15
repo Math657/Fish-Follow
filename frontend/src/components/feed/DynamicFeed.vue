@@ -89,7 +89,9 @@ export default {
     background-color: #FFFFFF;
     border: 1px solid rgb(219, 219, 219);
     border-radius: 15px;
-    box-shadow: 3px 3px 3px #c2c0c0;
+    box-shadow: 0px 0px 5px 1px #e2e2e2;
+    -webkit-box-shadow: 0px 0px 5px 1px #e2e2e2;
+    -moz-box-shadow: 0px 0px 5px 1px #e2e2e2;
     margin: 0 auto 2em auto;
     max-width: 40em;
     display: flex;
