@@ -1,7 +1,7 @@
 <template>
   <div v-if="!published" class="fishSubmit">
       <h2 class="title">Publiez votre prise !</h2>
-        <form class="">
+        <form class="fish-form">
             <label for="postTitle">Titre de la publication (optionnel)</label>
             <input type="text" id="postTitle" class="form-control mb-2 mr-sm-2" placeholder="Ex: Session de ce matin" maxlength="50" v-model="postTitle">
 
@@ -153,6 +153,10 @@ export default {
 
 .title {
     margin-top: 1em;
+}
+
+.fish-form input {
+    margin-top: 0 !important;
 }
 
 input, select {
