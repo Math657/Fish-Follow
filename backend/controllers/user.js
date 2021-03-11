@@ -167,7 +167,7 @@ exports.requestPasswordReset = (req, res) => {
             }) 
             .catch(error => res.status(500).json({error}))
  
-            const link = `https://${req.headers.host}/reset/${resetToken}/${userId}` // prod
+            const link = `https://fishnfollow.com/reset/${resetToken}/${userId}` // prod
             // const link = `http://localhost:8080/reset/${resetToken}/${userId}` // local
                 
             sendEmail(req.body.email, link).catch(console.error)
