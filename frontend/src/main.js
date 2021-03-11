@@ -28,6 +28,8 @@ import { faSearch} from '@fortawesome/free-solid-svg-icons'
 import { faTrashAlt} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import titleMixin from './mixins/titleMixin'
+import GSignInButton from 'vue-google-signin-button'
+Vue.use(GSignInButton)
 
 
 library.add(faWater)

@@ -1,7 +1,8 @@
 <template>
     <div class="btn-follow-comp">
-        <div v-if="!doFollow" v-on:click="follow()" class="btn-main btn-follow"><font-awesome-icon icon="plus" class="icons-plus"/>Suivre</div>
-        <div v-if="doFollow" v-on:click="follow()" class="btn-main btn-following"><font-awesome-icon icon="check" class="icons-plus"/>Suivis</div>
+        <div v-if="this.targetUserId === this.$store.state.userId" class="btn-main btn-following"><font-awesome-icon icon="check" class="icons-plus"/>Vous</div>
+        <div v-else-if="!doFollow" v-on:click="follow()" class="btn-main btn-follow"><font-awesome-icon icon="plus" class="icons-plus"/>Suivre</div>
+        <div v-else-if="doFollow" v-on:click="follow()" class="btn-main btn-following"><font-awesome-icon icon="check" class="icons-plus"/>Suivis</div>
     </div>
 </template>
 

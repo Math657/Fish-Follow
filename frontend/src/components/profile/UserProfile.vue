@@ -58,6 +58,7 @@
 <script>
 import ModaleFollowers from './ModaleFollowers'
 import ModaleFollowings from './ModaleFollowings'
+import router from '../../router'
 
 export default {
     name: 'UserProfile',
@@ -94,32 +95,57 @@ export default {
         },
         toggleModaleFollowings() {
             this.reveleFollowings = !this.reveleFollowings
+        },
+        getData() {
+            this.$http.get(`${this.$store.state.url}/api/auth/profile/${this.userId}`) //get User Infos
+            .then(res => {
+                this.userInfos.push(res.data.user)
+                if (this.userInfos[0].followers.includes(this.$store.state.userId)) {
+                    this.doFollow = !this.doFollow
+                }
+            })
+            .catch((err) => {
+            this.checkIfTokenIsValid(err)
+            })
+        },
+        getPosts() {
+            this.$http.get(`${this.$store.state.url}/api/auth/profile/posts/${this.userId}`)  // Get User Posts
+            .then(res => {
+                if (res.data.fishes) {
+                    for (let fish of res.data.fishes) {
+                        this.userPosts.push(fish)
+                    }    
+                }
+            })
+            .catch((err) => {
+            this.checkIfTokenIsValid(err)
+            }) 
         }
     },
-    mounted(){
-        this.$http.get(`http://localhost:3000/api/auth/profile/${this.userId}`) //get User Infos
-        .then(res => {
-            this.userInfos.push(res.data.user)
-            if (this.userInfos[0].followers.includes(this.$store.state.userId)) {
-                this.doFollow = !this.doFollow
+     watch: {
+        '$route' (to, from) {
+            if (to !== from ) {
+                if (this.$route.params.id === this.$store.state.userId) {
+                    router.push(`/myprofile/${this.$store.state.userId}`)
+                }
+                else {
+                    this.userId = this.$route.params.id,
+                    this.userInfos = [],
+                    this.userPosts = [],
+                    this.doFollow = false,
+                    this.revele = false,
+                    this.reveleFollowers = false,
+                    this.reveleFollowings = false
+                    this.getData()
+                    this.getPosts()
+                }
+               
             }
-        })
-        .catch((err) => {
-           this.checkIfTokenIsValid(err)
-        })
-
-        // Get User Posts
-        this.$http.get(`http://localhost:3000/api/auth/profile/posts/${this.userId}`)
-        .then(res => {
-            if (res.data.fishes) {
-                for (let fish of res.data.fishes) {
-                    this.userPosts.push(fish)
-                }    
-            }
-        })
-        .catch((err) => {
-           this.checkIfTokenIsValid(err)
-        }) 
+        }
+    },
+    mounted() {
+       this.getData()
+       this.getPosts()       
     },
     components: {
         ModaleFollowers,

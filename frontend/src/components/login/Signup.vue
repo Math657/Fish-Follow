@@ -2,38 +2,39 @@
   <div>
       <h2 class="title">Créer un compte</h2>
       <router-link to="/login">ou connectez-vous</router-link>
+      <GoogleLogin></GoogleLogin>
         <form enctype="multipart/form-data" method="post" autocomplete="on">
 
-            <label for="email">Adresse e-mail</label>
-            <input type="email" id="email" class="form-control" v-model="email" required>
+            <!-- <label for="email">Adresse e-mail</label> -->
+            <input type="email" id="email" class="form-control" v-model="email" placeholder="Adresse e-mail" required>
             <p v-if="!emailIsCompleted" class="error">Veuillez saisir une adresse email valide</p>
-            <p v-if="emailAlreadyUsed" class="error">Cette adresse email est déjà utilisé</p>
+            <p v-if="emailAlreadyUsed" class="error">Cette adresse e-mail est déjà utilisée</p>
 
 
-            <label for="password">Mot de passe</label>
-            <input type="password" id="password" class="form-control" v-model="password" required>
+            <!-- <label for="password">Mot de passe</label> -->
+            <input type="password" id="password" class="form-control" v-model="password" placeholder="Mot de passe" required>
             <p v-if="!pswIsCompleted" class="error">Veuillez saisir un mot de passe</p>
             <p v-if="!pswIsLength" class="error">Votre mot de passe doit contenir au moins 8 caractères!</p>
 
-            <label for="password-confirm">Confirmer votre mot de passe</label>
-            <input type="password" id="password-confirm" class="form-control" v-model="passwordConfirm" required>
+            <!-- <label for="password-confirm">Confirmer votre mot de passe</label> -->
+            <input type="password" id="password-confirm" class="form-control" v-model="passwordConfirm" placeholder="Confirmer votre mot de passe" required>
             <p v-if="!pswIsConfirmed" class="error">Veuillez confirmer votre mot de passe</p>
             <p v-if="!pswIsCorrect" class="error">Les mots de passe ne correspondent pas</p>
             
-            <label for="nom">Nom</label>
-            <input type="text" id="lastname" class="form-control" v-model="lastname" required>
+            <!-- <label for="nom">Nom</label> -->
+            <input type="text" id="lastname" class="form-control" v-model="lastname" placeholder="Nom" required>
             <p v-if="!lastnameIsCompleted" class="error">Veuillez saisir un nom</p>
 
-            <label for="firstname">Prénom</label>
-            <input type="text" id="firstname" class="form-control" v-model="firstname" required>
+            <!-- <label for="firstname">Prénom</label> -->
+            <input type="text" id="firstname" class="form-control" v-model="firstname" placeholder="Prénom" required>
             <p v-if="!firstnameIsCompleted" class="error">Veuillez saisir un prénom</p>
 
-            <label for="birthday">Date de naissance</label>
-            <input type="date" id="birthday" class="form-control" v-model="birthday" required>
+            <label for="birthday">Date de naissance (optionnel)</label>
+            <input type="date" id="birthday" class="form-control" v-model="birthday">
             <p v-if="!birthdayIsCompleted" class="error">Veuillez saisir une date de naissance</p>
             
     
-            <label for="profilPic">Photo de profil*</label>
+            <label for="profilPic">Photo de profil</label>
             <input type="file" id="file" name="file" accept="image/*" @change="onFileAdded">
             <img :src="previewImage" class="img-preview" />
             <!-- <p v-if="!previewImage" class="error">Veuillez choisir une photo de profil</p> -->
@@ -46,6 +47,7 @@
 
 <script>
 import FormData from 'form-data'
+import GoogleLogin from './GoogleLogin'
 
 export default {
     name: 'Signup',
@@ -112,17 +114,7 @@ export default {
                 return false
             }
             
-            if (!this.birthday) {
-                this.firstnameIsCompleted = true
-                this.lastnameIsCompleted = true
-                this.pswIsLength = true
-                this.pswIsCompleted = true
-                this.emailIsCompleted = true
-                this.birthdayIsCompleted = false
-                return false
-            }
-            if (this.email && this.lastname && this.firstname && this.password && this.birthday) {
-                this.birthdayIsCompleted = true
+            if (this.email && this.lastname && this.firstname && this.password) {
                 return true
             }
             e.preventDefault()   
@@ -159,14 +151,17 @@ export default {
                 this.$store.dispatch('StoreProfilPic')
                 this.$store.dispatch('Logged')
             })
-            .catch((error) => {
-                if (error.response.status === 401) {
+            .catch((err) => {
+                if (err.response.status === 401) {
                     this.emailAlreadyUsed = true
                 } else {
-                    console.log(error)
+                    console.log(err)
                 }
             })}
         }
+    },
+    components: {
+        GoogleLogin
     }
 }
 </script>
@@ -185,6 +180,7 @@ form {
 
 input {
     max-width: 20em;
+    margin-top: 1.5em !important;
 }
 
 label {
@@ -208,8 +204,13 @@ p {
     opacity: 0.8;
 }
 
-.file {
+#birthday {
+    margin-top: 0 !important;
+}
+
+#file {
     margin-bottom: 1em;
+    margin-top: 0 !important;
 }
 
 .img-preview {

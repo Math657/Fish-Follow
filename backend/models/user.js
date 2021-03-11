@@ -4,9 +4,11 @@ const uniqueValidator = require('mongoose-unique-validator')
 const userSchema = mongoose.Schema({
     email: {type: String, required: true, unique: true},
     password: {type: String, required: true},
+    resetPasswordToken: {type: String},
+    resetPasswordExpires: {type: Date},
     lastname: {type: String, required: true},
     firstname: {type: String, required: true},
-    birthday: {type: Date, required: true},
+    birthday: {type: Date},
     // country: {type: String, required: true},
     // livingArea: {type: String, required: true},
     // startedFishingDate: {type: Date, required: true},

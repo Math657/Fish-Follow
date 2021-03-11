@@ -24,7 +24,7 @@ build:
     - docker push $CONTAINER_TEST_IMAGE_FRONTEND
     - cd ..
     - cd ./backend
-    - docker build --build-arg DB=$CI_DB --build-arg TOKEN=$CI_SECRET_KEY_TOKEN -t $CONTAINER_TEST_IMAGE_BACKEND .
+    - docker build --build-arg DB=$CI_DB --build-arg TOKEN=$CI_SECRET_KEY_TOKEN --build-arg EMAIL_USERNAME=$CI_EMAIL_USERNAME --build-arg EMAIL_PASSWORD=$CI_EMAIL_PASSWORD -t $CONTAINER_TEST_IMAGE_BACKEND .
     - docker push $CONTAINER_TEST_IMAGE_BACKEND
 
 release-image:

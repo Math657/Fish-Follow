@@ -35,6 +35,7 @@
 
 <script>
 import Follow from './Follow'
+// import router from '../../router/index'
 
 export default {
     name: 'ModaleFollowings',
@@ -45,15 +46,20 @@ export default {
         }
     },
     mounted() {
-        this.$http.get(`${this.$store.state.url}/api/auth/profile/followings/${this.id}`)
-        .then(res => {
-            for (let followings of res.data.allFollowings) {
-                this.allFollowings.push(followings)
-            }
-        })
-        .catch(err => {
-            this.checkIfTokenIsValid(err)
-        })
+        this.getData()
+    },
+    methods: {
+        getData() {
+            this.$http.get(`${this.$store.state.url}/api/auth/profile/followings/${this.id}`)
+            .then(res => {
+                for (let followings of res.data.allFollowings) {
+                    this.allFollowings.push(followings)
+                }
+            })
+            .catch(err => {
+                this.checkIfTokenIsValid(err)
+            })
+        }
     },
     components: {
         Follow

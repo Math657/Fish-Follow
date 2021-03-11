@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import SignupPage from '../views/SignupPage.vue'
+import PasswordReset from '../views/PasswordReset'
 import PostFish from '../views/PublishFish.vue'
 import MyProfilePage from '../views/MyProfilePage.vue'
 import UserProfilePage from '../views/UserProfilePage.vue'
@@ -36,6 +37,16 @@ Vue.use(VueRouter)
       path: '/login',
       name: 'Login',
       component: Home
+  },
+  {
+      path: '/forgot',
+      name: 'Forgot',
+      component: PasswordReset
+  },
+  {
+      path: '/reset/:token/:id',
+      name: 'Reset',
+      component: PasswordReset
   },
   {
       path: '/post',
