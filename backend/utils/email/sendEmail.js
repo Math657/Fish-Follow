@@ -4,12 +4,11 @@ const sendEmail = async (email, link) => {
   try {
         const transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
-            port: 587,
+            port: 465,
+            secure: true,
             auth: {
                 user: process.env.EMAIL_USERNAME,
                 pass: process.env.EMAIL_PASSWORD
-                // user: 'mathieu.dessaint10@gmail.com',
-                // pass: 'ght6mdakzz'
             }
         })
         
@@ -27,6 +26,7 @@ const sendEmail = async (email, link) => {
         console.log('Message sent: %s', info.messageId)
         // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com> 
   } catch (error) {
+      console.log(error)
     return error
   }
 }

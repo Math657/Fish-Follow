@@ -37,14 +37,6 @@ mongoose.connect(process.env.DB_CONN,
 .then(() => console.log('Connexion à MongoDB réussie !'))
 .catch(() => console.log('Connexion à MongoDB échouée !'))
 
-// mongoose.connect("mongodb+srv://admin:D5iwksjO4L43BMVP@cluster0.zysof.mongodb.net/<dbname>?retryWrites=true&w=majority",
-// { useNewUrlParser: true,
-// //   useFindAndModify: false,
-//   useUnifiedTopology: true,
-//   useCreateIndex: true })
-// .then(() => console.log('Connexion à MongoDB réussie !'))
-// .catch(() => console.log('Connexion à MongoDB échouée !'))
-
 
 app.use(cookieParser())
 app.use(history())
