@@ -1,18 +1,13 @@
 <template>
   <div class="home">
         <NavBar></NavBar>
-        <!-- <Top></Top> -->
-        <!-- <img alt="homme qui pêche" src="../assets/fishingbg2.png" class="img-fluid img-banner"> -->
-        <!-- <HelloWorld msg="Bienvenue sur  Fish & Follow!"/> -->
-        <div v-if="$store.state.isLogged === false">
+        <div v-if="this.checkIfLogged() === false">
+        <!-- <div v-if="!$store.state.isLogged"> -->
             <Login></Login>
         </div>
             
         <div v-else>
-            <!-- <Feed></Feed> -->
-            <!-- <FeedTEST></FeedTEST> -->
             <DynamicFeed></DynamicFeed>
-
         </div>
     </div>
 </template>
@@ -21,28 +16,30 @@
 
 import NavBar from '@/components/nav/NavBar.vue'
 import Login from '../components/login/Login.vue'
-// import Feed from '../components/Feed.vue'
-// import FeedTEST from '../components/feed/FeedTEST.vue'
 import DynamicFeed from '../components/feed/DynamicFeed.vue'
-// import Top from '../components/Top.vue'
 
 export default {
   name: 'Home',
   title: 'Fish & Follow',
+  created() {
+      this.$root.$refs.A = this
+  },
+  methods: {
+      forceRerender() {
+          this.$forceUpdate()
+      }
+  },
   components: {
     NavBar,
     Login,
-    // Feed,
-    // FeedTEST,
     DynamicFeed
-    // Top
   }
 }
 </script>
 
 <style lang="scss" scoped>
 
-img {
+// img {
     
 //   max-width:230px;
 //   max-height:250px;
@@ -50,7 +47,7 @@ img {
 //   height: auto;
 //   opacity: 80%;
 
-}
+// }
 
 @media only screen and (max-width: 759px) {
     img {

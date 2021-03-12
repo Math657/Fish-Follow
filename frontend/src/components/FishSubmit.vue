@@ -125,7 +125,7 @@ export default {
                 data.append('date', this.date)
                 data.append('fishingSettup', this.fishingSettup)
                 data.append('description', this.description)
-                data.append('userID', this.$store.state.userId)
+                data.append('userID', this.checkUserId())
                 data.append('image', document.getElementById('file').files[0])
                 
             

@@ -101,7 +101,7 @@ export default {
         },
         sendLike() {
             this.$http.post(`${this.$store.state.url}/api/auth/like/${this.postID}`, {
-                userID: this.$store.state.userId
+                userID: this.checkUserId()
             })
             .then((res) => {
                 this.likePost = res.data.like
@@ -124,7 +124,7 @@ export default {
 
 
         // Get user likeStatut
-        this.$http.get(`${this.$store.state.url}/api/auth/likeStatut/${this.postID}/${this.$store.state.userId}`)
+        this.$http.get(`${this.$store.state.url}/api/auth/likeStatut/${this.postID}/${this.checkUserId()}`)
         .then(res => {
             this.likePost = res.data.like
         })

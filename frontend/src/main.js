@@ -28,9 +28,8 @@ import { faSearch} from '@fortawesome/free-solid-svg-icons'
 import { faTrashAlt} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import titleMixin from './mixins/titleMixin'
+import cookiesMixin from './mixins/cookiesMixin'
 import GSignInButton from 'vue-google-signin-button'
-Vue.use(GSignInButton)
-
 
 library.add(faWater)
 library.add(faMapMarkerAlt)
@@ -51,6 +50,8 @@ library.add(faInfoCircle)
 library.add(faSearch)
 library.add(faTrashAlt)
 
+Vue.use(GSignInButton)
+
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Axios.defaults.withCredentials = true
@@ -65,30 +66,98 @@ Vue.config.productionTip = false
 
 Vue.mixin({
     methods: {
-      capitalizeFirstLetter: str => str.charAt(0).toUpperCase() + str.slice(1),
-      loggout() {
-        localStorage.clear()
-        sessionStorage.clear()
-        this.$store.dispatch('LogOut')
-      },
-      checkIfTokenIsValid(err) {
-        if (err.response) {
-            if (err.response.data.message === 'Token non valide') {
-                this.loggout()
+        capitalizeFirstLetter: str => str.charAt(0).toUpperCase() + str.slice(1),
+        loggout() {
+            this.eraseCookie('userId')
+            this.eraseCookie('userProfilPic')
+            this.eraseCookie('isLogged')
+            this.eraseCookie('isAdmin')
+            localStorage.clear()
+            sessionStorage.clear()
+            this.$store.dispatch('LogOut')
+            this.$root.$refs.A.forceRerender()
+            this.$root.$refs.B.forceRerender()
+            this.$root.$refs.C.forceRerender()
+            router.push('/')
+        },
+        checkIfTokenIsValid(err) {
+            if (err.response) {
+                if (err.response.data.message === 'Token non valide') {
+                    this.loggout()
+                }
+                else {
+                    console.log(err)
+                }
             }
             else {
                 console.log(err)
+            }  
+        },
+        createCookie(name, value, days) {
+            if (days) {
+                let date = new Date()
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000))
+                var expires = '; expires=' + date.toGMTString()
             }
+            else expires = ''
+            document.cookie = name + '=' + value + expires + '; path=/'
+        }, 
+        readCookie(name) {
+            let nameEQ = name + '='
+            let ca = document.cookie.split(';')
+            for(let i = 0; i < ca.length; i++) {
+                let c = ca[i]
+                while (c.charAt(0) === ' ') c = c.substring(1, c.length)
+                if (c.indexOf(nameEQ) === 0) {
+                    return c.substring(nameEQ.length, c.length)
+                }
+            }
+            return null
+        },
+        eraseCookie(name) {
+            this.createCookie(name,'', -1)
+        },
+        checkUserId() {
+            if (this.readCookie('userId') !== '') {
+                return this.readCookie('userId')
+            } else if (this.$store.state.userId.length !== '') {
+                return this.$store.state.userId
+            } else this.loggout()
+        },
+        checkIfLogged() {
+            if (this.readCookie('isLogged') === 'true') {
+                return true
+            }
+            else if (this.$store.state.isLogged) {
+                return this.$store.state.isLogged
+            } else {
+                return false
+            }
+        },
+        checkIfAdmin() {
+            if (this.readCookie('isAdmin') === true) {
+                return this.readCookie('isAdmin')
+            }
+            else if (this.$store.state.isAdmin) {
+                return this.$store.state.isAdmin
+            }
+        },
+        getProfilPic() {
+            if (this.readCookie('userProfilPic')) {
+                return this.readCookie('userProfilPic')
+            } else return this.$store.state.userProfilPic 
+        },
+        test() {
+            console.log('function!')
         }
-        else {
-            console.log(err)
-        }
-            
-      }
     }
 })
 
 Vue.mixin(titleMixin)
+Vue.mixin(cookiesMixin)
+// export default { 
+//     methods: this.checkIfLogged()
+// }
 
 new Vue({
   router,

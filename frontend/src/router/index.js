@@ -7,6 +7,7 @@ import PostFish from '../views/PublishFish.vue'
 import MyProfilePage from '../views/MyProfilePage.vue'
 import UserProfilePage from '../views/UserProfilePage.vue'
 import store from '../store'
+import cookiesMixin from '../mixins/cookiesMixin'
 
 Vue.use(VueRouter)
 
@@ -32,11 +33,6 @@ Vue.use(VueRouter)
       path: '/signup',
       name: 'Signup',
       component: SignupPage
-  },
-  {
-      path: '/login',
-      name: 'Login',
-      component: Home
   },
   {
       path: '/forgot',
@@ -72,7 +68,7 @@ Vue.use(VueRouter)
           requireAuth: true
       },
       beforeEnter: (to, from, next) => {
-          if (store.state.userId === to.params.id) {
+          if (cookiesMixin.methods.checkUserId() === to.params.id) {
               next(`/myprofile/${store.state.userId}`)
           }
           else next()
@@ -89,7 +85,7 @@ const router = new VueRouter({
 // Check if user is logged
 router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.requireAuth)) {
-        if (store.state.isLogged) {
+        if (cookiesMixin.methods.checkIfLogged() === true) {
             next()
         }
         else if (!store.state.isLogged) {

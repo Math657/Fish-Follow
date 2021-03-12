@@ -54,7 +54,7 @@ export default {
             dataComment: { // Structure d'un commentaire pour la réactivité
                 comment: null,
                 user: {
-                    profilPic: this.$store.state.userProfilPic
+                    profilPic: this.getProfilPic()
                 }
             }
         }
@@ -73,7 +73,7 @@ export default {
                 this.$http.post(`${this.$store.state.url}/api/auth/comment`, {
                     postID: this.postID,
                     comment: this.comment,
-                    authorID: this.$store.state.userId
+                    authorID: this.checkUserId()
                 })
                 .then((res) => {
                     this.showInputComment = false

@@ -18,14 +18,14 @@
                 
                 <ModaleFollowers :reveleFollowers="reveleFollowers"
                                  :toggleModaleFollowers="toggleModaleFollowers"
-                                 :id="this.$store.state.userId"
+                                 :id="this.checkUserId()"
                                  :userFollowers="userInfos[0].followers"
                                  :userFollowings="userInfos[0].following">
                 </ModaleFollowers>
 
                 <ModaleFollowings :reveleFollowings="reveleFollowings"
                                   :toggleModaleFollowings="toggleModaleFollowings"
-                                  :id="this.$store.state.userId"
+                                  :id="this.checkUserId()"
                                   :userFollowers="userInfos[0].followers"
                                   :userFollowings="userInfos[0].following">
                 </ModaleFollowings>
@@ -81,7 +81,7 @@ export default {
         }
     },
     mounted(){
-        this.$http.get(`${this.$store.state.url}/api/auth/profile/${this.$store.state.userId}`) //get User Infos
+        this.$http.get(`${this.$store.state.url}/api/auth/profile/${this.checkUserId()}`) //get User Infos
         .then(res => {
             this.userInfos.push(res.data.user)
         })
@@ -90,7 +90,7 @@ export default {
         })
 
         // Get User Posts
-        this.$http.get(`${this.$store.state.url}/api/auth/profile/posts/${this.$store.state.userId}`)
+        this.$http.get(`${this.$store.state.url}/api/auth/profile/posts/${this.checkUserId()}`)
         .then(res => {
             if (res.data.fishes) {
                 for (let fish of res.data.fishes) {

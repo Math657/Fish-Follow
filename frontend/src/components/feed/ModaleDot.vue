@@ -1,8 +1,8 @@
 <template>
     <div v-if="reveleModaleDot">
         <div class="three-dot-modale">
-            <p v-if="commentAuthorID === this.$store.state.userId" @click="deleteComment()"><font-awesome-icon icon="trash-alt" class="icons dot-comment-icon" /> Supprimer mon commentaire</p>
-            <p v-else-if="this.$store.state.isAdmin" @click="deleteCommentAdmin()"><font-awesome-icon icon="trash-alt" class="icons dot-comment-icon" /> Supprimer le commentaire</p>
+            <p v-if="commentAuthorID === this.checkUserId()" @click="deleteComment()"><font-awesome-icon icon="trash-alt" class="icons dot-comment-icon" /> Supprimer mon commentaire</p>
+            <p v-else-if="this.checkIfAdmin()" @click="deleteCommentAdmin()"><font-awesome-icon icon="trash-alt" class="icons dot-comment-icon" /> Supprimer le commentaire</p>
             <p><font-awesome-icon icon="exclamation-circle" class="icons dot-comment-icon" data-toggle="tooltip" title="Ce commentaire est innaproprié ou offensant" /> Signaler le commentaire</p>
         </div>
 
@@ -31,7 +31,7 @@ export default {
             })
         },
         deleteCommentAdmin() {
-            this.$http.delete(`${this.$store.state.url}/api/auth/deleteCommentAdmin/${this.commentID}/${this.$store.state.userId}`)
+            this.$http.delete(`${this.$store.state.url}/api/auth/deleteCommentAdmin/${this.commentID}/${this.checkUserId()}`)
             .then(() => {
                 this.$emit('delete-comment', this.commentID)
             })

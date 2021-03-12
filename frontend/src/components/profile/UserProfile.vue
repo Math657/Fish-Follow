@@ -77,7 +77,7 @@ export default {
         follow() {
             this.$http.post(`${this.$store.state.url}/api/auth/follow`, {
                 targetUser: this.userId,
-                authorID: this.$store.state.userId
+                authorID: this.checkUserId()
             })
             .then(() => {
                 this.doFollow ? this.userInfos[0].followers.length -= 1 : this.userInfos[0].followers.length += 1
@@ -100,7 +100,7 @@ export default {
             this.$http.get(`${this.$store.state.url}/api/auth/profile/${this.userId}`) //get User Infos
             .then(res => {
                 this.userInfos.push(res.data.user)
-                if (this.userInfos[0].followers.includes(this.$store.state.userId)) {
+                if (this.userInfos[0].followers.includes(this.checkUserId())) {
                     this.doFollow = !this.doFollow
                 }
             })
@@ -125,8 +125,8 @@ export default {
      watch: {
         '$route' (to, from) {
             if (to !== from ) {
-                if (this.$route.params.id === this.$store.state.userId) {
-                    router.push(`/myprofile/${this.$store.state.userId}`)
+                if (this.$route.params.id === this.checkUserId()) {
+                    router.push(`/myprofile/${this.checkUserId()}`)
                 }
                 else {
                     this.userId = this.$route.params.id,

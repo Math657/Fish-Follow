@@ -9,6 +9,7 @@
             </div>
         </g-signin-button>
         <p v-if="noAccount" class="error">Aucun compte associé à cette adresse e-mail.</p>
+        <p v-if="googleError" class="error">Une erreur est survenue</p>
     </div> 
 </template>
 
@@ -25,7 +26,8 @@ export default {
             googleSignInParams: {
                 client_id: '499019390281-7cb4nbfnqlb92ge8v3p6kmbuui7jgfa5.apps.googleusercontent.com'
             },
-            noAccount: false
+            noAccount: false,
+            googleError: false
         }
     },
     methods: {
@@ -39,6 +41,10 @@ export default {
                 image: profile.getImageUrl()
             })
             .then(res => {
+                this.createCookie('userId', res.data.userId, 365)
+                this.createCookie('userProfilPic', res.data.userProfilPic, 365)
+                this.createCookie('isLogged', true, 365)
+
                 localStorage.setItem('userID', JSON.stringify(res.data.userId))
                 localStorage.setItem('userProfilPic', JSON.stringify(res.data.userProfilPic))
                 this.$store.dispatch('StoreId')
@@ -46,6 +52,7 @@ export default {
                 this.$store.dispatch('Logged')
                 if (res.data.userStatus === 'admin') {
                     this.$store.dispatch('IsAdmin')
+                    this.createCookie('isAdmin', true, 365)
                 }
             })
             .catch(err => {
@@ -53,11 +60,13 @@ export default {
                         this.noAccount = true
                     }
                     else {
+                        this.googleError = true
                         console.log(err)
                     }
             })
         },
         onSignInError(error) {
+            this.googleError = true
             console.log(error)
         }
     }

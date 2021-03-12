@@ -41,8 +41,12 @@ export default {
                 this.$http.post(`${this.$store.state.url}/api/auth/login`, {
                     email: this.email,
                     password: this.password
-                    })
+                })
                 .then((res) => {
+                    this.createCookie('userId', res.data.userId, 365)
+                    this.createCookie('userProfilPic', res.data.userProfilPic, 365)
+                    this.createCookie('isLogged', true, 365)
+                    
                     localStorage.setItem('userID', JSON.stringify(res.data.userId))
                     localStorage.setItem('userProfilPic', JSON.stringify(res.data.userProfilPic))
                     this.$store.dispatch('StoreId')
@@ -50,6 +54,7 @@ export default {
                     this.$store.dispatch('Logged')
                     if (res.data.userStatus === 'admin') {
                         this.$store.dispatch('IsAdmin')
+                        this.createCookie('isAdmin', true, 365)
                     }
                 })
                 .catch((error) => {

@@ -46,12 +46,7 @@ export default {
                     this.email = ''
                 })
                 .catch(err => {
-                    if (err.response && err.response.status === 401) {
-                        this.emailIsCompleted = false
-                    }
-                    else {
-                        console.log(err)
-                    }
+                    console.log(err)
                 })
             }
         }

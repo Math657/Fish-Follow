@@ -45,7 +45,7 @@ export default {
     mounted() {
         const getData = async () => {
             try {
-                const res = await this.$http.get(`${this.$store.state.url}/api/auth/home/${this.$store.state.userId}`)
+                const res = await this.$http.get(`${this.$store.state.url}/api/auth/home/${this.checkUserId()}`)
                 for (let fish of res.data) {          
                     this.allFishes.push(fish)   
                 }

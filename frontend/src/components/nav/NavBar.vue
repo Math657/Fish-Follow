@@ -1,21 +1,21 @@
 <template>
     <div class="header">
         <div class="content">
-            <router-link to="/home" class="main-title"><h2>Fish & Follow</h2></router-link>
+            <router-link to="/" class="main-title"><h2>Fish & Follow</h2></router-link>
             <Menu></Menu>
             <Burger></Burger>
             <Sidebar2>
-                <ul v-if="this.$store.state.isLogged" class="sidebar-panel-nav">
-                    <li @click="closeSidebarPanel" class="brand"><router-link to="/home">Fish & Follow</router-link></li>
+                <ul v-if="this.checkIfLogged() === true" class="sidebar-panel-nav">
+                    <li @click="closeSidebarPanel" class="brand"><router-link to="/">Fish & Follow</router-link></li>
                     <!-- <li @click="closeSidebarPanel"><router-link to="/home"><font-awesome-icon icon="home" class="icon-menu" />Accueil</router-link></li> -->
                     <li @click="closeSidebarPanel"><router-link to="/post"><font-awesome-icon icon="camera-retro" class="icon-menu" />Publier</router-link></li>
-                    <li @click="closeSidebarPanel"><router-link :to="`/myprofile/${this.$store.state.userId}`"><font-awesome-icon icon="user" class="icon-menu" />Mon profil</router-link></li>
+                    <li @click="closeSidebarPanel"><router-link :to="`/myprofile/${this.checkUserId()}`"><font-awesome-icon icon="user" class="icon-menu" />Mon profil</router-link></li>
                     <li @click="closeSidebarPanel"><router-link to="/myprofile"><font-awesome-icon icon="cog" class="icon-menu" />Paramètres</router-link></li>
                     <li @click="closeSidebarPanel"><button class="btn" id="btn-logout"  @click.prevent="logOut()"><font-awesome-icon icon="sign-out-alt" class="icon-menu" />Se déconnecter</button></li>
                 </ul>
 
                 <ul v-else class="sidebar-panel-nav">
-                    <li @click="closeSidebarPanel" class="brand"><router-link to="/home">Fish & Follow</router-link></li>
+                    <li @click="closeSidebarPanel" class="brand"><router-link to="/">Fish & Follow</router-link></li>
                     <li @click="closeSidebarPanel"><router-link to="/login">Se connecter</router-link></li>
                     <li @click="closeSidebarPanel"><router-link to="/signup">Créer un compte</router-link></li>
                 </ul>
@@ -38,9 +38,16 @@ export default {
             sidebar: false
         }
     },
+    created() {
+      this.$root.$refs.C = this
+    },
     methods: {
         closeSidebarPanel() {
             this.$store.dispatch('NavOpen')
+        },
+        forceRerender() {
+            console.log('navbar')
+            this.$forceUpdate()
         },
         logOut(){
             this.loggout()

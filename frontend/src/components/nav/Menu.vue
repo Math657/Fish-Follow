@@ -1,6 +1,6 @@
 <template>
     <div> 
-        <div class="menu" v-if="$store.state.isLogged === false">
+        <div class="menu" v-if="this.checkIfLogged() === false">
             <div v-for="item in linksOffline" v-bind:item="item" :key="item.name">
                 <ul>
                     <li><router-link :to="item.url">{{ item.name }}</router-link></li>
@@ -16,16 +16,16 @@
             </div> -->
             <!-- <router-link :to="'/'"><font-awesome-icon icon="home" class="icons"></font-awesome-icon></router-link> -->
             <!-- <font-awesome-icon icon="search" class="icons"></font-awesome-icon> -->
-            <Search></Search>
+            <!-- <Search></Search> -->
             <router-link :to="'/post/'"><font-awesome-icon icon="camera-retro" class="icons"></font-awesome-icon></router-link>
-            <router-link :to="`/myprofile/${this.$store.state.userId}`"><font-awesome-icon icon="user" class="icons"></font-awesome-icon></router-link>
+            <router-link :to="`/myprofile/${this.checkUserId()}`"><font-awesome-icon icon="user" class="icons"></font-awesome-icon></router-link>
             <button class="btn-danger" id="btn-loggout" @click.prevent="logOut()">Se déconnecter</button>
         </div>    
     </div>
 </template>
 
 <script>
-import Search from './Search'
+// import Search from './Search'
 
 export default {
     name: 'Menu',
@@ -36,7 +36,7 @@ export default {
             about: 'A propos',
 
             linksOffline: [
-                {name: 'Se connecter', url: '/login'},
+                {name: 'Se connecter', url: '/'},
                 {name: 'Créer un compte', url: '/signup'}
             ],
 
@@ -47,15 +47,20 @@ export default {
             ]
         }
     },
+    created() {
+      this.$root.$refs.B = this
+    },
     methods: {
+        forceRerender() {
+            console.log('navbar')
+            this.$forceUpdate()
+        },
         logOut(){
-            localStorage.clear()
-            sessionStorage.clear()
-            this.$store.dispatch('LogOut')
+            this.loggout()
         }
     },
     components: {
-        Search
+        // Search
     }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div>
       <h2 class="title">Créer un compte</h2>
-      <router-link to="/login">ou connectez-vous</router-link>
+      <router-link to="/">ou connectez-vous</router-link>
       <GoogleLogin></GoogleLogin>
         <form enctype="multipart/form-data" method="post" autocomplete="on">
 
@@ -145,6 +145,10 @@ export default {
                 }
             })
             .then((res) => {
+                this.createCookie('userId', res.data.userId, 365)
+                this.createCookie('userProfilPic', res.data.userProfilPic, 365)
+                this.createCookie('isLogged', true, 365)
+
                 localStorage.setItem('userID', JSON.stringify(res.data.userId))
                 localStorage.setItem('userProfilPic', JSON.stringify(res.data.userProfilPic))
                 this.$store.dispatch('StoreId')
