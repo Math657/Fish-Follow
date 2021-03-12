@@ -52,7 +52,6 @@ export default {
     },
     methods: {
         forceRerender() {
-            console.log('navbar')
             this.$forceUpdate()
         },
         logOut(){
