@@ -8,6 +8,8 @@ const sendEmail = async (email, link) => {
             auth: {
                 user: process.env.EMAIL_USERNAME,
                 pass: process.env.EMAIL_PASSWORD
+                // user: 'mathieu.dessaint10@gmail.com',
+                // pass: 'ght6mdakzz'
             }
         })
         
