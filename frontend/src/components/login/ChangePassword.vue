@@ -20,7 +20,7 @@
         
         <div v-else class="mail-success">
             <p class="mail-sent">Changement de mot de passe réussi!</p>
-            <router-link to="/login" class="password-changed-login">Se connecter</router-link>
+            <router-link to="/" class="password-changed-login">Se connecter</router-link>
         </div>
     </div>
 </template>
