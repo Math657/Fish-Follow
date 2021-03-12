@@ -19,6 +19,7 @@ const userSchema = mongoose.Schema({
     posts: {type: Array, required: true},
     fishLike: {type: Number, required: true},
     createdAt: {type: Date, required: true},
+    cookiesAccepted: {type: Boolean, required: true},
     status: {type: String, required: true}
 })
 

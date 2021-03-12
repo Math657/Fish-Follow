@@ -30,6 +30,7 @@ exports.signup = (req, res) => {
                     posts: [],
                     fishLike: 0,
                     createdAt: Date.now(),
+                    cookiesAccepted: true,
                     status: 'user'
                 })
                 user.save()
@@ -109,6 +110,7 @@ exports.googleLogin = (req, res) => {
                     posts: [],
                     fishLike: 0,
                     createdAt: Date.now(),
+                    cookiesAccepted: true,
                     status: 'user'  
                 })
                 user.save()
