@@ -29,9 +29,9 @@
             <input type="text" id="firstname" class="form-control" v-model="firstname" placeholder="Prénom" required>
             <p v-if="!firstnameIsCompleted" class="error">Veuillez saisir un prénom</p>
 
-            <label for="birthday">Date de naissance (optionnel)</label>
+            <!-- <label for="birthday">Date de naissance (optionnel)</label>
             <input type="date" id="birthday" class="form-control" v-model="birthday">
-            <p v-if="!birthdayIsCompleted" class="error">Veuillez saisir une date de naissance</p>
+            <p v-if="!birthdayIsCompleted" class="error">Veuillez saisir une date de naissance</p> -->
             
     
             <label for="profilPic">Photo de profil</label>
@@ -59,7 +59,7 @@ export default {
             firstname: null,
             password: null,
             passwordConfirm: null,
-            birthday: null,
+            // birthday: null,
             previewImage: null,
             emailIsCompleted: true,
             lastnameIsCompleted: true,
@@ -68,7 +68,7 @@ export default {
             pswIsConfirmed: true,
             pswIsCorrect: true,
             pswIsLength: true,
-            birthdayIsCompleted: true,
+            // birthdayIsCompleted: true,
             emailAlreadyUsed: false,
         }
     },
@@ -135,7 +135,7 @@ export default {
                 data.append('password', this.password)
                 data.append('lastname', this.lastname)
                 data.append('firstname', this.firstname)
-                data.append('birthday', this.birthday)
+                // data.append('birthday', this.birthday)
                 data.append('image', document.getElementById('file').files[0])
                
             this.$http.post(`${this.$store.state.url}/api/auth/signup`, data, 
@@ -145,15 +145,7 @@ export default {
                 }
             })
             .then((res) => {
-                this.createCookie('userId', res.data.userId, 365)
-                this.createCookie('userProfilPic', res.data.userProfilPic, 365)
-                this.createCookie('isLogged', true, 365)
-
-                localStorage.setItem('userID', JSON.stringify(res.data.userId))
-                localStorage.setItem('userProfilPic', JSON.stringify(res.data.userProfilPic))
-                this.$store.dispatch('StoreId')
-                this.$store.dispatch('StoreProfilPic')
-                this.$store.dispatch('Logged')
+                this.logging(res.data.userId, res.data.userProfilPic)
             })
             .catch((err) => {
                 if (err.response.status === 401) {

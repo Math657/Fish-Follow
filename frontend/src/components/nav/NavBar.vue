@@ -46,7 +46,6 @@ export default {
             this.$store.dispatch('NavOpen')
         },
         forceRerender() {
-            console.log('navbar')
             this.$forceUpdate()
         },
         logOut(){

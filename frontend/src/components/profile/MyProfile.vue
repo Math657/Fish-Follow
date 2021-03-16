@@ -48,7 +48,7 @@
             <h3 class="user-posts-title">Aucune prise publiée</h3>
         </div>
             
-            <button class="my-3 btn-main" id="btn-submit" @click="$router.push('/post')">Publier une prise</button>
+        <button class="my-3 btn-main" id="btn-submit" @click="$router.push('/post')">Publier une prise</button>
         
     </div>
 </template>

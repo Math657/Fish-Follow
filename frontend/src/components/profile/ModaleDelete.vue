@@ -29,10 +29,7 @@ export default {
         deleteProfil() {
             this.$http.delete(`${this.$store.state.url}/api/auth/myprofile/${this.checkUserId()}`)
             .then(() => {
-                localStorage.clear()
-                sessionStorage.clear()
-                this.$store.dispatch('LogOut')
-                this.$router.push('/')
+                this.loggout()
             })
             .catch(error => {
                 console.log(error)

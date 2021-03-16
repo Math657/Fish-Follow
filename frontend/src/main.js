@@ -72,13 +72,30 @@ Vue.mixin({
             this.eraseCookie('userProfilPic')
             this.eraseCookie('isLogged')
             this.eraseCookie('isAdmin')
+            this.eraseCookie('token')
             localStorage.clear()
             sessionStorage.clear()
             this.$store.dispatch('LogOut')
             this.$root.$refs.A.forceRerender()
             this.$root.$refs.B.forceRerender()
             this.$root.$refs.C.forceRerender()
-            router.push('/')
+            router.push({ path: '/' })
+            // alert('déco')
+        },
+        logging(userId, profilPic) {
+            this.createCookie('userId', userId, 365)
+            this.createCookie('userProfilPic', profilPic, 365)
+            this.createCookie('isLogged', true, 365)
+            localStorage.setItem('userID', JSON.stringify(userId))
+            localStorage.setItem('userProfilPic', JSON.stringify(profilPic))
+            this.$store.dispatch('StoreId')
+            this.$store.dispatch('StoreProfilPic')
+            this.$store.dispatch('Logged')
+            this.$root.$refs.A.forceRerender()
+            this.$root.$refs.B.forceRerender()
+            this.$root.$refs.C.forceRerender()
+            router.push({ path: '/' }) 
+            // alert('logging')
         },
         checkIfTokenIsValid(err) {
             if (err.response) {

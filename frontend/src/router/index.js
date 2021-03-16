@@ -13,14 +13,6 @@ Vue.use(VueRouter)
 
   const routes = [
   {
-    path: '/home',
-    name: 'Home',
-    component: Home,
-    meta: {
-        // requireAuth: true
-    }
-  },
-  {
     path: '/',
     name: 'Home',
     component: Home

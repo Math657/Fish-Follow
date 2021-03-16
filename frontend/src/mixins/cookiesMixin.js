@@ -31,7 +31,7 @@ export function checkIfLogged() {
     if (readCookie('isLogged') === 'true') {
         return true
     }
-    else if (store.state.isLogged) {
+    else if (store.state.isLogged === true) {
         return store.state.isLogged
     } else {
         return false

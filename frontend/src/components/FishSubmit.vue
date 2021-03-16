@@ -49,7 +49,7 @@
   </div>
   <div v-else class="container">
         <h2 class="my-4">Post publié !</h2>
-        <router-link class="home" to="/home"><button class="btn-main">Retourner à l'accueil</button></router-link>
+        <router-link class="home" to="/"><button class="btn-main">Retourner à l'accueil</button></router-link>
     </div>
 </template>
 

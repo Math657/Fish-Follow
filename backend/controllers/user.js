@@ -23,7 +23,7 @@ exports.signup = (req, res) => {
                     password: hash,
                     lastname: req.body.lastname,
                     firstname: req.body.firstname,
-                    birthday: birthday,
+                    birthday: undefined,
                     profilPic: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
                     followers: [],
                     following: [],
