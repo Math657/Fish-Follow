@@ -397,6 +397,9 @@ export default {
     #btn-comment, #btn-like, .nb-comments {
         font-size: 13px;
     }
+    .fish-details {
+        margin-right: 10px;
+    }
 }
 
 

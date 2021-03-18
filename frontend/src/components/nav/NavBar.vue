@@ -1,6 +1,7 @@
 <template>
     <div class="header">
         <div class="content">
+            <!-- <img src="../../assets/logo_fishfollow.png" alt="logo" class="logo" width="45px"> -->
             <router-link to="/" class="main-title"><h2>Fish & Follow</h2></router-link>
             <Menu></Menu>
             <Burger></Burger>
@@ -85,6 +86,10 @@ h2, .main-title {
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+.logo {
+    margin-right: 1em;
 }
 
 .iconMenu {

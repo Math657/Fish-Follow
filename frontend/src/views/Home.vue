@@ -2,7 +2,6 @@
   <div class="home">
         <NavBar></NavBar>
         <div v-if="this.checkIfLogged() === false">
-        <!-- <div v-if="!$store.state.isLogged"> -->
             <Login></Login>
         </div>
             
@@ -38,21 +37,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-// img {
-    
-//   max-width:230px;
-//   max-height:250px;
-//   width: auto;
-//   height: auto;
-//   opacity: 80%;
-
-// }
-
-@media only screen and (max-width: 759px) {
-    img {
-        display: none;
-    }
-}
 
 </style>
