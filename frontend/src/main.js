@@ -76,9 +76,19 @@ Vue.mixin({
             localStorage.clear()
             sessionStorage.clear()
             this.$store.dispatch('LogOut')
-            this.$root.$refs.A.forceRerender()
-            this.$root.$refs.B.forceRerender()
-            this.$root.$refs.C.forceRerender()
+            if (this.$root.$refs.A) {
+                this.$root.$refs.A.forceRerender()
+            }
+            if (this.$root.$refs.B) {
+                this.$root.$refs.B.forceRerender()
+            }
+            if (this.$root.$refs.C) {
+                this.$root.$refs.C.forceRerender()
+            }
+            
+            // this.$root.$refs.A.forceRerender()
+            // this.$root.$refs.B.forceRerender()
+            // this.$root.$refs.C.forceRerender()
             router.push({ path: '/' })
             // alert('déco')
         },

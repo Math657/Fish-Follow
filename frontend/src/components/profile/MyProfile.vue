@@ -20,14 +20,16 @@
                                  :toggleModaleFollowers="toggleModaleFollowers"
                                  :id="this.checkUserId()"
                                  :userFollowers="userInfos[0].followers"
-                                 :userFollowings="userInfos[0].following">
+                                 :userFollowings="userInfos[0].following"
+                                 :nbFollowers="userInfos[0].followers.length">
                 </ModaleFollowers>
 
                 <ModaleFollowings :reveleFollowings="reveleFollowings"
                                   :toggleModaleFollowings="toggleModaleFollowings"
                                   :id="this.checkUserId()"
                                   :userFollowers="userInfos[0].followers"
-                                  :userFollowings="userInfos[0].following">
+                                  :userFollowings="userInfos[0].following"
+                                  :nbFollowing="userInfos[0].following.length">
                 </ModaleFollowings>
                 
             </div>

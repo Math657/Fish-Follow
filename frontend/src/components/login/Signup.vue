@@ -10,7 +10,6 @@
             <p v-if="!emailIsCompleted" class="error">Veuillez saisir une adresse email valide</p>
             <p v-if="emailAlreadyUsed" class="error">Cette adresse e-mail est déjà utilisée</p>
 
-
             <!-- <label for="password">Mot de passe</label> -->
             <input type="password" id="password" class="form-control" v-model="password" placeholder="Mot de passe" required>
             <p v-if="!pswIsCompleted" class="error">Veuillez saisir un mot de passe</p>
@@ -28,18 +27,11 @@
             <!-- <label for="firstname">Prénom</label> -->
             <input type="text" id="firstname" class="form-control" v-model="firstname" placeholder="Prénom" required>
             <p v-if="!firstnameIsCompleted" class="error">Veuillez saisir un prénom</p>
-
-            <!-- <label for="birthday">Date de naissance (optionnel)</label>
-            <input type="date" id="birthday" class="form-control" v-model="birthday">
-            <p v-if="!birthdayIsCompleted" class="error">Veuillez saisir une date de naissance</p> -->
             
-    
-            <label for="profilPic">Photo de profil</label>
+            <label for="profilPic">Photo de profil (optionnel)</label>
             <input type="file" id="file" name="file" accept="image/*" @change="onFileAdded">
-            <img :src="previewImage" class="img-preview" />
-            <!-- <p v-if="!previewImage" class="error">Veuillez choisir une photo de profil</p> -->
+            <img v-if="previewImage !== null" :src="previewImage" class="img-preview" />
             
-
             <button @click.prevent="checkForm(); signup()" id="btn_submit" class="btn-main">S'inscrire</button>
       </form>
   </div>
@@ -59,7 +51,6 @@ export default {
             firstname: null,
             password: null,
             passwordConfirm: null,
-            // birthday: null,
             previewImage: null,
             emailIsCompleted: true,
             lastnameIsCompleted: true,
@@ -68,7 +59,6 @@ export default {
             pswIsConfirmed: true,
             pswIsCorrect: true,
             pswIsLength: true,
-            // birthdayIsCompleted: true,
             emailAlreadyUsed: false,
         }
     },
@@ -135,8 +125,9 @@ export default {
                 data.append('password', this.password)
                 data.append('lastname', this.lastname)
                 data.append('firstname', this.firstname)
-                // data.append('birthday', this.birthday)
-                data.append('image', document.getElementById('file').files[0])
+                if (document.getElementById('file').files[0]) {  
+                    data.append('image', document.getElementById('file').files[0])
+                }
                
             this.$http.post(`${this.$store.state.url}/api/auth/signup`, data, 
             {

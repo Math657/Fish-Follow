@@ -19,7 +19,7 @@
             <!-- <Search></Search> -->
             <router-link :to="'/post/'"><font-awesome-icon icon="camera-retro" class="icons"></font-awesome-icon></router-link>
             <router-link :to="`/myprofile/${this.checkUserId()}`"><font-awesome-icon icon="user" class="icons"></font-awesome-icon></router-link>
-            <button class="btn-danger" id="btn-loggout" @click="logOut()">Se déconnecter</button>
+            <button id="btn-logout" @click="logOut()">Se déconnecter</button>
         </div>    
     </div>
 </template>
@@ -100,6 +100,17 @@ li a:hover {
 
 .icons:hover {
     cursor: pointer;
+    opacity: 0.9;
+}
+
+#btn-logout {
+    background-color: rgb(197, 38, 38);
+    color: white;
+    border-radius: 4px;
+    border: none;
+}
+
+#btn-logout:hover {
     opacity: 0.9;
 }
 

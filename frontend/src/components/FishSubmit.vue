@@ -39,7 +39,7 @@
 
             <label for="img">Photo de la prise</label>
             <input type="file" id="file" name="file" accept="image/*" @change="onFileAdded" required>
-            <img :src="previewImage" class="img-preview" />
+            <img v-if="previewImage !== null" :src="previewImage" class="img-preview" />
 
             <label for="description">Description (optionnel)</label>
             <textarea rows="3" type="text" id="description" class="form-control mb-2 mr-sm-2" maxlength="150" v-model="description"></textarea>

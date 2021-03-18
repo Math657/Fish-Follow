@@ -6,7 +6,8 @@ const multer = require('../middlewares/multer-config')
 
 const userCtrl = require('../controllers/user')
 
-router.post('/signup', multer, userCtrl.signup)
+router.post('/signup', multer, 
+    userCtrl.signup)
 router.post('/login', userCtrl.login)
 router.post('/googleLogin', userCtrl.googleLogin)
 router.post('/follow', auth, userCtrl.followOneUser)

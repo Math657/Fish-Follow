@@ -16,6 +16,12 @@ exports.signup = (req, res) => {
             } else {
                 birthday = undefined
             }
+            if (req.file) {
+                var profilePic = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+            }
+            else {
+                profilePic = `${req.protocol}://${req.get('host')}/images/no_profile_pic.png`
+            }
             bcrypt.hash(req.body.password, 10)
             .then(hash => {
                 const user = new User({
@@ -24,7 +30,7 @@ exports.signup = (req, res) => {
                     lastname: req.body.lastname,
                     firstname: req.body.firstname,
                     birthday: undefined,
-                    profilPic: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+                    profilPic: profilePic,
                     followers: [],
                     following: [],
                     posts: [],
@@ -217,7 +223,11 @@ exports.resetPassword = (req, res) => {
 
 exports.getOneUser = (req, res) => {
     User.findById(req.params.id)
-    .then(user => res.status(201).json({user}))
+    .then(userData => {
+        let user = userData
+        user.password = undefined
+        res.status(201).json({user})
+    }) 
     .catch(error => res.status(502).json({error}))
 }
 
@@ -279,7 +289,13 @@ exports.getAllFollowers = (req, res) => {
     User.findById(req.params.id)
     .then(user => {
         User.find({ _id: { $in: user.followers } })
-        .then((allFollowers) => res.status(200).json({allFollowers}))
+        .then((allFollowersData) => {
+            const allFollowers = allFollowersData.map(obj => {
+                obj.password = undefined
+                return obj
+            })
+            res.status(200).json({allFollowers})
+        })
         .catch(error => res.status(501).json({error}))
     })
     .catch(error => res.status(502).json({error}))
@@ -289,7 +305,13 @@ exports.getAllFollowings = (req, res) => {
     User.findById(req.params.id)
     .then(user => {
         User.find({ _id: { $in: user.following } })
-        .then((allFollowings) => res.status(200).json({allFollowings}))
+        .then((allFollowingsData) => {
+            const allFollowings = allFollowingsData.map(obj => {
+                obj.password = undefined
+                return obj
+            })
+            res.status(200).json({allFollowings})
+        })
         .catch(error => res.status(501).json({error}))
     })
     .catch(error => res.status(502).json({error}))

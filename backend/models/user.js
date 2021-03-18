@@ -20,7 +20,8 @@ const userSchema = mongoose.Schema({
     fishLike: {type: Number, required: true},
     createdAt: {type: Date, required: true},
     // cookiesAccepted: {type: Boolean, required: true},
-    status: {type: String, required: true}
+    status: {type: String, required: true},
+    requestLimit: {type: Date}
 })
 
 userSchema.plugin(uniqueValidator)

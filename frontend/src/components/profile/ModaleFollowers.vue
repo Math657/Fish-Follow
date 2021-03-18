@@ -26,6 +26,9 @@
                         </li>
                     </ul>     
                 </div>
+                <div v-if="someFollowersDeleted">
+                    <p class="follower-name mt-4">Certains utilisateurs ont supprimé leur compte.</p>
+                </div>
                 <div v-else>
                     <p class="follower-name mt-4">Aucun follower</p>
                 </div>
@@ -39,11 +42,12 @@ import Follow from './Follow'
 
 export default {
     name: 'ModaleFollowers',
-    props: ['reveleFollowers', 'toggleModaleFollowers', 'id', 'userFollowers', 'userFollowings'],
+    props: ['reveleFollowers', 'toggleModaleFollowers', 'id', 'userFollowers', 'userFollowings', 'nbFollowers'],
     data() {
         return  {
             allFollowers: [],
-            doFollow: false
+            doFollow: false,
+            someFollowersDeleted: false
         }
     },
     mounted() {
@@ -55,6 +59,9 @@ export default {
             .then(res => {
                 for (let followers of res.data.allFollowers) {
                     this.allFollowers.push(followers)
+                }
+                if (this.nbFollowers !== res.data.allFollowers.length) {
+                    this.someFollowersDeleted = true
                 }
             })
             .catch(err => {

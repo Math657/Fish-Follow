@@ -84,7 +84,7 @@ export default {
             nbComments: 0,
             userInfos: [],
             showBoxComments: false,
-            likePost: null,
+            likePost: false,
             nbLikes: this.likes,
             likeBtn: 'J\'aime'
         }
@@ -100,12 +100,10 @@ export default {
             this.showBoxComments = true
         },
         sendLike() {
+            this.likePost ? this.nbLikes -= 1 : this.nbLikes +=1
+            this.likePost = !this.likePost
             this.$http.post(`${this.$store.state.url}/api/auth/like/${this.postID}`, {
                 userID: this.checkUserId()
-            })
-            .then((res) => {
-                this.likePost = res.data.like
-                res.data.like ? this.nbLikes += 1 : this.nbLikes -=1
             })
             .catch((err) => {
                 this.checkIfTokenIsValid(err)
