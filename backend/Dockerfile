@@ -5,7 +5,7 @@ ARG EMAIL_USERNAME
 ARG EMAIL_PASSWORD
 ENV DB_CONN=$DB SECRET_KEY=$TOKEN EMAIL_USERNAME=$EMAIL_USERNAME EMAIL_PASSWORD=$EMAIL_PASSWORD
 WORKDIR /app/
-COPY package.json package-lock.json /app/
+COPY package.json package-lock.json process.json /app/
 RUN npm install
 COPY . /app
-CMD npm start
+CMD npm run pm2
